@@ -18,6 +18,10 @@
     </activity>
     <activity android:name=".SignUpActivity">
     </activity>
+    <activity
+        android:name=".NavigationActivity"
+        android:label="@string/title_activity_navigation">
+    </activity>
   </application>
 
 </manifest>
