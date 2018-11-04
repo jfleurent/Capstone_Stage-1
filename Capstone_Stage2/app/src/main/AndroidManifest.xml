@@ -22,6 +22,12 @@
         android:name=".NavigationActivity"
         android:label="@string/title_activity_navigation">
     </activity>
+    <activity android:name=".CustomizePageActivity">
+    </activity>
+    <activity android:name=".DetailCategoryFavoriteActivity">
+    </activity>
+    <activity android:name=".DetailRestaurantActivity">
+    </activity>
   </application>
 
 </manifest>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CustomizePageActivity"
+    >
+
+  <RelativeLayout
+      android:id="@+id/profile_header_layout"
+      android:layout_width="match_parent"
+      android:layout_height="200dp"
+      android:layout_alignParentStart="true"
+      android:layout_alignParentTop="true"
+      android:layout_marginStart="0dp"
+      android:layout_marginTop="0dp"
+      >
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="176dp"
+        android:background="@color/colorPrimary"
+        />
+    <ImageView
+        android:id="@+id/profile_imageview"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:background="#000"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_imageview"
+        android:layout_toRightOf="@+id/profile_imageview"
+        android:background="@drawable/ic_change_photo"
+        />
+    <Button
+        android:layout_width="104dp"
+        android:layout_height="24dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="21dp"
+        android:background="@drawable/white_round_button"
+        android:text="Choose Background"
+        android:textColor="#707070"
+        android:textSize="8sp"
+        style="?android:attr/buttonBarButtonStyle"
+        />
+
+  </RelativeLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:layout_below="@id/profile_header_layout"
+      >
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="City"
+        />
+    <Spinner
+        android:layout_width="80dp"
+        android:layout_height="32dp"
+        android:prompt="@string/state_spinner_title"
+        android:layout_marginBottom="20dp"
+        />
+
+    <Spinner
+        android:layout_width="160dp"
+        android:layout_height="32dp"
+        android:prompt="@string/favorite1_spinner_title"
+        android:layout_marginBottom="20dp"
+        />
+
+    <Spinner
+        android:layout_width="160dp"
+        android:layout_height="32dp"
+        android:prompt="@string/favorite2_spinner_title"
+        android:layout_marginBottom="20dp"
+        />
+
+    <Spinner
+        android:layout_width="160dp"
+        android:layout_height="32dp"
+        android:prompt="@string/favorite3_spinner_title"
+        />
+
+
+  </LinearLayout>
+
+</RelativeLayout>

@@ -7,4 +7,9 @@
 
   <!-- TODO: Remove or change this placeholder text -->
   <string name="hello_blank_fragment">Hello blank fragment</string>
+
+  <string name="state_spinner_title">State</string>
+  <string name="favorite1_spinner_title">Favorite 1</string>
+  <string name="favorite2_spinner_title">Favorite 2</string>
+  <string name="favorite3_spinner_title">Favorite 3</string>
 </resources>
