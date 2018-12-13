@@ -10,12 +10,13 @@
       android:layout_height="wrap_content"
       android:orientation="horizontal"
       >
+
     <Button
         android:layout_weight="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
-        android:text="<"
+        android:text="a"
         android:textAlignment="textEnd"
         />
 
@@ -32,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
-        android:text=">"
+        android:text="b"
         android:textAlignment="textStart"
         />
   </LinearLayout>
