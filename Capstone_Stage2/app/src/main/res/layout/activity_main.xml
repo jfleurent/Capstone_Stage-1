@@ -17,6 +17,7 @@
       app:layout_constraintHorizontal_bias="1.0"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_chainStyle="spread_inside"
       />
 
   <ImageView
@@ -83,6 +84,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/password_edittext"
       style="?android:attr/buttonBarButtonStyle"
+      android:onClick="mainActivityButtonsOnClick"
       />
 
   <Button
@@ -102,6 +104,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/login_button"
       style="?android:attr/buttonBarButtonStyle"
+      android:onClick="mainActivityButtonsOnClick"
       />
 
 
@@ -150,6 +153,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/login_with_textview"
       style="?android:attr/buttonBarButtonStyle"
+      android:onClick="mainActivityButtonsOnClick"
       />
 
   <TextView
@@ -198,6 +202,7 @@
       app:layout_constraintStart_toEndOf="@+id/google_button"
       app:layout_constraintTop_toBottomOf="@+id/login_with_textview"
       style="?android:attr/buttonBarButtonStyle"
+      android:onClick="mainActivityButtonsOnClick"
       />
 
   <TextView
@@ -244,6 +249,7 @@
       app:layout_constraintStart_toEndOf="@+id/facebook_button"
       app:layout_constraintTop_toBottomOf="@+id/login_with_textview"
       style="?android:attr/buttonBarButtonStyle"
+      android:onClick="mainActivityButtonsOnClick"
       />
   <TextView
       android:id="@+id/twitter_textview"

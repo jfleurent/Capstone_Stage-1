@@ -1,43 +1,78 @@
 package com.example.jeffr.capstone_stage2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import com.example.jeffr.capstone_stage2.fragment.FavoriteCategoryListFragment;
+import com.example.jeffr.capstone_stage2.fragment.HomePageFragment;
+import com.example.jeffr.capstone_stage2.fragment.SearchFragment;
 
 public class NavigationActivity extends AppCompatActivity {
 
-  private TextView mTextMessage;
+  FragmentManager manager;
+  Fragment fragment;
+  FloatingActionButton navigationButton;
 
-  private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-      = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-      switch (item.getItemId()) {
-        case R.id.navigation_home:
-          mTextMessage.setText(R.string.title_home);
-          return true;
-        case R.id.navigation_dashboard:
-          mTextMessage.setText(R.string.title_dashboard);
-          return true;
-        case R.id.navigation_notifications:
-          mTextMessage.setText(R.string.title_notifications);
-          return true;
-      }
-      return false;
-    }
-  };
+  private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_navigation);
-
-    mTextMessage = (TextView) findViewById(R.id.message);
-    BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+    navigationButton = findViewById(R.id.navigation_action_button);
+    getSupportActionBar().hide();
+    mOnNavigationItemSelectedListener = new NavigationListener();
+    manager = getSupportFragmentManager();
+    fragment = new HomePageFragment();
+    manager.beginTransaction().replace(R.id.fragment_relativelayout,fragment,fragment.getTag()).commit();
+    BottomNavigationView navigation = findViewById(R.id.navigation);
     navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+  }
+
+  public void fabOnclick(View view){
+    if(fragment instanceof HomePageFragment){
+      Intent intent = new Intent(this,CustomizePageActivity.class);
+      startActivity(intent);
+    }
+    else if(fragment instanceof  FavoriteCategoryListFragment){
+
+    }
+    else {
+
+    }
+  }
+
+
+
+  private class NavigationListener implements BottomNavigationView.OnNavigationItemSelectedListener{
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+      switch (item.getItemId()) {
+        case R.id.navigation_home:
+          fragment = new HomePageFragment();
+          manager.beginTransaction()
+              .replace(R.id.fragment_relativelayout,fragment,fragment.getTag())
+              .commit();
+          return true;
+        case R.id.navigation_dashboard:
+          fragment = new FavoriteCategoryListFragment();
+          manager.beginTransaction().replace(R.id.fragment_relativelayout,fragment,fragment.getTag()).commit();
+          return true;
+        case R.id.navigation_notifications:
+          fragment = new SearchFragment();
+          manager.beginTransaction().replace(R.id.fragment_relativelayout,fragment,fragment.getTag()).commit();
+          return true;
+      }
+      return false;
+    }
   }
 }
