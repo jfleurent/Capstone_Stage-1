@@ -9,15 +9,16 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:padding="8dp"
-      android:text="Create New Category"
+      android:text="@string/restaurant_category_dialog_title"
       android:textSize="32sp"
       />
 
   <EditText
+      android:id="@+id/resturant_title_edittext"
       android:layout_marginTop="32dp"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:hint="Title"
+      android:hint="@string/title_edit_text_hint"
       />
 
   <RelativeLayout
@@ -33,16 +34,18 @@
         >
 
       <Button
+          android:id="@+id/cancel_button"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           style="@style/Base.Widget.AppCompat.Button.Borderless"
-          android:text="Cancel"
+          android:text="@string/restaurant_category_dialog_cancel_button_text"
           />
       <Button
+          android:id="@+id/ok_button"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           style="@style/Base.Widget.AppCompat.Button.Borderless"
-          android:text="OK"
+          android:text="@string/restaurant_category_dialog_ok_button_text"
           />
     </LinearLayout>
   </RelativeLayout>

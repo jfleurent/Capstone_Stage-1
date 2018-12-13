@@ -15,7 +15,7 @@
       android:layout_marginEnd="99dp"
       android:layout_marginTop="1dp"
       android:padding="16dp"
-      android:text="@string/change_background_text"
+      android:text="@string/dialog_change_background_title_text"
       android:textSize="28sp"
       app:layout_constraintBottom_toTopOf="@+id/take_photo_button"
       app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,6 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/change_photo_dialog_title"
       style="@style/Base.Widget.AppCompat.Button.Borderless"
-      android:contentDescription="@string/take_photo_content_description"
       />
 
 
@@ -58,7 +57,6 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/take_photo_button"
       style="@style/Base.Widget.AppCompat.Button.Borderless"
-      android:contentDescription="@string/choose_photo_content_description"
       />
 
 
@@ -80,7 +78,6 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/change_photo_dialog_title"
       style="@style/Base.Widget.AppCompat.Button.Borderless"
-      android:contentDescription="@string/customize_dialog_cancel_button_content_description"
       />
 
 </>

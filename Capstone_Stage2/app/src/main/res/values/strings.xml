@@ -16,6 +16,70 @@
   <string name="change_background_text">Change Background</string>
   <string name="city_edittext_hint">Enter City</string>
   <string name="name_edittext_hint">Enter Name</string>
-  <string name="change_photo_content_description">Change Profile Image Button</string>
-  <string name="change_background_content_description">Change Background Button</string>
+  <string name="change_photo_content_description">Change Profile Image</string>
+
+
+  <!-- Activity_Detail_Category_Favorite-->
+  <string name="favorite_fab_content_description">Favorite</string>
+  <string name="review_tab_title">Reviews</string>
+  <string name="photo_tab_title">Photos</string>
+
+  <!-- Activity_Main-->
+  <string name="username_hint_text">Username</string>
+  <string name="password_hint_text">Password</string>
+  <string name="login_button_text">Login</string>
+  <string name="signup_button_text">Sign Up</string>
+  <string name="or_text">Or</string>
+  <string name="login_with_text">Login With</string>
+  <string name="main_google_text">Google</string>
+  <string name="main_facebook_text">Facebook</string>
+  <string name="main_twitter_text">Twitter</string>
+
+  <!-- Activity_Sign_Up-->
+  <string name="sign_up_username_hint">Username</string>
+  <string name="sign_up_email_hint">Email</string>
+  <string name="sign_up_password_hint">Password</string>
+  <string name="sign_up_button_text">Sign Up</string>
+  <string name="sign_up_or_text">Or</string>
+  <string name="sign_with_text">Sign Up With</string>
+  <string name="sign_up_google_text">Google</string>
+  <string name="sign_up_facebook_text">Facebook</string>
+  <string name="sign_up_twitter_text">Twitter</string>
+
+
+  <!-- Customize_Page_Dialog-->
+  <string name="dialog_change_background_title_text">Change Background</string>
+  <string name="take_photo_text">Take Photo</string>
+  <string name="choose_photo_text">Choose Photo</string>
+  <string name="customize_dialog_cancel_button_text">Cancel</string>
+
+
+  <!-- Fragment_Home_Page-->
+  <string name="fragment_home_option_menu_content_description">Option Menu</string>>
+
+  <!-- Fragment_Search-->
+  <string name="choose_one_button_text">Choose One</string>
+  <string name="choose_many_button_text">Choose Many</string>
+  <string name="sort_by_title_text">Sort By</string>
+  <string name="distance_title_text">Distance</string>
+  <string name="price_title_text">Price</string>
+  <string name="rating_title_text">Rating</string>
+  <string name="sort_by_any_text">Any</string>
+  <string name="sort_by_distance_text">Distance</string>
+  <string name="sort_by_rating_text">Rating</string>
+  <string name="sort_price_text">Price</string>
+
+  <!-- Restaurant_Category_Dialog-->
+  <string name="restaurant_category_dialog_title">Create New Category</string>
+  <string name="title_edit_text_hint">Title</string>
+  <string name="restaurant_category_dialog_cancel_button_text">Cancel</string>
+  <string name="restaurant_category_dialog_ok_button_text">OK</string>
+
+
+  <!--TODO Add Dynamic content descriptions for checkbox items-->
+  <!-- Select_Favorite_Dialog-->
+  <string name="favorite_dialog_title">Add to Favorites</string>
+  <string name="favorite_dialog_ok_button">OK</string>
+
+
 </resources>

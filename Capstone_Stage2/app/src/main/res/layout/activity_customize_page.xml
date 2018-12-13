@@ -18,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="176dp"
         android:background="@color/colorPrimary"
-        android:contentDescription="@string/change_background_content_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +63,7 @@
         app:layout_constraintVertical_bias="0.838"
         />
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/change_background_button"
         android:layout_width="128dp"
         android:layout_height="24dp"
         android:layout_alignParentBottom="true"
@@ -74,7 +73,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/white_round_button"
-        android:contentDescription="@string/change_background_content_description"
         android:text="@string/change_background_text"
         android:textColor="#707070"
         android:textSize="12sp"
