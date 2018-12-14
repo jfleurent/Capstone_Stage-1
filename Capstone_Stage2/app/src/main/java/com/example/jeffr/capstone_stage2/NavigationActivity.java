@@ -20,22 +20,17 @@ public class NavigationActivity extends AppCompatActivity {
 
   FragmentManager manager;
   Fragment fragment;
-  FloatingActionButton navigationButton;
-
-  private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_navigation);
-    navigationButton = findViewById(R.id.navigation_action_button);
     getSupportActionBar().hide();
-    mOnNavigationItemSelectedListener = new NavigationListener();
     manager = getSupportFragmentManager();
     fragment = new HomePageFragment();
     manager.beginTransaction().replace(R.id.fragment_relativelayout,fragment,fragment.getTag()).commit();
     BottomNavigationView navigation = findViewById(R.id.navigation);
-    navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    navigation.setOnNavigationItemSelectedListener(new NavigationListener());
   }
 
   public void fabOnclick(View view){
@@ -47,7 +42,8 @@ public class NavigationActivity extends AppCompatActivity {
 
     }
     else {
-
+      Intent intent = new Intent(this,SearchResultsActivity.class);
+      startActivity(intent);
     }
   }
 
@@ -65,11 +61,15 @@ public class NavigationActivity extends AppCompatActivity {
           return true;
         case R.id.navigation_dashboard:
           fragment = new FavoriteCategoryListFragment();
-          manager.beginTransaction().replace(R.id.fragment_relativelayout,fragment,fragment.getTag()).commit();
+          manager.beginTransaction().
+              replace(R.id.fragment_relativelayout,fragment,fragment.getTag())
+              .commit();
           return true;
         case R.id.navigation_notifications:
           fragment = new SearchFragment();
-          manager.beginTransaction().replace(R.id.fragment_relativelayout,fragment,fragment.getTag()).commit();
+          manager.beginTransaction()
+              .replace(R.id.fragment_relativelayout,fragment,fragment.getTag())
+              .commit();
           return true;
       }
       return false;

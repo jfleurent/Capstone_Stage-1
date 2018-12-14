@@ -1,73 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     >
+  <data>
+    <variable
+        name="obj"
+        type="com.example.jeffr.capstone_stage2.data.Restaurant"
+        >
+    </variable>
+  </data>
 
-  <ImageView
-      android:id="@+id/resturant_imageview"
-      android:layout_width="match_parent"
-      android:layout_height="160dp"
-      android:background="#3a6091"
-      />
-
-  <LinearLayout
+  <android.support.constraint.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:orientation="vertical"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintLeft_toLeftOf="parent"
-      app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/resturant_imageview"
-      app:layout_constraintVertical_bias="0.025"
-      tools:layout_editor_absoluteX="0dp"
-      android:paddingLeft="10dp"
       >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pizza Place"
-        android:textSize="24sp"
-        android:textStyle="bold"
+
+    <ImageView
+        android:id="@+id/resturant_imageview"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="#3a6091"
         />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resturant_imageview"
+        app:layout_constraintVertical_bias="0.025"
+        tools:layout_editor_absoluteX="0dp"
         >
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginRight="10dp"
-          android:text="4.0"
+          android:text="@{obj.name}"
+          android:textSize="24sp"
+          android:textStyle="bold"
           />
-      <RatingBar
+
+      <LinearLayout
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:rating="4"
-          style="?android:attr/ratingBarStyleSmall"
+          android:orientation="horizontal"
+
+          >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="@{String.valueOf(obj.rating)}"
+            />
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:rating="4"
+            style="?android:attr/ratingBarStyleSmall"
+            />
+
+      </LinearLayout>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@{String.valueOf(obj.price)}"
+          />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@{obj.address}"
           />
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Price: $$$"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="8512 Avonshire RD, Orlando, FL 32817"
-        />
-
-  </LinearLayout>
-
-</android.support.constraint.ConstraintLayout>
+  </android.support.constraint.ConstraintLayout>
+</layout>

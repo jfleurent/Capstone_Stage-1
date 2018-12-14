@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".SearchFragment"
+    tools:context=".fragment.SearchFragment"
     >
 
   <LinearLayout
@@ -42,7 +42,7 @@
       android:layout_marginTop="16dp"
       android:layout_marginBottom="48dp"
       >
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#545454"
@@ -61,7 +61,7 @@
           android:text="@string/choose_one_button_text"
           android:textColor="#fff"
           />
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -74,13 +74,13 @@
           android:background="#fff"
           android:text="@string/choose_many_button_text"
           />
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
           />
     </LinearLayout>
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#545454"
@@ -92,7 +92,7 @@
         android:textSize="24sp"
         />
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
@@ -104,7 +104,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -120,7 +120,7 @@
           android:textColor="#fff"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -136,7 +136,7 @@
           android:textColor="#5b5b5b"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -152,7 +152,7 @@
           android:textColor="#5b5b5b"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -168,14 +168,14 @@
           android:textColor="#5b5b5b"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
           />
     </LinearLayout>
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#545454"
@@ -188,7 +188,7 @@
         android:textSize="24sp"
         />
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
@@ -200,7 +200,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -215,7 +215,7 @@
           android:textColor="#fff"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -230,7 +230,7 @@
           android:textColor="#5b5b5b"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -245,7 +245,7 @@
           android:textColor="#5b5b5b"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -260,7 +260,7 @@
           android:textColor="#5b5b5b"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -274,14 +274,14 @@
           android:textColor="#5b5b5b"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
           />
     </LinearLayout>
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#545454"
@@ -294,7 +294,7 @@
         android:textSize="24sp"
         />
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
@@ -306,7 +306,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -321,7 +321,7 @@
           android:textColor="#fff"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -336,7 +336,7 @@
           android:textColor="#5b5b5b"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -351,7 +351,7 @@
           android:textColor="#5b5b5b"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -366,7 +366,7 @@
           android:textColor="#5b5b5b"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -380,14 +380,14 @@
           android:textColor="#5b5b5b"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
           />
     </LinearLayout>
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#545454"
@@ -400,7 +400,7 @@
         android:textSize="24sp"
         />
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
@@ -412,7 +412,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -427,7 +427,7 @@
           android:textColor="#fff"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -442,7 +442,7 @@
           android:textColor="#5b5b5b"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -457,7 +457,7 @@
           android:textColor="#5b5b5b"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -472,7 +472,7 @@
           android:textColor="#5b5b5b"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
@@ -486,13 +486,13 @@
           android:textColor="#5b5b5b"
           />
 
-      <view
+      <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
           android:background="#545454"
           />
     </LinearLayout>
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#545454"
