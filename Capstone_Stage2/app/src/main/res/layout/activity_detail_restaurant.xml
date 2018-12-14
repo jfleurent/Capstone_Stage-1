@@ -29,6 +29,7 @@
         android:layout_marginRight="32dp"
         android:layout_marginTop="180dp"
         android:contentDescription="@string/favorite_fab_content_description"
+        android:onClick="favoriteOnClick"
         />
 
     <android.support.constraint.ConstraintLayout

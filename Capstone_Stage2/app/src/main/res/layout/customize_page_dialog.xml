@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     >
 
   <TextView
@@ -12,14 +12,16 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="16dp"
-      android:layout_marginEnd="99dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginStart="16dp"
       android:layout_marginTop="1dp"
       android:padding="16dp"
       android:text="@string/dialog_change_background_title_text"
       android:textSize="28sp"
       app:layout_constraintBottom_toTopOf="@+id/take_photo_button"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="@+id/guideline"
       app:layout_constraintTop_toTopOf="parent"
       />
 
@@ -29,14 +31,14 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="8dp"
-      android:layout_marginEnd="271dp"
-      android:layout_marginStart="1dp"
+      android:layout_marginEnd="255dp"
+      android:layout_marginStart="16dp"
       android:padding="8dp"
       android:text="@string/take_photo_text"
       android:textSize="16sp"
       app:layout_constraintBottom_toTopOf="@+id/choose_photo_button"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/guideline"
       app:layout_constraintTop_toBottomOf="@+id/change_photo_dialog_title"
       style="@style/Base.Widget.AppCompat.Button.Borderless"
       />
@@ -46,15 +48,16 @@
       android:id="@+id/choose_photo_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="309dp"
-      android:layout_marginEnd="249dp"
+      android:layout_marginBottom="54dp"
+      android:layout_marginEnd="129dp"
+      android:layout_marginStart="16dp"
       android:layout_marginTop="8dp"
       android:padding="8dp"
       android:text="@string/choose_photo_text"
       android:textSize="16sp"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/cancel_button"
+      app:layout_constraintStart_toEndOf="@+id/guideline"
       app:layout_constraintTop_toBottomOf="@+id/take_photo_button"
       style="@style/Base.Widget.AppCompat.Button.Borderless"
       />
@@ -65,7 +68,6 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentEnd="true"
-      android:layout_marginBottom="268dp"
       android:layout_marginEnd="16dp"
       android:layout_marginStart="280dp"
       android:layout_marginTop="126dp"
@@ -78,6 +80,20 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/change_photo_dialog_title"
       style="@style/Base.Widget.AppCompat.Button.Borderless"
+      />
+  <android.support.constraint.Guideline
+      android:id="@+id/guideline"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_end="378dp"
+      />
+  <android.support.constraint.Guideline
+      android:id="@+id/guideline2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.5"
       />
 
 </android.support.constraint.ConstraintLayout>

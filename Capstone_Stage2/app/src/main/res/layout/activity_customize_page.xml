@@ -14,7 +14,7 @@
       >
 
     <ImageView
-        android:id="@+id/login_background_imageview"
+        android:id="@+id/customize_background_imageview"
         android:layout_width="match_parent"
         android:layout_height="176dp"
         android:background="@color/colorPrimary"
@@ -22,6 +22,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"
         />
 
     <ImageView
@@ -35,15 +36,15 @@
         android:layout_marginTop="8dp"
         android:background="#000"
         android:contentDescription="@null"
-        app:layout_constraintBottom_toBottomOf="@+id/login_background_imageview"
+        app:layout_constraintBottom_toBottomOf="@+id/customize_background_imageview"
         app:layout_constraintEnd_toStartOf="@+id/change_photo_button"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="@+id/login_background_imageview"
+        app:layout_constraintStart_toStartOf="@+id/customize_background_imageview"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.633"
         />
-    <ImageView
+    <ImageButton
         android:id="@+id/change_photo_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,12 +56,13 @@
         android:layout_toEndOf="@+id/profile_imageview"
         android:background="@drawable/ic_change_photo"
         android:contentDescription="@string/change_photo_content_description"
-        app:layout_constraintBottom_toBottomOf="@+id/login_background_imageview"
+        app:layout_constraintBottom_toBottomOf="@+id/customize_background_imageview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.712"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.838"
+        android:onClick="showDialog"
         />
     <Button
         android:id="@+id/change_background_button"
@@ -84,6 +86,7 @@
         app:layout_constraintVertical_bias="0.329"
         style="?android:attr/buttonBarButtonStyle"
         android:textAllCaps="false"
+        android:onClick="showDialog"
           />
 
 
@@ -100,7 +103,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_background_imageview"
+        app:layout_constraintTop_toBottomOf="@+id/customize_background_imageview"
         app:layout_constraintVertical_chainStyle="packed"
         />
 

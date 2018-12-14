@@ -39,7 +39,7 @@ public class NavigationActivity extends AppCompatActivity {
       startActivity(intent);
     }
     else if(fragment instanceof  FavoriteCategoryListFragment){
-
+        ViewDialog.showNewCategoryDialog(this);
     }
     else {
       Intent intent = new Intent(this,SearchResultsActivity.class);

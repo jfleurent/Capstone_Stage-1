@@ -14,8 +14,8 @@
   <string name="favorite2_spinner_title">Favorite 2</string>
   <string name="favorite3_spinner_title">Favorite 3</string>
   <string name="change_background_text">Change Background</string>
-  <string name="city_edittext_hint">Enter City</string>
-  <string name="name_edittext_hint">Enter Name</string>
+  <string name="city_edittext_hint">City</string>
+  <string name="name_edittext_hint">Name</string>
   <string name="change_photo_content_description">Change Profile Image</string>
 
   <!-- Activity_Detail_Category_Favorite-->
@@ -46,10 +46,13 @@
   <string name="sign_up_twitter_text">Twitter</string>
 
   <!-- Customize_Page_Dialog-->
-  <string name="dialog_change_background_title_text">Change Background</string>
+  <string name="dialog_change_background_title_text">Change Photo</string>
   <string name="take_photo_text">Take Photo</string>
   <string name="choose_photo_text">Choose Photo</string>
   <string name="customize_dialog_cancel_button_text">Cancel</string>
+  <string name="choose_color_text">Choose Color</string>
+  <string name="choose_background_text">Choose Background</string>
+  <string name="change_background_title_text">Change Background</string>
 
   <!-- Fragment_Home_Page-->
   <string name="fragment_home_option_menu_content_description">Option Menu</string>>
