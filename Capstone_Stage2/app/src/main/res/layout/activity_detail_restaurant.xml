@@ -1,163 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".DetailRestaurantActivity"
-    >
+<!--TODO Figure out to make toolbar collapse-->
+<layout>
+  <data>
+    <variable
+        name="restaurant"
+        type="com.example.jeffr.capstone_stage2.data.Restaurant">
+    </variable>
 
-  <RelativeLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+  </data>
+  <android.support.design.widget.CoordinatorLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:context=".DetailRestaurantActivity"
       >
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/restaurant_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="#62be93"
-        >
-    </android.support.v7.widget.Toolbar>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/favorite_fab"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="32dp"
-        android:layout_marginTop="180dp"
-        android:contentDescription="@string/favorite_fab_content_description"
-        android:onClick="favoriteOnClick"
-        />
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/restaurant_info"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@id/restaurant_toolbar"
-        android:background="#7e7e7e"
-        android:orientation="vertical"
         >
 
-      <TextView
-          android:id="@+id/resturant_title_textview"
+      <android.support.v7.widget.Toolbar
+          android:id="@+id/restaurant_toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="200dp"
+          android:background="#62be93"
+          >
+      </android.support.v7.widget.Toolbar>
+
+      <android.support.design.widget.FloatingActionButton
+          android:id="@+id/favorite_fab"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginEnd="256dp"
-          android:layout_marginTop="2dp"
-          android:text="Pizza Place"
-          android:textSize="24sp"
-          android:textStyle="bold"
-          app:layout_constraintBottom_toTopOf="@+id/rating_number_textview"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
+          android:layout_alignParentRight="true"
+          android:layout_marginRight="32dp"
+          android:layout_marginTop="180dp"
+          android:contentDescription="@string/favorite_fab_content_description"
+          android:onClick="favoriteOnClick"
           />
 
+      <android.support.constraint.ConstraintLayout
+          android:id="@+id/restaurant_info"
+          android:layout_width="match_parent"
+          android:layout_height="100dp"
+          android:layout_below="@id/restaurant_toolbar"
+          android:background="#7e7e7e"
+          android:orientation="vertical"
+          >
 
-      <TextView
-          android:id="@+id/rating_number_textview"
-          android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/resturant_title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="256dp"
+            android:layout_marginTop="2dp"
+            android:text="@{restaurant.name}"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/rating_number_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+
+        <TextView
+            android:id="@+id/rating_number_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="7dp"
+            android:text="@{String.valueOf(restaurant.rating)}"
+            app:layout_constraintBottom_toTopOf="@+id/restaurant_address_textview"
+            app:layout_constraintEnd_toStartOf="@+id/restaurant_rating_bar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/resturant_title_textview"
+            />
+        <RatingBar
+            android:id="@+id/restaurant_rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_marginEnd="277dp"
+            android:layout_marginStart="7dp"
+            android:rating="@{restaurant.rating}"
+            app:layout_constraintBottom_toTopOf="@+id/restaurant_address_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rating_number_textview"
+            app:layout_constraintTop_toBottomOf="@+id/resturant_title_textview"
+            style="?android:attr/ratingBarStyleSmall"
+            />
+
+
+        <TextView
+            android:id="@+id/restaurant_address_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_marginEnd="145dp"
+            android:text="@{restaurant.address}"
+            app:layout_constraintBottom_toTopOf="@+id/price_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rating_number_textview"
+            />
+
+
+        <TextView
+            android:id="@+id/price_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="5dp"
+            android:text="@{String.valueOf(restaurant.price)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/distance_textview"
+            app:layout_constraintTop_toBottomOf="@+id/restaurant_address_textview"
+            />
+
+        <TextView
+            android:id="@+id/distance_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="6dp"
+            android:text="@{String.valueOf(restaurant.distance)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/price_textview"
+            app:layout_constraintTop_toBottomOf="@+id/restaurant_address_textview"
+            />
+      </android.support.constraint.ConstraintLayout>
+
+      <android.support.design.widget.TabLayout
+          android:id="@+id/tabs"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginEnd="7dp"
-          android:text="4.0"
-          app:layout_constraintBottom_toTopOf="@+id/restaurant_address_textview"
-          app:layout_constraintEnd_toStartOf="@+id/restaurant_rating_bar"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/resturant_title_textview"
-          />
-      <RatingBar
-          android:id="@+id/restaurant_rating_bar"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="3dp"
+          android:layout_below="@id/restaurant_info"
+          android:background="@color/colorPrimary"
 
-          android:layout_marginEnd="277dp"
-          android:layout_marginStart="7dp"
-          android:rating="4"
-          app:layout_constraintBottom_toTopOf="@+id/restaurant_address_textview"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toEndOf="@+id/rating_number_textview"
-          app:layout_constraintTop_toBottomOf="@+id/resturant_title_textview"
-          style="?android:attr/ratingBarStyleSmall"
-          />
+          >
 
+        <android.support.design.widget.TabItem
+            android:id="@+id/review_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/review_tab_title"
 
-      <TextView
-          android:id="@+id/restaurant_address_textview"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="3dp"
-          android:layout_marginEnd="145dp"
-          android:text="8512 Avonshire RD, Orlando, FL 32817"
-          app:layout_constraintBottom_toTopOf="@+id/price_textview"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/rating_number_textview"
+            />
+        <android.support.design.widget.TabItem
+            android:id="@+id/photo_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/photo_tab_title"
+            />
+      </android.support.design.widget.TabLayout>
+
+      <android.support.v4.view.ViewPager
+          android:id="@+id/detail_restaurant_viewpager"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_below="@id/tabs"
           />
 
+    </RelativeLayout>
 
-      <TextView
-          android:id="@+id/price_textview"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="32dp"
-          android:layout_marginTop="5dp"
-          android:text="Price: $$$"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toStartOf="@+id/distance_textview"
-          app:layout_constraintTop_toBottomOf="@+id/restaurant_address_textview"
-          />
-
-      <TextView
-          android:id="@+id/distance_textview"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="32dp"
-          android:layout_marginTop="6dp"
-          android:text="Distance: 2 mi"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintStart_toEndOf="@+id/price_textview"
-          app:layout_constraintTop_toBottomOf="@+id/restaurant_address_textview"
-          />
-
-
-
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/restaurant_info"
-        android:background="@color/colorPrimary"
-
-        >
-
-      <android.support.design.widget.TabItem
-          android:id="@+id/review_tab"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/review_tab_title"
-
-          />
-      <android.support.design.widget.TabItem
-          android:id="@+id/photo_tab"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/photo_tab_title"
-          />
-    </android.support.design.widget.TabLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/detail_restaurant_viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/tabs"
-        />
-
-  </RelativeLayout>
-
-</android.support.design.widget.CoordinatorLayout>
+  </android.support.design.widget.CoordinatorLayout>
+</layout>

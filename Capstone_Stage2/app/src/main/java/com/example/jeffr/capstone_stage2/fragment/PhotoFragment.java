@@ -1,52 +1,27 @@
 package com.example.jeffr.capstone_stage2.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.jeffr.capstone_stage2.R;
+import com.example.jeffr.capstone_stage2.adapters.RecyclerViewOnClick;
+import com.example.jeffr.capstone_stage2.adapters.SimpleRecyclerViewAdapter;
+import com.example.jeffr.capstone_stage2.data.Restaurant;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PhotoFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PhotoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class PhotoFragment extends Fragment {
-  // TODO: Rename parameter arguments, choose names that match
-  // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-  private static final String ARG_PARAM1 = "param1";
-  private static final String ARG_PARAM2 = "param2";
-
-  // TODO: Rename and change types of parameters
-  private String mParam1;
-  private String mParam2;
-
-  private OnFragmentInteractionListener mListener;
-
+public class PhotoFragment extends Fragment implements RecyclerViewOnClick {
   public PhotoFragment() {
-    // Required empty public constructor
+
   }
 
-  /**
-   * Use this factory method to create a new instance of
-   * this fragment using the provided parameters.
-   *
-   * @param param1 Parameter 1.
-   * @param param2 Parameter 2.
-   * @return A new instance of fragment PhotoFragment.
-   */
-  // TODO: Rename and change types and number of parameters
-  public static PhotoFragment newInstance(String param1, String param2) {
+  public static PhotoFragment newInstance(Restaurant restaurant) {
     PhotoFragment fragment = new PhotoFragment();
     Bundle args = new Bundle();
-    args.putString(ARG_PARAM1, param1);
-    args.putString(ARG_PARAM2, param2);
+    args.putSerializable("Restaurant", restaurant);
     fragment.setArguments(args);
     return fragment;
   }
@@ -54,55 +29,28 @@ public class PhotoFragment extends Fragment {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    if (getArguments() != null) {
-      mParam1 = getArguments().getString(ARG_PARAM1);
-      mParam2 = getArguments().getString(ARG_PARAM2);
-    }
   }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_photo, container, false);
+    //TODO perform query based on restaurant info
+    View rootView = inflater.inflate(R.layout.fragment_photo, container, false);
+    RecyclerView recyclerView = rootView.findViewById(R.id.photos_recyclerview);
+    Restaurant restaurant = (Restaurant) getArguments().getSerializable("Restaurant");
+    StaggeredGridLayoutManager staggeredGridLayoutManager =
+        new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.HORIZONTAL);
+    staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
+    recyclerView.setLayoutManager(staggeredGridLayoutManager);
+    recyclerView.setItemAnimator(new DefaultItemAnimator());
+    recyclerView.setNestedScrollingEnabled(false);
+    recyclerView.setHasFixedSize(false);
+    recyclerView.setAdapter(
+        new SimpleRecyclerViewAdapter<>(restaurant.getPhotos(), R.layout.photo_list_item, this));
+    return rootView;
   }
 
-  // TODO: Rename method, update argument and hook method into UI event
-  public void onButtonPressed(Uri uri) {
-    if (mListener != null) {
-      mListener.onFragmentInteraction(uri);
-    }
-  }
+  @Override public void rowSelected(Object obj) {
 
-  @Override
-  public void onAttach(Context context) {
-    super.onAttach(context);
-    if (context instanceof OnFragmentInteractionListener) {
-      mListener = (OnFragmentInteractionListener) context;
-    } else {
-      throw new RuntimeException(context.toString()
-          + " must implement OnFragmentInteractionListener");
-    }
-  }
-
-  @Override
-  public void onDetach() {
-    super.onDetach();
-    mListener = null;
-  }
-
-  /**
-   * This interface must be implemented by activities that contain this
-   * fragment to allow an interaction in this fragment to be communicated
-   * to the activity and potentially other fragments contained in that
-   * activity.
-   * <p>
-   * See the Android Training lesson <a href=
-   * "http://developer.android.com/training/basics/fragments/communicating.html"
-   * >Communicating with Other Fragments</a> for more information.
-   */
-  public interface OnFragmentInteractionListener {
-    // TODO: Update argument type and name
-    void onFragmentInteraction(Uri uri);
   }
 }

@@ -15,6 +15,7 @@ import com.example.jeffr.capstone_stage2.R;
 import com.example.jeffr.capstone_stage2.adapters.RecyclerViewOnClick;
 import com.example.jeffr.capstone_stage2.adapters.SimpleRecyclerViewAdapter;
 import com.example.jeffr.capstone_stage2.data.Restaurant;
+import com.example.jeffr.capstone_stage2.databinding.ActivityDetailRestaurantBinding;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,11 +36,12 @@ public class RestaurantListFragment extends Fragment implements RecyclerViewOnCl
       View rootView = inflater.inflate(R.layout.fragment_restaurant_list, container, false);
     RecyclerView recyclerView = rootView.findViewById(R.id.restaurant_recyclerview);
     List<Restaurant> restaurants = new ArrayList<>();
-    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817"));
-    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817"));
-    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817"));
-    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817"));
-    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817"));
+    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
+    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
+    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
+    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
+    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
+    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     recyclerView.setItemAnimator(new DefaultItemAnimator());
     recyclerView.setNestedScrollingEnabled(false);
@@ -49,6 +51,7 @@ public class RestaurantListFragment extends Fragment implements RecyclerViewOnCl
 
   @Override public void rowSelected(Object obj) {
     Intent intent = new Intent(getActivity(),DetailRestaurantActivity.class);
+    intent.putExtra("Restaurant", (Restaurant)obj);
     startActivity(intent);
   }
 }

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import com.example.jeffr.capstone_stage2.data.User;
 import com.example.jeffr.capstone_stage2.fragment.FavoriteCategoryListFragment;
 import com.example.jeffr.capstone_stage2.fragment.HomePageFragment;
 import com.example.jeffr.capstone_stage2.fragment.SearchFragment;
@@ -28,6 +29,10 @@ public class NavigationActivity extends AppCompatActivity {
     getSupportActionBar().hide();
     manager = getSupportFragmentManager();
     fragment = new HomePageFragment();
+    Bundle bundle = new Bundle();
+    String[] favorites = {"Mexican", "Italian", "Polish"};
+    bundle.putSerializable("User",new User("Tomas Maxx", "Fort Myers, Florida",favorites,33,54));
+    fragment.setArguments(bundle);
     manager.beginTransaction().replace(R.id.fragment_relativelayout,fragment,fragment.getTag()).commit();
     BottomNavigationView navigation = findViewById(R.id.navigation);
     navigation.setOnNavigationItemSelectedListener(new NavigationListener());
@@ -55,6 +60,10 @@ public class NavigationActivity extends AppCompatActivity {
       switch (item.getItemId()) {
         case R.id.navigation_home:
           fragment = new HomePageFragment();
+          Bundle bundle = new Bundle();
+          String[] favorites = {"Mexican", "Italian", "Polish"};
+          bundle.putSerializable("User",new User("Tomas Maxx", "Fort Myers, Florida",favorites,33,54));
+          fragment.setArguments(bundle);
           manager.beginTransaction()
               .replace(R.id.fragment_relativelayout,fragment,fragment.getTag())
               .commit();

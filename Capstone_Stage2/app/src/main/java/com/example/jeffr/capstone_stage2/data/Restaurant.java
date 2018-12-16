@@ -1,18 +1,52 @@
 package com.example.jeffr.capstone_stage2.data;
 
-public class Restaurant {
+import com.example.jeffr.capstone_stage2.R;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-  //TODO add variable for image
+public class Restaurant implements Serializable {
+
   private String name;
   private float rating;
   private int price;
   private String address;
+  private float distance;
 
-  public Restaurant(String name, float rating, int price, String address) {
+  //TODO change when working with the database
+  private List<Integer> photos;
+
+  public Restaurant(String name, float rating, int price, String address, float distance) {
     this.name = name;
     this.rating = rating;
     this.price = price;
     this.address = address;
+    this.distance = distance;
+
+    //TODO Remove when database is added
+    photos = new ArrayList<>();
+    photos.add(R.drawable.gary);
+    photos.add(R.drawable.gary);
+    photos.add(R.drawable.gary);
+    photos.add(R.drawable.gary);
+    photos.add(R.drawable.gary);
+    photos.add(R.drawable.gary);
+  }
+
+  public List<Integer> getPhotos() {
+    return photos;
+  }
+
+  public void setPhotos(List<Integer> photos) {
+    this.photos = photos;
+  }
+
+  public float getDistance() {
+    return distance;
+  }
+
+  public void setDistance(float distance) {
+    this.distance = distance;
   }
 
   public String getName() {

@@ -22,8 +22,6 @@ public class SimpleRecyclerViewAdapter<E> extends MyBaseAdapter {
     return layoutId;
   }
 
-
-
   @Override public int getItemCount() {
     return items.size();
   }

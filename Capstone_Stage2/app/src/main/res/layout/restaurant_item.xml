@@ -60,7 +60,7 @@
         <RatingBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:rating="4"
+            android:rating="@{obj.rating}"
             style="?android:attr/ratingBarStyleSmall"
             />
 

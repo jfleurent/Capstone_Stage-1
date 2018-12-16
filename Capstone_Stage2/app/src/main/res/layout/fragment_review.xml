@@ -2,75 +2,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".fragment.ReviewFragment"
     >
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    >
-  <RelativeLayout
-      android:layout_width="48dp"
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/reviews_recyclerview"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="8dp"
-      android:layout_marginRight="8dp"
-      android:layout_marginTop="8dp"
-      android:layout_marginBottom="8dp"
       >
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/circle"
-        />
-
-    <TextView
-        android:layout_centerVertical="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="T"
-        android:textColor="#fff"
-        android:textAlignment="center"
-        android:textSize="28sp"
-        />
-
-  </RelativeLayout>
-
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tomas Max"
-        android:textSize="28sp"
-        />
-
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:rating="4"
-        style="?android:attr/ratingBarStyleSmall"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Very nice selections of authentic taste of Italy...
-brought back good memories from Italy and
-even NYC.
-
-Pricing is definitely on high end but people who can
-afford it would only step in here, as I sat in parking
-lot shoving my pesto chicken sandwich (yummy!!!!),
-all high end cars drive in and out."
-        />
-
-  </LinearLayout>
-</LinearLayout>
+  </android.support.v7.widget.RecyclerView>
 
 </FrameLayout>

@@ -1,9 +1,12 @@
 package com.example.jeffr.capstone_stage2.data;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
   private String name;
   private String city;
   private String[] favorite;
+  private String favoritesString;
   private int seenTotal;
   private int favoriteTotal;
 
@@ -13,6 +16,7 @@ public class User {
     this.favorite = favorite;
     this.seenTotal = seenTotal;
     this.favoriteTotal = favoriteTotal;
+    setFavoritesString();
   }
 
   public String getName() {
@@ -53,5 +57,17 @@ public class User {
 
   public void setFavoriteTotal(int favoriteTotal) {
     this.favoriteTotal = favoriteTotal;
+  }
+
+  public String getFavoritesString() {
+    return favoritesString;
+  }
+
+  private void setFavoritesString() {
+    favoritesString= "";
+    for (String f : favorite){
+      favoritesString+=f+" | ";
+    }
+    favoritesString = favoritesString.substring(0,favoritesString.length()-2);
   }
 }

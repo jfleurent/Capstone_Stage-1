@@ -39,8 +39,6 @@ public class FavoriteCategoryListFragment extends Fragment implements RecyclerVi
       Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.fragment_favorite_category_list, container, false);
     RecyclerView recyclerView = rootView.findViewById(R.id.category_list_recyclerview);
-    GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
-    recyclerView.setLayoutManager(gridLayoutManager);
     List<FavoriteCategory> favoriteCategories = new ArrayList<>();
     favoriteCategories.add(new FavoriteCategory("Pizza"));
     favoriteCategories.add(new FavoriteCategory("Pizza"));
@@ -48,6 +46,8 @@ public class FavoriteCategoryListFragment extends Fragment implements RecyclerVi
     favoriteCategories.add(new FavoriteCategory("Pizza"));
     favoriteCategories.add(new FavoriteCategory("Pizza"));
     favoriteCategories.add(new FavoriteCategory("Pizza"));
+    GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
+    recyclerView.setLayoutManager(gridLayoutManager);
     recyclerView.setItemAnimator(new DefaultItemAnimator());
     recyclerView.setNestedScrollingEnabled(false);
     recyclerView.setAdapter(new SimpleRecyclerViewAdapter<>(favoriteCategories,R.layout.favorite_category_item, this));
