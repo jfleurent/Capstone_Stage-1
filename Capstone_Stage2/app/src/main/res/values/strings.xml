@@ -57,6 +57,9 @@
   <!-- Fragment_Home_Page-->
   <string name="fragment_home_option_menu_content_description">Option Menu</string>>
 
+  <!-- Fragment_Favorite_Category_List-->
+  <string name="favorite_category_toolbar_title">Favorites</string>>
+
   <!-- Fragment_Search-->
   <string name="choose_one_button_text">Choose One</string>
   <string name="choose_many_button_text">Choose Many</string>
@@ -68,6 +71,20 @@
   <string name="sort_by_distance_text">Distance</string>
   <string name="sort_by_rating_text">Rating</string>
   <string name="sort_price_text">Price</string>
+  <string name="five_mile_distance">5 mi</string>
+  <string name="ten_mile_distance">10 mi</string>
+  <string name="fifteen_mile_distance">15 mi</string>
+  <string name="twenty_mile_distance">20 mi</string>
+  <string name="twenty_five_plus_mile_distance">25 mi +</string>
+  <string name="one_dollar_sign">$</string>
+  <string name="two_dollar_sign">$$</string>
+  <string name="three_dollar_sign">$$$</string>
+  <string name="four_dollar_sign">$$$$</string>
+  <string name="one_rating">1.0</string>
+  <string name="two_rating">2.0</string>
+  <string name="three_rating">3.0</string>
+  <string name="four_rating">4.0</string>
+
 
   <!-- Restaurant_Category_Dialog-->
   <string name="restaurant_category_dialog_title">Create New Category</string>

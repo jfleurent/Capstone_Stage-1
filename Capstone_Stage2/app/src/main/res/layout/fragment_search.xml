@@ -1,504 +1,310 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--TODO Redo this layout with GridLayout and replace buttons with selection buttons-->
+
+<!--Programmatically add hint for search view-->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".fragment.SearchFragment"
     >
 
-  <LinearLayout
+  <android.support.constraint.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="vertical"
       >
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:background="@color/colorPrimary"
+        android:id="@+id/search_bar_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         >
-
-      <android.support.v7.widget.SearchView
+      <ImageView
+          android:id="@+id/search_bar_background"
+          android:layout_width="match_parent"
+          android:layout_height="80dp"
+          android:layout_alignParentStart="true"
+          android:layout_alignParentTop="true"
+          android:layout_marginStart="0dp"
+          android:layout_marginTop="0dp"
+          android:background="@color/colorPrimary"
+          />
+      <SearchView
+          android:id="@+id/search_bar"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_centerVertical="true"
+          android:layout_margin="16dp"
           android:background="#fff"
-          app:queryHint="Search Restaurant Type"
-          android:layout_marginLeft="16dp"
-          android:layout_marginRight="16dp"
-          />
-
+          >
+      </SearchView>
     </RelativeLayout>
 
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      android:layout_marginRight="16dp"
-      android:layout_marginLeft="16dp"
-      android:layout_marginTop="16dp"
-      android:layout_marginBottom="48dp"
-      >
-    <View
+    <TextView
+        android:id="@+id/sortby_title_textview"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#545454"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/sort_by_title_text"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
         />
-    <LinearLayout
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/sortby_tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_margin="8dp"
+
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sortby_title_textview"
+        app:tabBackground="@drawable/tab_background_color_selector"
+        app:tabIndicatorColor="#fff"
+        app:tabTextColor="@color/tab_text_color_selector"
         >
-      <Button
-          android:id="@+id/choose_one_button"
-          android:layout_width="160dp"
+      <android.support.design.widget.TabItem
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:background="@color/colorPrimary"
+          android:text="@string/sort_by_any_text"
+          />
+
+      <android.support.design.widget.TabItem
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/sort_price_text"
+          />
+
+      <android.support.design.widget.TabItem
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/sort_by_distance_text"
+          />
+
+      <android.support.design.widget.TabItem
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/sort_by_rating_text"
+          />
+    </android.support.design.widget.TabLayout>
+
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar_layout"
+        app:tabBackground="@drawable/tab_background_color_selector"
+        app:tabIndicatorColor="#fff"
+        app:tabTextColor="@color/tab_text_color_selector"
+        >
+
+      <android.support.design.widget.TabItem
+          android:id="@+id/choose_one_tab"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
           android:text="@string/choose_one_button_text"
-          android:textColor="#fff"
           />
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
-          />
-      <Button
-          android:id="@+id/choose_many_button"
-          android:layout_width="160dp"
+
+      <android.support.design.widget.TabItem
+          android:id="@+id/choose_many_tab"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:background="#fff"
           android:text="@string/choose_many_button_text"
           />
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
-          />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#545454"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sort By"
-        android:textSize="24sp"
-        />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:background="#545454"
-        />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
-          />
-
-      <Button
-          android:id="@+id/sort_by_any_button"
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="@color/colorPrimary"
-          android:text="@string/sort_by_any_text"
-          android:textColor="#fff"
-          />
-
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
-          />
-
-      <Button
-          android:id="@+id/sort_by_rating_button"
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="#fff"
-          android:text="@string/sort_by_rating_text"
-          android:textColor="#5b5b5b"
-          />
-
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
-          />
-
-      <Button
-          android:id="@+id/sort_by_distnce_button"
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="#fff"
-          android:text="@string/sort_by_distance_text"
-          android:textColor="#5b5b5b"
-          />
-
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
-          />
-
-      <Button
-          android:id="@+id/sort_by_price_button"
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="#fff"
-          android:text="@string/sort_price_text"
-          android:textColor="#5b5b5b"
-          />
-
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
-          />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#545454"
-        />
+    </android.support.design.widget.TabLayout>
 
     <TextView
+        android:id="@+id/distance_title_textview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/distance_title_text"
-        android:textSize="24sp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sortby_tablayout"
         />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:background="#545454"
-        />
-
-    <LinearLayout
+    <android.support.design.widget.TabLayout
+        android:id="@+id/distance_tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_margin="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/distance_title_textview"
+        app:tabBackground="@drawable/tab_background_color_selector"
+        app:tabIndicatorColor="#fff"
+        app:tabTextColor="@color/tab_text_color_selector"
         >
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
+      <android.support.design.widget.TabItem
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/five_mile_distance"
           />
 
-      <Button
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="@color/colorPrimary"
-          android:text="@string/sort_by_any_text"
-          android:textColor="#fff"
+      <android.support.design.widget.TabItem
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/ten_mile_distance"
           />
 
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
+      <android.support.design.widget.TabItem
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/fifteen_mile_distance"
           />
 
-      <Button
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="#fff"
-          android:text="Rating"
-          android:textColor="#5b5b5b"
+      <android.support.design.widget.TabItem
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/twenty_mile_distance"
           />
 
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
+      <android.support.design.widget.TabItem
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/twenty_five_plus_mile_distance"
           />
-
-      <Button
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="#fff"
-          android:text="Distance"
-          android:textColor="#5b5b5b"
-          />
-
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
-          />
-
-      <Button
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="#fff"
-          android:text="Price"
-          android:textColor="#5b5b5b"
-          />
-
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
-          />
-      <Button
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="#fff"
-          android:text="Price"
-          android:textColor="#5b5b5b"
-          />
-
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
-          />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#545454"
-        />
+    </android.support.design.widget.TabLayout>
 
     <TextView
+        android:id="@+id/price_title_textview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/price_title_text"
-        android:textSize="24sp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/distance_tablayout"
         />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:background="#545454"
-        />
-
-    <LinearLayout
+    <android.support.design.widget.TabLayout
+        android:id="@+id/rating_tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_margin="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rating_title_textview"
+        app:tabBackground="@drawable/tab_background_color_selector"
+        app:tabIndicatorColor="#fff"
+        app:tabTextColor="@color/tab_text_color_selector"
         >
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
+      <android.support.design.widget.TabItem
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/sort_by_any_text"
           />
 
-      <Button
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="@color/colorPrimary"
-          android:text="Any"
-          android:textColor="#fff"
+      <android.support.design.widget.TabItem
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/one_rating"
           />
 
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
+      <android.support.design.widget.TabItem
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/two_rating"
           />
 
-      <Button
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="#fff"
-          android:text="Rating"
-          android:textColor="#5b5b5b"
+      <android.support.design.widget.TabItem
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/three_rating"
           />
 
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
+      <android.support.design.widget.TabItem
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/four_rating"
           />
-
-      <Button
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="#fff"
-          android:text="Distance"
-          android:textColor="#5b5b5b"
-          />
-
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
-          />
-
-      <Button
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="#fff"
-          android:text="Price"
-          android:textColor="#5b5b5b"
-          />
-
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
-          />
-      <Button
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="#fff"
-          android:text="Price"
-          android:textColor="#5b5b5b"
-          />
-
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
-          />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#545454"
-        />
+    </android.support.design.widget.TabLayout>
 
     <TextView
+        android:id="@+id/rating_title_textview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/rating_title_text"
-        android:textSize="24sp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/price_tablayout"
         />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:background="#545454"
-        />
-
-    <LinearLayout
+    <android.support.design.widget.TabLayout
+        android:id="@+id/price_tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_margin="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/price_title_textview"
+        app:tabBackground="@drawable/tab_background_color_selector"
+        app:tabIndicatorColor="#fff"
+        app:tabTextColor="@color/tab_text_color_selector"
         >
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
+      <android.support.design.widget.TabItem
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/sort_by_any_text"
           />
 
-      <Button
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="@color/colorPrimary"
-          android:text="Any"
-          android:textColor="#fff"
+      <android.support.design.widget.TabItem
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/one_dollar_sign"
           />
 
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
+      <android.support.design.widget.TabItem
+
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/two_dollar_sign"
           />
 
-      <Button
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="#fff"
-          android:text="Rating"
-          android:textColor="#5b5b5b"
+      <android.support.design.widget.TabItem
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/three_dollar_sign"
           />
 
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
+      <android.support.design.widget.TabItem
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/four_dollar_sign"
           />
-
-      <Button
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="#fff"
-          android:text="Distance"
-          android:textColor="#5b5b5b"
-          />
-
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
-          />
-
-      <Button
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="#fff"
-          android:text="Price"
-          android:textColor="#5b5b5b"
-          />
-
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
-          />
-      <Button
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:layout_weight="1"
-          android:background="#fff"
-          android:text="Price"
-          android:textColor="#5b5b5b"
-          />
-
-      <View
-          android:layout_width="1dp"
-          android:layout_height="match_parent"
-          android:background="#545454"
-          />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#545454"
-        />
-  </LinearLayout>
+    </android.support.design.widget.TabLayout>
 
 
-  </LinearLayout>
+  </android.support.constraint.ConstraintLayout>
 </ScrollView>

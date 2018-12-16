@@ -11,6 +11,7 @@ import com.example.jeffr.capstone_stage2.adapters.TabAdapter;
 import com.example.jeffr.capstone_stage2.data.Restaurant;
 import com.example.jeffr.capstone_stage2.databinding.ActivityDetailRestaurantBinding;
 
+//TODO remove toolbar and add the one in layout to make it move
 public class DetailRestaurantActivity extends AppCompatActivity {
 
   private ViewPager viewPager;
