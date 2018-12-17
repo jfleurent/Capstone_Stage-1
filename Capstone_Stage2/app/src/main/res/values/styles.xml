@@ -1,26 +1,42 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+  </style>
 
-    <style name="CustomizePageEditText">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/customize_page_edit_text_margin_top</item>
-    </style>
+  <style name="CustomizePageEditText">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginTop">@dimen/customize_page_edit_text_margin_top</item>
+  </style>
 
-    <style name="CustomizePageFavoriteSpinner">
-        <item name="android:layout_width">@dimen/customize_page_favorite_spinner_width</item>
-        <item name="android:layout_height">@dimen/customize_page_favorite_spinner_height</item>
-        <item name="android:layout_marginTop">@dimen/customize_page_favorite_spinner_margin_top</item>
-        <item name="android:layout_marginEnd">@dimen/customize_page_favorite_spinner_margin_end</item>
-    </style>
+  <style name="CustomizePageFavoriteSpinner">
+    <item name="android:layout_width">@dimen/customize_page_favorite_spinner_width</item>
+    <item name="android:layout_height">@dimen/customize_page_favorite_spinner_height</item>
+    <item name="android:layout_marginTop">@dimen/customize_page_favorite_spinner_margin_top</item>
+    <item name="android:layout_marginEnd">@dimen/customize_page_favorite_spinner_margin_end</item>
+  </style>
 
+  <style name="ActivityMainEditText">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginEnd">@dimen/activity_main_edit_text_margin_end</item>
+    <item name="android:layout_marginStart">@dimen/activity_main_edit_text_margin_start</item>
+    <item name="android:layout_marginTop">@dimen/activity_main_edit_text_margin_top</item>
+  </style>
 
+  <style name="ActivityMainButton" parent="Widget.AppCompat.Button.Borderless">
+    <item name="android:layout_marginTop">@dimen/activity_main_button_margin_top</item>
+    <item name="android:layout_marginStart">@dimen/activity_main_button_margin_start</item>
+    <item name="android:layout_marginEnd">@dimen/activity_main_button_margin_end</item>
+    <item name="android:layout_width">@dimen/activity_main_button_width</item>
+    <item name="android:layout_height">@dimen/activity_main_button_height</item>
+    <item name="android:background">@drawable/round_button</item>
+    <item name="android:textColor">@color/round_button_text_color</item>
+  </style>
 
 </resources>

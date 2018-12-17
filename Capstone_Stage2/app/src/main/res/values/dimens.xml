@@ -35,18 +35,37 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="detail_restaurant_fab_margin_end">32dp</dimen>
   <dimen name="detail_restaurant_fab_margin_top">180dp</dimen>
   <dimen name="detail_restaurant_constraint_layout_height">100dp</dimen>
-
   <dimen name="detail_restaurant_title_text_margin_start">16dp</dimen>
   <dimen name="detail_restaurant_title_text_margin_top">8dp</dimen>
   <dimen name="detail_restaurant_title_text_size">24sp</dimen>
   <dimen name="detail_restaurant_rating_text_margin_start">16dp</dimen>
-
   <dimen name="detail_restaurant_rating_bar_margin_start">16dp</dimen>
   <dimen name="detail_restaurant_distance_margin_start">8dp</dimen>
   <dimen name="detail_restaurant_address_text_margin_start">16dp</dimen>
   <dimen name="detail_restaurant_distance_title_margin_start">32dp</dimen>
   <dimen name="detail_restaurant_price_title_margin_start">16dp</dimen>
   <dimen name="detail_restaurant_price_margin_start">8dp</dimen>
+
+  <!--Activity_Main-->
+  <dimen name="activity_main_toolbar_height">160dp</dimen>
+  <dimen name="activity_main_imageview_width">100dp</dimen>
+  <dimen name="activity_main_imageview_height">100dp</dimen>
+  <dimen name="activity_main_imagview_margin_start">8dp</dimen>
+  <dimen name="activity_main_imageview_margin_bottom">8dp</dimen>
+  <dimen name="activity_main_imageview_margin_top">8dp</dimen>
+  <dimen name="activity_main_edit_text_margin_end">24dp</dimen>
+  <dimen name="activity_main_edit_text_margin_start">24dp</dimen>
+  <dimen name="activity_main_edit_text_margin_top">16dp</dimen>
+  <dimen name="activity_main_button_width">150dp</dimen>
+  <dimen name="activity_main_button_height">32dp</dimen>
+  <dimen name="activity_main_button_margin_end">118dp</dimen>
+  <dimen name="activity_main_button_margin_start">118dp</dimen>
+  <dimen name="activity_main_button_margin_top">24dp</dimen>
+  <dimen name="activity_main_or_text_margin_top">16dp</dimen>
+  <dimen name="activity_main_login_text_margin_end">160dp</dimen>
+  <dimen name="activity_main_login_text_margin_start">161dp</dimen>
+  <dimen name="activity_main_login_text_margin_top">8dp</dimen>
+
 
 
 
