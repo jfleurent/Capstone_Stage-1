@@ -1,11 +1,17 @@
 package com.example.jeffr.capstone_stage2.data;
 
-public class FavoriteCategory {
+import java.io.Serializable;
+import java.util.List;
+
+public class FavoriteCategory implements Serializable {
   //TODO Add variable for image
   private String title;
+  private List<Restaurant> restaurants;
 
-  public FavoriteCategory(String title) {
+  public FavoriteCategory(String title,
+      List<Restaurant> restaurants) {
     this.title = title;
+    this.restaurants = restaurants;
   }
 
   public String getTitle() {
@@ -14,5 +20,13 @@ public class FavoriteCategory {
 
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  public List<Restaurant> getRestaurants() {
+    return restaurants;
+  }
+
+  public void setRestaurants(List<Restaurant> restaurants) {
+    this.restaurants = restaurants;
   }
 }

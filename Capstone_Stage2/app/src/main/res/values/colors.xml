@@ -6,4 +6,5 @@
     <color name="unselected_button_color">#ffffff</color>
     <color name="line_button_background_color">#ffffff</color>
     <color name="toolbar_title_color">#ffffff</color>
+    <color name="widget_background_color">#ffffff</color>
 </resources>

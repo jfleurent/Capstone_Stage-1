@@ -18,6 +18,7 @@
       android:layout_marginBottom="8dp"
       >
     <ImageView
+        android:id="@+id/resturant_imageview"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="#000"
@@ -33,6 +34,7 @@
         android:paddingLeft="10dp"
         >
       <TextView
+          android:id="@+id/resturant_title_textview"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="Pizza Place"
@@ -49,25 +51,43 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:text="4.0"
+            android:text="@string/ratings_widget_item_label"
+            android:layout_marginRight="8dp"
             />
-        <RatingBar
+        <TextView
+            android:id="@+id/restaurant_rating_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:rating="4"
-            style="?android:attr/ratingBarStyleSmall"
+            android:text="4.0"
             />
 
+
       </LinearLayout>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/price_widget_item_label"
+      android:layout_marginRight="8dp"
+      />
+
+  <TextView
+    android:id="@+id/restaurant_price_textview"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="$$$"
+    />
+
+</LinearLayout>
+
 
       <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Price: $$$"
-          />
-
-      <TextView
+          android:id="@+id/restaurant_address_textview"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="8512 Avonshire RD, Orlando, FL 32817"

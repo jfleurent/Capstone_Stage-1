@@ -18,6 +18,7 @@ import com.example.jeffr.capstone_stage2.R;
 import com.example.jeffr.capstone_stage2.adapters.RecyclerViewOnClick;
 import com.example.jeffr.capstone_stage2.adapters.SimpleRecyclerViewAdapter;
 import com.example.jeffr.capstone_stage2.data.FavoriteCategory;
+import com.example.jeffr.capstone_stage2.data.Restaurant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,12 +41,21 @@ public class FavoriteCategoryListFragment extends Fragment implements RecyclerVi
     View rootView = inflater.inflate(R.layout.fragment_favorite_category_list, container, false);
     RecyclerView recyclerView = rootView.findViewById(R.id.category_list_recyclerview);
     List<FavoriteCategory> favoriteCategories = new ArrayList<>();
-    favoriteCategories.add(new FavoriteCategory("Pizza"));
-    favoriteCategories.add(new FavoriteCategory("Pizza"));
-    favoriteCategories.add(new FavoriteCategory("Pizza"));
-    favoriteCategories.add(new FavoriteCategory("Pizza"));
-    favoriteCategories.add(new FavoriteCategory("Pizza"));
-    favoriteCategories.add(new FavoriteCategory("Pizza"));
+    List<Restaurant> restaurants = new ArrayList<>();
+    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
+    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
+    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
+    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
+    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
+    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
+    favoriteCategories.add(new FavoriteCategory("Pizza",restaurants));
+    favoriteCategories.add(new FavoriteCategory("Pizza",restaurants));
+    favoriteCategories.add(new FavoriteCategory("Pizza",restaurants));
+    favoriteCategories.add(new FavoriteCategory("Pizza",restaurants));
+    favoriteCategories.add(new FavoriteCategory("Pizza",restaurants));
+    favoriteCategories.add(new FavoriteCategory("Pizza",restaurants));
+    favoriteCategories.add(new FavoriteCategory("Pizza",restaurants));
+
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
     recyclerView.setLayoutManager(gridLayoutManager);
     recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -56,6 +66,7 @@ public class FavoriteCategoryListFragment extends Fragment implements RecyclerVi
 
   @Override public void rowSelected(Object obj) {
     Intent intent = new Intent(getActivity(),DetailCategoryFavoriteActivity.class);
+    intent.putExtra("Category",(FavoriteCategory) obj);
     startActivity(intent);
   }
 }

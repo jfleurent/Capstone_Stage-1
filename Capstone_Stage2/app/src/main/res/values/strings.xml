@@ -97,5 +97,11 @@
   <string name="favorite_dialog_title">Add to Favorites</string>
   <string name="favorite_dialog_ok_button">OK</string>
 
+  <!-- Select_Favorite_Dialog-->
+  <string name="ratings_widget_item_label"> Rating:  </string>
+  <string name="price_widget_item_label"> Price:  </string>
+  <string name="appwidget_text">EXAMPLE</string>
+  <string name="add_widget">Add widget</string>
+
 
 </resources>
