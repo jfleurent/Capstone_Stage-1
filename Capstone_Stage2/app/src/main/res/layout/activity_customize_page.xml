@@ -16,7 +16,7 @@
     <ImageView
         android:id="@+id/customize_background_imageview"
         android:layout_width="match_parent"
-        android:layout_height="176dp"
+        android:layout_height="@dimen/customize_page_background_height"
         android:background="@color/colorPrimary"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,8 +26,8 @@
 
     <ImageView
         android:id="@+id/profile_imageview"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/customize_page_image_width"
+        android:layout_height="@dimen/customize_page_image_height"
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
@@ -38,16 +38,13 @@
         app:layout_constraintStart_toStartOf="@+id/customize_background_imageview"
         app:layout_constraintTop_toTopOf="@+id/customize_background_imageview"
         />
+
     <ImageButton
         android:id="@+id/change_photo_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/profile_imageview"
-        android:layout_marginBottom="8dp"
-
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_margin="@dimen/customize_page_photo_icon_margin"
         android:layout_toEndOf="@+id/profile_imageview"
         android:background="@drawable/ic_change_photo"
         app:layout_constraintBottom_toBottomOf="@+id/customize_background_imageview"
@@ -59,19 +56,19 @@
         />
     <Button
         android:id="@+id/change_background_button"
-        android:layout_width="128dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="@dimen/customize_page_background_button_width"
+        android:layout_height="@dimen/customize_page_background_button_height"
+        android:layout_marginEnd="@dimen/customize_page_background_margin_end"
+        android:layout_marginStart="@dimen/customize_page_background_margin_start"
+        android:layout_marginTop="@dimen/customize_page_background_margin_top"
         android:background="@drawable/white_round_button"
         android:onClick="showDialog"
         android:text="@string/change_background_text"
         android:textAllCaps="false"
-        android:textColor="#707070"
-        android:textSize="12sp"
+        android:textColor="@color/customize_background_button_color"
+        android:textSize="@dimen/customize_page_background_text_size"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.016"
+        app:layout_constraintHorizontal_bias="0.008"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_imageview"
         style="?android:attr/buttonBarButtonStyle"
@@ -80,9 +77,7 @@
 
     <EditText
         android:id="@+id/name_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        style="@style/CustomizePageEditText"
         android:hint="@string/name_edittext_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -92,9 +87,7 @@
 
     <EditText
         android:id="@+id/city_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        style="@style/CustomizePageEditText"
         android:hint="@string/city_edittext_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,10 +96,10 @@
 
     <Spinner
         android:id="@+id/title_spinner"
-        android:layout_width="80dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="304dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="@dimen/customize_page_state_spinner_width"
+        android:layout_height="@dimen/customize_page_state_spinner_height"
+        android:layout_marginEnd="@dimen/customize_page_state_spinner_margin_end"
+        android:layout_marginTop="@dimen/customize_page_state_spinner_margin_top"
         android:prompt="@string/state_spinner_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,10 +108,7 @@
 
     <Spinner
         android:id="@+id/favorite1_spinner"
-        android:layout_width="160dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="224dp"
-        android:layout_marginTop="16dp"
+        style="@style/CustomizePageFavoriteSpinner"
         android:prompt="@string/favorite1_spinner_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -127,10 +117,7 @@
 
     <Spinner
         android:id="@+id/favorite2_spinner"
-        android:layout_width="160dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="224dp"
-        android:layout_marginTop="16dp"
+        style="@style/CustomizePageFavoriteSpinner"
         android:prompt="@string/favorite2_spinner_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -139,10 +126,7 @@
 
     <Spinner
         android:id="@+id/favoirte3_spinner"
-        android:layout_width="160dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="224dp"
-        android:layout_marginTop="16dp"
+        style="@style/CustomizePageFavoriteSpinner"
         android:prompt="@string/favorite3_spinner_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
