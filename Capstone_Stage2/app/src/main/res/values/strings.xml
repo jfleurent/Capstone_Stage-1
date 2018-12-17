@@ -18,6 +18,10 @@
   <string name="name_edittext_hint">Name</string>
   <string name="change_photo_content_description">Change Profile Image</string>
 
+  <!-- Activity_Detail_Restaurant-->
+  <string name="detail_restaurant_distance_title">Distance: </string>
+  <string name="detail_restaurant_price_title">Price: </string>
+
   <!-- Activity_Detail_Category_Favorite-->
   <string name="favorite_fab_content_description">Favorite</string>
   <string name="review_tab_title">Reviews</string>
