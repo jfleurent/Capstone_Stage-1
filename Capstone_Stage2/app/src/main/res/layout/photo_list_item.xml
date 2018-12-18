@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!--TODO figure out way to load images in to layout though view binding-->
 <layout>
   <data>
     <variable
