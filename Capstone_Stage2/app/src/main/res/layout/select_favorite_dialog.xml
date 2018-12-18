@@ -1,38 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--TODO Make a repeatable layout for checkboxes-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
 
   <TextView
+      android:id="@+id/add_to_favorite_title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:padding="@dimen/select_favorite_dialog_title_padding"
       android:text="@string/favorite_dialog_title"
-      android:textSize="32sp"
-      android:padding="16dp"
+      android:textSize="@dimen/select_favorite_dialog_title_text_size"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
   <ListView
       android:id="@+id/checkbox_listview"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/add_to_favorite_title"
       >
   </ListView>
 
-  <RelativeLayout
-      android:layout_width="match_parent"
+  <Button
+      android:id="@+id/ok_button"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      >
+      android:layout_alignParentEnd="true"
+      android:layout_marginBottom="@dimen/select_favorite_dialog_ok_button_margin_bottom"
+      android:layout_marginEnd="@dimen/select_favorite_dialog_ok_button_margin_end"
+      android:layout_marginTop="@dimen/select_favorite_dialog_ok_button_margin_top"
+      android:text="@string/favorite_dialog_ok_button"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/checkbox_listview"
+      style="@style/Base.Widget.AppCompat.Button.Borderless"
+      />
 
-    <Button
-        android:id="@+id/ok_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/Base.Widget.AppCompat.Button.Borderless"
-        android:text="@string/favorite_dialog_ok_button"
-        android:layout_alignParentEnd="true"
-        />
-  </RelativeLayout>
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

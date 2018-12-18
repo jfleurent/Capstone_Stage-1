@@ -160,7 +160,11 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="review_list_item_review_divider_height">1dp</dimen>
   <dimen name="review_list_item_review_divider_margin_top">16dp</dimen>
 
-
-
+  <!--Select_Favorite_Dialog-->
+  <dimen name="select_favorite_dialog_title_padding">16dp</dimen>
+  <dimen name="select_favorite_dialog_title_text_size">32sp</dimen>
+  <dimen name="select_favorite_dialog_ok_button_margin_bottom">8dp</dimen>
+  <dimen name="select_favorite_dialog_ok_button_margin_end">8dp</dimen>
+  <dimen name="select_favorite_dialog_ok_button_margin_top">8dp</dimen>
 
 </resources>
