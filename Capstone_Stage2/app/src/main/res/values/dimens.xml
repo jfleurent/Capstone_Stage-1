@@ -144,6 +144,23 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="restaurant_item_address_text_margin_start">8dp</dimen>
   <dimen name="restaurant_item_image_height">160dp</dimen>
 
+  <!--Review_List_Item-->
+  <dimen name="review_list_item_reviewer_icon_width">48dp</dimen>
+  <dimen name="review_list_item_reviewer_icon_height">48dp</dimen>
+  <dimen name="review_list_item_reviewer_icon_margin_start">16dp</dimen>
+  <dimen name="review_list_item_reviewer_icon_margin_top">16dp</dimen>
+  <dimen name="review_list_item_reviewer_icon_text_size">28sp</dimen>
+  <dimen name="review_list_item_username_text_margin_start">16dp</dimen>
+  <dimen name="review_list_item_username_text_margin_top">8dp</dimen>
+  <dimen name="review_list_item_username_text_size">28sp</dimen>
+  <dimen name="review_list_item_rating_bar_margin_start">16dp</dimen>
+  <dimen name="review_list_item_review_text_width">300dp</dimen>
+  <dimen name="review_list_item_review_text_margin_top">8dp</dimen>
+  <dimen name="review_list_item_review_divider_width">320dp</dimen>
+  <dimen name="review_list_item_review_divider_height">1dp</dimen>
+  <dimen name="review_list_item_review_divider_margin_top">16dp</dimen>
+
+
 
 
 </resources>

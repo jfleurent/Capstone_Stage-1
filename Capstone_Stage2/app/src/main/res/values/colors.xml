@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="unselected_button_color">#ffffff</color>
-    <color name="line_button_background_color">#ffffff</color>
-    <color name="toolbar_title_color">#ffffff</color>
-    <color name="widget_background_color">#ffffff</color>
-    <color name="customize_background_button_color">#707070</color>
-    <color name="round_button_text_color">#ffffff</color>
-    <color name="home_page_fragment_text_color">#ffffff</color>
-    <color name="search_fragment_serach_bar_color">#ffffff</color>
-    <color name="search_fragment_tab_indicator_color">#ffffff</color>
+  <color name="colorPrimary">#008577</color>
+  <color name="colorPrimaryDark">#00574B</color>
+  <color name="colorAccent">#D81B60</color>
+  <color name="unselected_button_color">#ffffff</color>
+  <color name="line_button_background_color">#ffffff</color>
+  <color name="toolbar_title_color">#ffffff</color>
+  <color name="widget_background_color">#ffffff</color>
+  <color name="customize_background_button_color">#707070</color>
+  <color name="round_button_text_color">#ffffff</color>
+  <color name="home_page_fragment_text_color">#ffffff</color>
+  <color name="search_fragment_serach_bar_color">#ffffff</color>
+  <color name="search_fragment_tab_indicator_color">#ffffff</color>
+  <color name="review_list_item_review_text_color">#ffffff</color>
+  <color name="review_list_item_review_divider_color">#d7d7d7</color>
 </resources>
