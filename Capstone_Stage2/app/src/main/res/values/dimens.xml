@@ -91,8 +91,34 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="customize_page_dialog_cancel_button_margin_top">126dp</dimen>
   <dimen name="customize_page_dialog_cancel_button_text_size">16sp</dimen>
 
+  <!--Favorite_Category_Item-->
+  <dimen name="favorite_category_item_imageview_height">160dp</dimen>
+  <dimen name="favorite_category_item_textview_text_size">24sp</dimen>
 
+  <!--Fragment_Favorite_Category_List-->
+  <dimen name="fragment_favorite_category_list_button_width">24dp</dimen>
+  <dimen name="fragment_favorite_category_list_button_height">24dp</dimen>
+  <dimen name="fragment_favorite_category_list_button_margin">8dp</dimen>
 
+  <!--Fragment_Favorite_Category_List-->
+  <dimen name="fragment_home_page_background_height">250dp</dimen>
+  <dimen name="fragment_home_page_menu_button_margin">8dp</dimen>
+  <dimen name="fragment_home_page_profile_image_margin">8dp</dimen>
+  <dimen name="fragment_home_page_profile_image_width">100dp</dimen>
+  <dimen name="fragment_home_page_profile_image_height">100dp</dimen>
+  <dimen name="fragment_home_page_name_text_size">24sp</dimen>
+  <dimen name="fragment_home_page_seen_image_margin_end">8dp</dimen>
+  <dimen name="fragment_home_page_seen_image_margin_start">8dp</dimen>
+  <dimen name="fragment_home_page_seen_text_margin_end">8dp</dimen>
+  <dimen name="fragment_home_page_seen_text_margin_start">8dp</dimen>
+  <dimen name="fragment_home_page_favorite_image_margin_end">124dp</dimen>
+  <dimen name="fragment_home_page_favorite_text_margin_end">132dp</dimen>
+  <dimen name="fragment_home_page_restaurant_list_fragment_margin_bottom">64dp</dimen>
+  <dimen name="fragment_home_page_"></dimen>
+  <dimen name="fragment_home_page_"></dimen>
+  <dimen name="fragment_home_page_"></dimen>
+  <dimen name="fragment_home_page_"></dimen>
+  <dimen name="fragment_home_page_"></dimen>
 
 
 </resources>

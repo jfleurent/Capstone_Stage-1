@@ -9,4 +9,5 @@
     <color name="widget_background_color">#ffffff</color>
     <color name="customize_background_button_color">#707070</color>
     <color name="round_button_text_color">#ffffff</color>
+    <color name="home_page_fragment_text_color">#ffffff</color>
 </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
   <data>
     <variable
         name="user"
@@ -18,14 +18,17 @@
 
   <android.support.constraint.ConstraintLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
       >
+
     <ImageView
         android:id="@+id/profile_backgorund"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="@dimen/fragment_home_page_background_height"
         android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
     <ImageView
@@ -33,10 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_margin="@dimen/fragment_home_page_menu_button_margin"
         android:background="@drawable/ic_menu_button"
         app:layout_constraintBottom_toBottomOf="@+id/profile_backgorund"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,14 +49,11 @@
 
     <ImageView
         android:id="@+id/profile_imageview"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/fragment_home_page_profile_image_width"
+        android:layout_height="@dimen/fragment_home_page_profile_image_height"
         android:layout_below="@id/expanded_menu_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+       android:layout_margin="@dimen/fragment_home_page_profile_image_margin"
         android:background="#000"
         app:layout_constraintBottom_toBottomOf="@+id/profile_backgorund"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,8 +68,8 @@
         android:layout_height="wrap_content"
         android:text="@{user.name}"
         android:textAlignment="center"
-        android:textColor="#fff"
-        android:textSize="24sp"
+        android:textColor="@color/home_page_fragment_text_color"
+        android:textSize="@dimen/fragment_home_page_name_text_size"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -86,7 +83,7 @@
         android:layout_height="wrap_content"
         android:text="@{user.city}"
         android:textAlignment="center"
-        android:textColor="#fff"
+        android:textColor="@color/home_page_fragment_text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,9 +94,9 @@
         android:id="@+id/favorite_title_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Favorites"
+        android:text="@string/fragment_home_favorite_text"
         android:textAlignment="center"
-        android:textColor="#fff"
+        android:textColor="@color/home_page_fragment_text_color"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,7 +109,7 @@
         android:layout_height="wrap_content"
         android:text="@{user.favoritesString}"
         android:textAlignment="center"
-        android:textColor="#fff"
+        android:textColor="@color/home_page_fragment_text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/favorite_title_textview"
@@ -122,22 +119,23 @@
         android:id="@+id/has_seen_imageview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="@dimen/fragment_home_page_seen_image_margin_end"
+        android:layout_marginStart="@dimen/fragment_home_page_seen_image_margin_start"
         android:background="@drawable/eye"
         app:layout_constraintEnd_toStartOf="@+id/favorited_icon"
         app:layout_constraintHorizontal_bias="0.581"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/favorite_list_textview"
         />
+
     <TextView
         android:id="@+id/has_seen_number_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="@dimen/fragment_home_page_seen_text_margin_end"
+        android:layout_marginStart="@dimen/fragment_home_page_seen_text_margin_start"
         android:text="@{String.valueOf(user.seenTotal)}"
-        android:textColor="#fff"
+        android:textColor="@color/home_page_fragment_text_color"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/profile_backgorund"
         app:layout_constraintEnd_toStartOf="@+id/favoried_total_textview"
@@ -150,24 +148,24 @@
         android:id="@+id/favorited_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="124dp"
+        android:layout_marginEnd="@dimen/fragment_home_page_favorite_image_margin_end"
         android:background="@drawable/cards_heart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/favorite_list_textview"
         />
+
     <TextView
         android:id="@+id/favoried_total_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="132dp"
+        android:layout_marginEnd="@dimen/fragment_home_page_favorite_text_margin_end"
         android:text="@{String.valueOf(user.favoriteTotal)}"
-        android:textColor="#fff"
+        android:textColor="@color/home_page_fragment_text_color"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/profile_backgorund"
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <!--TODO Remember the accounting for space ate the bottom-->
     <fragment
         android:id="@+id/restaurant_history_fragment"
         android:name="com.example.jeffr.capstone_stage2.fragment.RestaurantListFragment"
@@ -177,10 +175,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/has_seen_number_textview"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="@dimen/fragment_home_page_restaurant_list_fragment_margin_bottom"
         >
     </fragment>
-
 
   </android.support.constraint.ConstraintLayout>
 

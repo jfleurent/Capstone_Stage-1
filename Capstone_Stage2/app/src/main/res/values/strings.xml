@@ -60,6 +60,7 @@
 
   <!-- Fragment_Home_Page-->
   <string name="fragment_home_option_menu_content_description">Option Menu</string>>
+  <string name="fragment_home_favorite_text">Favorite</string>
 
   <!-- Fragment_Favorite_Category_List-->
   <string name="favorite_category_toolbar_title">Favorites</string>>
