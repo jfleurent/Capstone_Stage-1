@@ -167,4 +167,18 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="select_favorite_dialog_ok_button_margin_end">8dp</dimen>
   <dimen name="select_favorite_dialog_ok_button_margin_top">8dp</dimen>
 
+  <!--Widget_Restaurant_List_Item-->
+  <dimen name="widget_restaurant_list_item_divider_height">1dp</dimen>
+  <dimen name="widget_restaurant_list_item_divider_margin">8dp</dimen>
+  <dimen name="widget_restaurant_list_item_layout_margin_bottom">8dp</dimen>
+  <dimen name="widget_restaurant_list_item_image_width">100dp</dimen>
+  <dimen name="widget_restaurant_list_item_image_height">100dp</dimen>
+  <dimen name="widget_restaurant_list_item_image_margin_top">8dp</dimen>
+  <dimen name="widget_restaurant_list_item_image_margin_end">16dp</dimen>
+  <dimen name="widget_restaurant_list_item_inner_layout_margin_start">8dp</dimen>
+  <dimen name="widget_restaurant_list_item_inner_layout_margin_top">8dp</dimen>
+  <dimen name="widget_restaurant_list_item_title_text_size">24sp</dimen>
+  <dimen name="widget_restaurant_list_item_rating_margin_end">8dp</dimen>
+  <dimen name="widget_restaurant_list_item_price_margin_end">8dp</dimen>
+
 </resources>

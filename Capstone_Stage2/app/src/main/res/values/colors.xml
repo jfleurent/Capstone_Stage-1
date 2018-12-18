@@ -14,4 +14,5 @@
   <color name="search_fragment_tab_indicator_color">#ffffff</color>
   <color name="review_list_item_review_text_color">#ffffff</color>
   <color name="review_list_item_review_divider_color">#d7d7d7</color>
+  <color name="widget_item_divider_color">#5e5e5e</color>
 </resources>
