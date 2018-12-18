@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,236 +8,121 @@
     tools:context=".SignUpActivity"
     >
 
-
-  <EditText
-      android:id="@+id/sign_up_username_edittext"
+  <android.support.constraint.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="8dp"
-      android:layout_marginEnd="24dp"
-      android:layout_marginStart="24dp"
-      android:layout_marginTop="16dp"
-      android:hint="@string/sign_up_username_hint"
-      android:inputType="text"
-      app:layout_constraintBottom_toTopOf="@+id/sign_up_password_edittext"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
+      >
 
-  <EditText
-      android:id="@+id/sign_up_email_edittext"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="16dp"
-      android:layout_marginEnd="24dp"
-      android:layout_marginStart="24dp"
-      android:layout_marginTop="8dp"
-      android:hint="@string/sign_up_email_hint"
-      android:inputType="textEmailAddress"
-      app:layout_constraintBottom_toTopOf="@+id/sign_up_button"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/sign_up_password_edittext"
-      />
+    <EditText
+        android:id="@+id/sign_up_username_edittext"
+        style="@style/LoginSignUpEditText"
+        android:hint="@string/sign_up_username_hint"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
-  <EditText
-      android:id="@+id/sign_up_password_edittext"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="8dp"
-      android:layout_marginEnd="24dp"
-      android:layout_marginStart="24dp"
-      android:layout_marginTop="8dp"
-      android:hint="@string/sign_up_password_hint"
-      android:inputType="textPassword"
-      app:layout_constraintBottom_toTopOf="@+id/sign_up_email_edittext"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/sign_up_username_edittext"
-      />
+    <EditText
+        android:id="@+id/sign_up_email_edittext"
+        style="@style/LoginSignUpEditText"
+        android:hint="@string/sign_up_email_hint"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_password_edittext"
+        />
 
+    <EditText
+        android:id="@+id/sign_up_password_edittext"
+        style="@style/LoginSignUpEditText"
+        android:hint="@string/sign_up_password_hint"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_username_edittext"
+        />
 
-  <Button
-      android:id="@+id/sign_up_button"
-      android:layout_width="150dp"
-      android:layout_height="33dp"
-      android:layout_marginBottom="8dp"
-      android:layout_marginTop="6dp"
-      android:background="@drawable/round_button"
-      android:text="@string/sign_up_button_text"
-      android:textColor="#ffffff"
-      app:layout_constraintBottom_toTopOf="@+id/or_textview"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/sign_up_email_edittext"
-      style="?android:attr/buttonBarButtonStyle"
-      />
+    <Button
+        android:id="@+id/sign_up_button"
+        style="@style/LoginSignUpButton"
+        android:text="@string/sign_up_button_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_email_edittext"
+        />
+    
+    <TextView
+        android:id="@+id/or_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/activity_sign_up_or_text_margin_end"
+        android:layout_marginStart="@dimen/activity_sign_up_or_text_margin_start"
+        android:layout_marginTop="@dimen/activity_sign_up_or_text_margin_top"
+        android:text="@string/sign_up_or_text"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_button"
+        />
 
 
-  <TextView
-      android:id="@+id/or_textview"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="8dp"
-      android:text="@string/sign_up_or_text"
-      android:textAlignment="center"
-      android:textColor="@color/colorPrimary"
-      app:layout_constraintBottom_toTopOf="@+id/sign_up_with_textview"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/sign_up_button"
-      />
+    <TextView
+        android:id="@+id/sign_up_with_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/activity_sign_up_sign_up_text_margin_end"
+        android:layout_marginStart="@dimen/activity_sign_up_sign_up_text_margin_start"
+        android:layout_marginTop="@dimen/activity_sign_up_sign_up_text_margin_top"
+        android:text="@string/sign_with_text"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/or_textview"
+        />
 
+    <Button
+        android:id="@+id/sign_up_google_button"
+        android:layout_width="150dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/line_round_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_with_textview"
+        style="?android:attr/buttonBarButtonStyle"
+        />
 
-  <TextView
-      android:id="@+id/sign_up_with_textview"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="19dp"
-      android:layout_marginEnd="152dp"
-      android:layout_marginStart="153dp"
-      android:layout_marginTop="4dp"
-      android:text="@string/sign_with_text"
-      android:textColor="@color/colorPrimary"
-      app:layout_constraintBottom_toTopOf="@+id/sign_up_google_button"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.0"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/or_textview"
-      />
-  <Button
-      android:id="@+id/sign_up_google_button"
-      android:layout_width="150dp"
-      android:layout_height="32dp"
-      android:layout_marginBottom="8dp"
-      android:layout_marginEnd="117dp"
-      android:layout_marginStart="117dp"
-      android:layout_marginTop="14dp"
-      android:background="@drawable/line_round_button"
-      app:layout_constraintBottom_toTopOf="@+id/sign_up_facebook_button"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/sign_up_with_textview"
-      style="?android:attr/buttonBarButtonStyle"
-      />
+    <Button
+        android:id="@+id/sign_up_facebook_button"
+        android:layout_width="150dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/line_round_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_google_button"
+        style="?android:attr/buttonBarButtonStyle"
+        />
 
-  <TextView
-      android:id="@+id/sign_up_google_textview"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_centerVertical="true"
-      android:layout_marginEnd="8dp"
-      android:layout_marginStart="8dp"
-      android:text="@string/sign_up_google_text"
-      android:textColor="@color/colorPrimary"
-      app:layout_constraintBottom_toBottomOf="@+id/sign_up_google_button"
-      app:layout_constraintEnd_toEndOf="@+id/sign_up_google_button"
-      app:layout_constraintHorizontal_bias="0.21"
-      app:layout_constraintStart_toEndOf="@+id/sign_up_google_imageview"
-      app:layout_constraintTop_toTopOf="@+id/sign_up_google_button"
-      />
+    <Button
+        android:id="@+id/sign_up_twitter_button"
+        android:layout_width="150dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/line_round_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_facebook_button"
+        style="?android:attr/buttonBarButtonStyle"
+        />
 
-  <ImageView
-      android:id="@+id/sign_up_google_imageview"
-      android:layout_width="20dp"
-      android:layout_height="20dp"
-      android:layout_centerVertical="true"
-      android:layout_marginStart="8dp"
-      android:background="#000000"
-      app:layout_constraintBottom_toBottomOf="@+id/sign_up_google_button"
-      app:layout_constraintStart_toStartOf="@+id/sign_up_google_button"
-      app:layout_constraintTop_toTopOf="@+id/sign_up_google_button"
-      />
+  </android.support.constraint.ConstraintLayout>
 
-
-  <Button
-      android:id="@+id/sign_up_facebook_button"
-      android:layout_width="150dp"
-      android:layout_height="32dp"
-      android:layout_marginBottom="8dp"
-      android:layout_marginEnd="117dp"
-      android:layout_marginStart="117dp"
-      android:layout_marginTop="8dp"
-      android:background="@drawable/line_round_button"
-      app:layout_constraintBottom_toTopOf="@+id/sign_up_twitter_button"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/sign_up_google_button"
-      style="?android:attr/buttonBarButtonStyle"
-      />
-
-  <TextView
-      android:id="@+id/sign_up_facebook_textview"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_centerVertical="true"
-      android:layout_marginEnd="8dp"
-      android:layout_marginStart="8dp"
-      android:text="@string/sign_up_facebook_text"
-      android:textColor="@color/colorPrimary"
-      app:layout_constraintBottom_toBottomOf="@+id/sign_up_facebook_button"
-      app:layout_constraintEnd_toEndOf="@+id/sign_up_facebook_button"
-      app:layout_constraintHorizontal_bias="0.18"
-      app:layout_constraintStart_toEndOf="@+id/sign_up_facebook_imageview"
-      app:layout_constraintTop_toTopOf="@+id/sign_up_facebook_button"
-      />
-
-  <ImageView
-      android:id="@+id/sign_up_facebook_imageview"
-      android:layout_width="20dp"
-      android:layout_height="20dp"
-      android:layout_centerVertical="true"
-      android:layout_marginStart="8dp"
-      android:background="#000000"
-      app:layout_constraintBottom_toBottomOf="@+id/sign_up_facebook_button"
-      app:layout_constraintStart_toStartOf="@+id/sign_up_facebook_button"
-      app:layout_constraintTop_toTopOf="@+id/sign_up_facebook_button"
-      />
-
-
-  <Button
-      android:id="@+id/sign_up_twitter_button"
-      android:layout_width="150dp"
-      android:layout_height="32dp"
-      android:layout_marginBottom="53dp"
-      android:layout_marginEnd="117dp"
-      android:layout_marginStart="117dp"
-      android:layout_marginTop="8dp"
-      android:background="@drawable/line_round_button"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/sign_up_facebook_button"
-      style="?android:attr/buttonBarButtonStyle"
-      />
-  <TextView
-      android:id="@+id/sign_up_twitter_textview"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_centerVertical="true"
-      android:layout_marginEnd="8dp"
-      android:layout_marginStart="8dp"
-      android:text="@string/sign_up_twitter_text"
-      android:textColor="@color/colorPrimary"
-      app:layout_constraintBottom_toBottomOf="@+id/sign_up_twitter_button"
-      app:layout_constraintEnd_toEndOf="@+id/sign_up_twitter_button"
-      app:layout_constraintHorizontal_bias="0.26"
-      app:layout_constraintStart_toEndOf="@+id/sign_up_twitter_imageview"
-      app:layout_constraintTop_toTopOf="@+id/sign_up_twitter_button"
-      />
-
-  <ImageView
-      android:id="@+id/sign_up_twitter_imageview"
-      android:layout_width="20dp"
-      android:layout_height="20dp"
-      android:layout_centerVertical="true"
-      android:layout_marginStart="8dp"
-      android:background="#000000"
-      app:layout_constraintBottom_toBottomOf="@+id/sign_up_twitter_button"
-      app:layout_constraintStart_toStartOf="@+id/sign_up_twitter_button"
-      app:layout_constraintTop_toTopOf="@+id/sign_up_twitter_button"
-      />
-
-
-</android.support.constraint.ConstraintLayout>
+</ScrollView>

@@ -8,15 +8,13 @@
     android:layout_height="match_parent"
     tools:context=".NavigationActivity"
     >
+
    <RelativeLayout
        android:id="@+id/fragment_relativelayout"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        >
-
    </RelativeLayout>
-
-
 
   <android.support.design.widget.BottomNavigationView
       android:id="@+id/navigation"
@@ -37,8 +35,8 @@
       android:layout_height="wrap_content"
       app:layout_constraintBottom_toTopOf="@id/navigation"
       app:layout_constraintRight_toRightOf="parent"
-      android:layout_marginBottom="24dp"
-      android:layout_marginRight="24dp"
+      android:layout_marginBottom="@dimen/activity_navigaiton_fab_margin_bottom"
+      android:layout_marginEnd="@dimen/activity_navigation_fab_margin_end"
       android:onClick="fabOnclick"
       />
 
