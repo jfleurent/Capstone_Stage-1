@@ -78,8 +78,18 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="activity_sign_up_sign_up_text_margin_end">8dp</dimen>
   <dimen name="activity_sign_up_sign_up_text_margin_start">8dp</dimen>
 
-
-
+  <!--Customize_Page_Dialog-->
+  <dimen name="customize_page_dialog_title_text_margin_start">16dp</dimen>
+  <dimen name="customize_page_dialog_title_text_padding">16dp</dimen>
+  <dimen name="customize_page_dialog_title_text_size">28sp</dimen>
+  <dimen name="customize_page_dialog_button_margin_start">16dp</dimen>
+  <dimen name="customize_page_dialog_button_margin_top">16dp</dimen>
+  <dimen name="customize_page_dialog_button_padding">8dp</dimen>
+  <dimen name="customize_page_dialog_button_text_size">16sp</dimen>
+  <dimen name="customize_page_dialog_cancel_button_margin_bottom">8dp</dimen>
+  <dimen name="customize_page_dialog_cancel_button_margin_end">16dp</dimen>
+  <dimen name="customize_page_dialog_cancel_button_margin_top">126dp</dimen>
+  <dimen name="customize_page_dialog_cancel_button_text_size">16sp</dimen>
 
 
 

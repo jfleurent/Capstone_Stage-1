@@ -16,6 +16,7 @@ import java.io.InputStream;
 public class CustomizePageActivity extends AppCompatActivity {
   private static final int REQUEST_IMAGE_CAPTURE = 685;
   private static final int REQUEST_PICK_IMAGE = 956;
+  private static String dialogType;
   private ImageView profileImage;
   private ImageView backgroundImage;
 
@@ -43,8 +44,12 @@ public class CustomizePageActivity extends AppCompatActivity {
           e.printStackTrace();
         }
         Bitmap imageBitmap = BitmapFactory.decodeStream(inputStream);
-
-        backgroundImage.setImageBitmap(imageBitmap);
+        if(dialogType.equals("picture")){
+          profileImage.setImageBitmap(imageBitmap);
+        }
+        else{
+          backgroundImage.setImageBitmap(imageBitmap);
+        }
       }
     }
 
@@ -54,12 +59,14 @@ public class CustomizePageActivity extends AppCompatActivity {
     int[] requestCodes = {REQUEST_IMAGE_CAPTURE, REQUEST_PICK_IMAGE};
     switch (view.getId()) {
       case R.id.change_background_button:
+        dialogType= "background";
         ViewDialog.showCustomizePageDialog(this, getResources().getString(R.string.choose_color_text),
-            getResources().getString(R.string.choose_background_text), "background", requestCodes);
+            getResources().getString(R.string.choose_background_text), dialogType, requestCodes);
         break;
       case R.id.change_photo_button:
+        dialogType = "picture";
         ViewDialog.showCustomizePageDialog(this, getResources().getString(R.string.take_photo_text),
-            getResources().getString(R.string.choose_photo_text), "picture", requestCodes);
+            getResources().getString(R.string.choose_photo_text), dialogType, requestCodes);
         break;
       default:
         Toast.makeText(this, "Unknown Button", Toast.LENGTH_SHORT);

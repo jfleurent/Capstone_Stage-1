@@ -53,6 +53,7 @@
         app:layout_constraintStart_toEndOf="@+id/profile_imageview"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.81"
+        android:onClick="showDialog"
         />
     <Button
         android:id="@+id/change_background_button"
