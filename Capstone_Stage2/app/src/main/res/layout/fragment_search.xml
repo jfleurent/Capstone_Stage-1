@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--Programmatically add hint for search view-->
+<!--TODO Programmatically add hint for search view-->
+<!--TODO Figure out how to account for space at the bottom-->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -20,35 +21,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         >
+
       <ImageView
           android:id="@+id/search_bar_background"
           android:layout_width="match_parent"
-          android:layout_height="80dp"
+          android:layout_height="@dimen/fragment_search_search_bar_background_height"
           android:layout_alignParentStart="true"
           android:layout_alignParentTop="true"
-          android:layout_marginStart="0dp"
-          android:layout_marginTop="0dp"
           android:background="@color/colorPrimary"
           />
+
       <SearchView
           android:id="@+id/search_bar"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_margin="16dp"
-          android:background="#fff"
+          android:layout_margin="@dimen/fragment_search_search_bar_margin"
+          android:background="@color/search_fragment_serach_bar_color"
           >
       </SearchView>
+
     </RelativeLayout>
 
     <TextView
         android:id="@+id/sortby_title_textview"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        style="@style/SearchFragmentTitleText"
         android:text="@string/sort_by_title_text"
-        android:textSize="20sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout"
@@ -56,18 +53,12 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/sortby_tablayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        style="@style/SearchFragmentTabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sortby_title_textview"
         app:tabBackground="@drawable/tab_background_color_selector"
-        app:tabIndicatorColor="#fff"
+        app:tabIndicatorColor="@color/search_fragment_tab_indicator_color"
         app:tabTextColor="@color/tab_text_color_selector"
         >
       <android.support.design.widget.TabItem
@@ -98,14 +89,12 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        style="@style/SearchFragmentTabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_bar_layout"
         app:tabBackground="@drawable/tab_background_color_selector"
-        app:tabIndicatorColor="#fff"
+        app:tabIndicatorColor="@color/search_fragment_tab_indicator_color"
         app:tabTextColor="@color/tab_text_color_selector"
         >
 
@@ -126,13 +115,8 @@
 
     <TextView
         android:id="@+id/distance_title_textview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        style="@style/SearchFragmentTitleText"
         android:text="@string/distance_title_text"
-        android:textSize="20sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -141,17 +125,12 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/distance_tablayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        style="@style/SearchFragmentTabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/distance_title_textview"
         app:tabBackground="@drawable/tab_background_color_selector"
-        app:tabIndicatorColor="#fff"
+        app:tabIndicatorColor="@color/search_fragment_tab_indicator_color"
         app:tabTextColor="@color/tab_text_color_selector"
         >
       <android.support.design.widget.TabItem
@@ -187,13 +166,8 @@
 
     <TextView
         android:id="@+id/price_title_textview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        style="@style/SearchFragmentTitleText"
         android:text="@string/price_title_text"
-        android:textSize="20sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/distance_tablayout"
@@ -201,17 +175,12 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/rating_tablayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        style="@style/SearchFragmentTabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rating_title_textview"
         app:tabBackground="@drawable/tab_background_color_selector"
-        app:tabIndicatorColor="#fff"
+        app:tabIndicatorColor="@color/search_fragment_tab_indicator_color"
         app:tabTextColor="@color/tab_text_color_selector"
         >
       <android.support.design.widget.TabItem
@@ -247,30 +216,20 @@
 
     <TextView
         android:id="@+id/rating_title_textview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        style="@style/SearchFragmentTitleText"
         android:text="@string/rating_title_text"
-        android:textSize="20sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/price_tablayout"
         />
     <android.support.design.widget.TabLayout
         android:id="@+id/price_tablayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        style="@style/SearchFragmentTabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/price_title_textview"
         app:tabBackground="@drawable/tab_background_color_selector"
-        app:tabIndicatorColor="#fff"
+        app:tabIndicatorColor="@color/search_fragment_tab_indicator_color"
         app:tabTextColor="@color/tab_text_color_selector"
         >
       <android.support.design.widget.TabItem

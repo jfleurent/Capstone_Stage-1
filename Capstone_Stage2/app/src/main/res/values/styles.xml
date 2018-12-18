@@ -48,4 +48,19 @@
     <item name="android:textSize">@dimen/customize_page_dialog_button_text_size</item>
   </style>
 
+  <style name="SearchFragmentTitleText">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginStart">@dimen/fragment_search_title_text_margin_start</item>
+    <item name="android:layout_marginTop">@dimen/fragment_search_title_text_margin_top</item>
+    <item name="android:textSize">@dimen/fragment_search_title_text_size</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="SearchFragmentTabLayout">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_margin">@dimen/fragment_search_tablayout_margin</item>
+  </style>
+
 </resources>

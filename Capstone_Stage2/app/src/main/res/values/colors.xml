@@ -10,4 +10,6 @@
     <color name="customize_background_button_color">#707070</color>
     <color name="round_button_text_color">#ffffff</color>
     <color name="home_page_fragment_text_color">#ffffff</color>
+    <color name="search_fragment_serach_bar_color">#ffffff</color>
+    <color name="search_fragment_tab_indicator_color">#ffffff</color>
 </resources>

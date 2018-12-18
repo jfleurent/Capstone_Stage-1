@@ -1,185 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragment.HomePageFragment"
+    >
   <data>
     <variable
         name="user"
-        type="com.example.jeffr.capstone_stage2.data.User">
+        type="com.example.jeffr.capstone_stage2.data.User"
+        >
     </variable>
   </data>
 
-
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.HomePageFragment">
-
-  <android.support.constraint.ConstraintLayout
+  <ScrollView
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
       >
 
-    <ImageView
-        android:id="@+id/profile_backgorund"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/fragment_home_page_background_height"
-        android:background="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <ImageView
-        android:id="@+id/expanded_menu_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/fragment_home_page_menu_button_margin"
-        android:background="@drawable/ic_menu_button"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_backgorund"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:contentDescription="@string/fragment_home_option_menu_content_description"
-        />
-
-    <ImageView
-        android:id="@+id/profile_imageview"
-        android:layout_width="@dimen/fragment_home_page_profile_image_width"
-        android:layout_height="@dimen/fragment_home_page_profile_image_height"
-        android:layout_below="@id/expanded_menu_button"
-        android:layout_centerHorizontal="true"
-       android:layout_margin="@dimen/fragment_home_page_profile_image_margin"
-        android:background="#000"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_backgorund"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.095"
-        />
-
-    <TextView
-        android:id="@+id/profile_name_textview"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@{user.name}"
-        android:textAlignment="center"
-        android:textColor="@color/home_page_fragment_text_color"
-        android:textSize="@dimen/fragment_home_page_name_text_size"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_imageview"
-        />
-
-    <TextView
-        android:id="@+id/profile_city_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@{user.city}"
-        android:textAlignment="center"
-        android:textColor="@color/home_page_fragment_text_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_name_textview"
-        />
-
-    <TextView
-        android:id="@+id/favorite_title_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/fragment_home_favorite_text"
-        android:textAlignment="center"
-        android:textColor="@color/home_page_fragment_text_color"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_city_textview"
-        />
-
-    <TextView
-        android:id="@+id/favorite_list_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@{user.favoritesString}"
-        android:textAlignment="center"
-        android:textColor="@color/home_page_fragment_text_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favorite_title_textview"
-        />
-
-    <ImageView
-        android:id="@+id/has_seen_imageview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/fragment_home_page_seen_image_margin_end"
-        android:layout_marginStart="@dimen/fragment_home_page_seen_image_margin_start"
-        android:background="@drawable/eye"
-        app:layout_constraintEnd_toStartOf="@+id/favorited_icon"
-        app:layout_constraintHorizontal_bias="0.581"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favorite_list_textview"
-        />
-
-    <TextView
-        android:id="@+id/has_seen_number_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/fragment_home_page_seen_text_margin_end"
-        android:layout_marginStart="@dimen/fragment_home_page_seen_text_margin_start"
-        android:text="@{String.valueOf(user.seenTotal)}"
-        android:textColor="@color/home_page_fragment_text_color"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_backgorund"
-        app:layout_constraintEnd_toStartOf="@+id/favoried_total_textview"
-        app:layout_constraintHorizontal_bias="0.578"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/has_seen_imageview"
-        />
-
-    <ImageView
-        android:id="@+id/favorited_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/fragment_home_page_favorite_image_margin_end"
-        android:background="@drawable/cards_heart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favorite_list_textview"
-        />
-
-    <TextView
-        android:id="@+id/favoried_total_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/fragment_home_page_favorite_text_margin_end"
-        android:text="@{String.valueOf(user.favoriteTotal)}"
-        android:textColor="@color/home_page_fragment_text_color"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_backgorund"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-
-    <fragment
-        android:id="@+id/restaurant_history_fragment"
-        android:name="com.example.jeffr.capstone_stage2.fragment.RestaurantListFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/has_seen_number_textview"
-        android:layout_marginBottom="@dimen/fragment_home_page_restaurant_list_fragment_margin_bottom"
         >
-    </fragment>
 
-  </android.support.constraint.ConstraintLayout>
+      <ImageView
+          android:id="@+id/profile_backgorund"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/fragment_home_page_background_height"
+          android:background="@color/colorPrimary"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
 
-</ScrollView>
+      <ImageView
+          android:id="@+id/expanded_menu_button"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentEnd="true"
+          android:layout_margin="@dimen/fragment_home_page_menu_button_margin"
+          android:background="@drawable/ic_menu_button"
+          android:contentDescription="@string/fragment_home_option_menu_content_description"
+          app:layout_constraintBottom_toBottomOf="@+id/profile_backgorund"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="1.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.0"
+          />
+
+      <ImageView
+          android:id="@+id/profile_imageview"
+          android:layout_width="@dimen/fragment_home_page_profile_image_width"
+          android:layout_height="@dimen/fragment_home_page_profile_image_height"
+          android:layout_below="@id/expanded_menu_button"
+          android:layout_centerHorizontal="true"
+          android:layout_margin="@dimen/fragment_home_page_profile_image_margin"
+          android:background="#000"
+          app:layout_constraintBottom_toBottomOf="@+id/profile_backgorund"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.095"
+          />
+
+      <TextView
+          android:id="@+id/profile_name_textview"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@{user.name}"
+          android:textAlignment="center"
+          android:textColor="@color/home_page_fragment_text_color"
+          android:textSize="@dimen/fragment_home_page_name_text_size"
+          android:textStyle="bold"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/profile_imageview"
+          />
+
+      <TextView
+          android:id="@+id/profile_city_textview"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@{user.city}"
+          android:textAlignment="center"
+          android:textColor="@color/home_page_fragment_text_color"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/profile_name_textview"
+          />
+
+      <TextView
+          android:id="@+id/favorite_title_textview"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/fragment_home_favorite_text"
+          android:textAlignment="center"
+          android:textColor="@color/home_page_fragment_text_color"
+          android:textStyle="bold"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/profile_city_textview"
+          />
+
+      <TextView
+          android:id="@+id/favorite_list_textview"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@{user.favoritesString}"
+          android:textAlignment="center"
+          android:textColor="@color/home_page_fragment_text_color"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/favorite_title_textview"
+          />
+
+      <ImageView
+          android:id="@+id/has_seen_imageview"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/fragment_home_page_seen_image_margin_end"
+          android:layout_marginStart="@dimen/fragment_home_page_seen_image_margin_start"
+          android:background="@drawable/eye"
+          app:layout_constraintEnd_toStartOf="@+id/favorited_icon"
+          app:layout_constraintHorizontal_bias="0.581"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/favorite_list_textview"
+          />
+
+      <TextView
+          android:id="@+id/has_seen_number_textview"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/fragment_home_page_seen_text_margin_end"
+          android:layout_marginStart="@dimen/fragment_home_page_seen_text_margin_start"
+          android:text="@{String.valueOf(user.seenTotal)}"
+          android:textColor="@color/home_page_fragment_text_color"
+          android:textStyle="bold"
+          app:layout_constraintBottom_toBottomOf="@+id/profile_backgorund"
+          app:layout_constraintEnd_toStartOf="@+id/favoried_total_textview"
+          app:layout_constraintHorizontal_bias="0.578"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/has_seen_imageview"
+          />
+
+      <ImageView
+          android:id="@+id/favorited_icon"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/fragment_home_page_favorite_image_margin_end"
+          android:background="@drawable/cards_heart"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/favorite_list_textview"
+          />
+
+      <TextView
+          android:id="@+id/favoried_total_textview"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/fragment_home_page_favorite_text_margin_end"
+          android:text="@{String.valueOf(user.favoriteTotal)}"
+          android:textColor="@color/home_page_fragment_text_color"
+          android:textStyle="bold"
+          app:layout_constraintBottom_toBottomOf="@+id/profile_backgorund"
+          app:layout_constraintEnd_toEndOf="parent"
+          />
+
+      <fragment
+          android:id="@+id/restaurant_history_fragment"
+          android:name="com.example.jeffr.capstone_stage2.fragment.RestaurantListFragment"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/fragment_home_page_restaurant_list_fragment_margin_bottom"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/has_seen_number_textview"
+          >
+      </fragment>
+
+    </android.support.constraint.ConstraintLayout>
+
+  </ScrollView>
 </layout>
