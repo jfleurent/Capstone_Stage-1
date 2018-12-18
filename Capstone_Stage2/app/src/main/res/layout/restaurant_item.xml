@@ -20,65 +20,78 @@
     <ImageView
         android:id="@+id/resturant_imageview"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="@dimen/restaurant_item_image_height"
         android:background="#3a6091"
         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/restaurant_name_textview"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="@dimen/restaurant_item_title_text_margin_start"
+        android:layout_marginTop="@dimen/restaurant_item_title_text_margin_top"
+        android:text="@{obj.name}"
+        android:textSize="@dimen/restaurant_item_title_text_size"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resturant_imageview"
-        app:layout_constraintVertical_bias="0.025"
-        tools:layout_editor_absoluteX="0dp"
-        >
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@{obj.name}"
-          android:textSize="24sp"
-          android:textStyle="bold"
-          />
+        />
 
-      <LinearLayout
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
 
-          >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:text="@{String.valueOf(obj.rating)}"
-            />
-        <RatingBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:rating="@{obj.rating}"
-            style="?android:attr/ratingBarStyleSmall"
-            />
+    <TextView
+        android:id="@+id/restaurant_rating_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/restaurant_item_rating_text_margin_start"
+        android:text="@{String.valueOf(obj.rating)}"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_name_textview"
+        />
 
-      </LinearLayout>
+    <RatingBar
+        android:id="@+id/restaurant_rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rating="@{obj.rating}"
+        app:layout_constraintStart_toEndOf="@+id/price_title_textview"
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_name_textview"
+        style="?android:attr/ratingBarStyleSmall"
+        />
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@{String.valueOf(obj.price)}"
-          />
+    <TextView
+        android:id="@+id/price_title_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/restaurant_item_price_title_margin_start"
+        android:text="@string/restaurant_item_price_title_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_rating_textview"
+        />
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@{obj.address}"
-          />
+    <TextView
+        android:id="@+id/price_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/restaurant_item_price_text_margin_start"
+        android:layout_marginTop="@dimen/restaurant_item_price_text_margin_top"
+        android:text="@{String.valueOf(obj.price)}"
+        app:layout_constraintStart_toEndOf="@+id/price_title_textview"
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_rating_bar"
+        />
 
-    </LinearLayout>
+    <TextView
+        android:id="@+id/restaurant_address_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/restaurant_item_address_text_margin_bottom"
+        android:layout_marginStart="@dimen/restaurant_item_address_text_margin_start"
+        android:text="@{obj.address}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/price_title_textview"
+        />
+
 
   </android.support.constraint.ConstraintLayout>
 </layout>

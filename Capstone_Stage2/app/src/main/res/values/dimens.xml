@@ -123,7 +123,7 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="fragment_search_title_text_size">20sp</dimen>
   <dimen name="fragment_search_tablayout_margin">8dp</dimen>
 
-  <!--Fragment_Search-->
+  <!--Restaurant_Category_Dialog-->
   <dimen name="restaurant_category_dialog_title_text_padding">8dp</dimen>
   <dimen name="restaurant_category_dialog_title_text_size">28sp</dimen>
   <dimen name="restaurant_category_dialog_edit_text_width">300dp</dimen>
@@ -132,6 +132,17 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="restaurant_category_dialog_ok_button_margin_top">16dp</dimen>
   <dimen name="restaurant_category_dialog_cancel_button_margin_top">16dp</dimen>
 
+  <!--Restaurant_Item-->
+  <dimen name="restaurant_item_title_text_margin_start">8dp</dimen>
+  <dimen name="restaurant_item_title_text_margin_top">16dp</dimen>
+  <dimen name="restaurant_item_title_text_size">24sp</dimen>
+  <dimen name="restaurant_item_rating_text_margin_start">8dp</dimen>
+  <dimen name="restaurant_item_price_title_margin_start">8dp</dimen>
+  <dimen name="restaurant_item_price_text_margin_start">8dp</dimen>
+  <dimen name="restaurant_item_price_text_margin_top">4dp</dimen>
+  <dimen name="restaurant_item_address_text_margin_bottom">8dp</dimen>
+  <dimen name="restaurant_item_address_text_margin_start">8dp</dimen>
+  <dimen name="restaurant_item_image_height">160dp</dimen>
 
 
 

@@ -90,6 +90,8 @@
   <string name="three_rating">3.0</string>
   <string name="four_rating">4.0</string>
 
+  <!-- Restaurant_Item-->
+  <string name="restaurant_item_price_title_text">Price</string>
 
   <!-- Restaurant_Category_Dialog-->
   <string name="restaurant_category_dialog_title">Create New Category</string>
