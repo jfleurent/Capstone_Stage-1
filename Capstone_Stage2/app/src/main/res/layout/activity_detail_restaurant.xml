@@ -40,6 +40,7 @@
           android:layout_marginTop="@dimen/detail_restaurant_fab_margin_top"
           android:contentDescription="@string/favorite_fab_content_description"
           android:onClick="favoriteOnClick"
+          android:src="@drawable/ic_favorite"
           />
 
       <android.support.constraint.ConstraintLayout

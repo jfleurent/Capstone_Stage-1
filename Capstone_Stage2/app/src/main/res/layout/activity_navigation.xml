@@ -38,6 +38,7 @@
       android:layout_marginBottom="@dimen/activity_navigaiton_fab_margin_bottom"
       android:layout_marginEnd="@dimen/activity_navigation_fab_margin_end"
       android:onClick="fabOnclick"
+
       />
 
 </android.support.constraint.ConstraintLayout>

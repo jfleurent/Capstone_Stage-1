@@ -34,6 +34,7 @@ public class RestaurantListFragment extends Fragment implements RecyclerViewOnCl
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
       View rootView = inflater.inflate(R.layout.fragment_restaurant_list, container, false);
+    setHasOptionsMenu(true);
     RecyclerView recyclerView = rootView.findViewById(R.id.restaurant_recyclerview);
     List<Restaurant> restaurants = new ArrayList<>();
     restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
