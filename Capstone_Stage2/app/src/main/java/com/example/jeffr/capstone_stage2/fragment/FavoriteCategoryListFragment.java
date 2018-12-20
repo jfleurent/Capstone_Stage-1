@@ -40,27 +40,12 @@ public class FavoriteCategoryListFragment extends Fragment implements RecyclerVi
       Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.fragment_favorite_category_list, container, false);
     RecyclerView recyclerView = rootView.findViewById(R.id.category_list_recyclerview);
-    List<FavoriteCategory> favoriteCategories = new ArrayList<>();
-    List<Restaurant> restaurants = new ArrayList<>();
-    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
-    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
-    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
-    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
-    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
-    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
-    favoriteCategories.add(new FavoriteCategory("Pizza",restaurants));
-    favoriteCategories.add(new FavoriteCategory("Pizza",restaurants));
-    favoriteCategories.add(new FavoriteCategory("Pizza",restaurants));
-    favoriteCategories.add(new FavoriteCategory("Pizza",restaurants));
-    favoriteCategories.add(new FavoriteCategory("Pizza",restaurants));
-    favoriteCategories.add(new FavoriteCategory("Pizza",restaurants));
-    favoriteCategories.add(new FavoriteCategory("Pizza",restaurants));
 
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
     recyclerView.setLayoutManager(gridLayoutManager);
     recyclerView.setItemAnimator(new DefaultItemAnimator());
     recyclerView.setNestedScrollingEnabled(false);
-    recyclerView.setAdapter(new SimpleRecyclerViewAdapter<>(favoriteCategories,R.layout.favorite_category_item, this));
+    //recyclerView.setAdapter(new SimpleRecyclerViewAdapter<>(favoriteCategories,R.layout.favorite_category_item, this));
     return rootView;
   }
 

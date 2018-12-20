@@ -23,11 +23,16 @@
         android:layout_height="wrap_content"
         >
 
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/detail_restaurant_toolbar_height"
+        app:imageUrl="@{restaurant.imageUrl}"
+        />
+
       <android.support.v7.widget.Toolbar
           android:id="@+id/restaurant_toolbar"
           android:layout_width="match_parent"
           android:layout_height="@dimen/detail_restaurant_toolbar_height"
-          android:background="#62be93"
           >
       </android.support.v7.widget.Toolbar>
 

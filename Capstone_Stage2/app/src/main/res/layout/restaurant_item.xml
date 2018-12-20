@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/restaurant_item_image_height"
         android:background="#3a6091"
+        app:imageUrl="@{obj.imageUrl}"
         />
 
 

@@ -2,6 +2,7 @@ package com.example.jeffr.capstone_stage2.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import com.example.jeffr.capstone_stage2.adapters.RecyclerViewOnClick;
 import com.example.jeffr.capstone_stage2.adapters.SimpleRecyclerViewAdapter;
 import com.example.jeffr.capstone_stage2.data.Restaurant;
 import com.example.jeffr.capstone_stage2.databinding.ActivityDetailRestaurantBinding;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,23 +38,19 @@ public class RestaurantListFragment extends Fragment implements RecyclerViewOnCl
       View rootView = inflater.inflate(R.layout.fragment_restaurant_list, container, false);
     setHasOptionsMenu(true);
     RecyclerView recyclerView = rootView.findViewById(R.id.restaurant_recyclerview);
-    List<Restaurant> restaurants = new ArrayList<>();
-    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
-    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
-    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
-    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
-    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
-    restaurants.add(new Restaurant("Pizza Place",3,3,"8512 Avonshire RD, Orlando, FL 32817",3));
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     recyclerView.setItemAnimator(new DefaultItemAnimator());
     recyclerView.setNestedScrollingEnabled(false);
-    recyclerView.setAdapter(new SimpleRecyclerViewAdapter(restaurants,R.layout.restaurant_item, this));
+    if(getArguments() != null){
+     List<Restaurant> restaurants = (ArrayList<Restaurant>) getArguments().get("Restaurants");
+      recyclerView.setAdapter(new SimpleRecyclerViewAdapter(restaurants,R.layout.restaurant_item, this));
+    }
     return rootView;
   }
 
   @Override public void rowSelected(Object obj) {
     Intent intent = new Intent(getActivity(),DetailRestaurantActivity.class);
-    intent.putExtra("Restaurant", (Restaurant)obj);
+    intent.putExtra("Restaurant", (Serializable) obj);
     startActivity(intent);
   }
 }

@@ -9,10 +9,11 @@
     android:id="@+id/search_results_activity"
     >
 
-  <fragment
-      android:id="@+id/restaurant_list_fragment"
-      android:name="com.example.jeffr.capstone_stage2.fragment.RestaurantListFragment"
+  <RelativeLayout
+      android:id="@+id/fragment_relativelayout"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
+      android:layout_height="match_parent"
+      >
+  </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
