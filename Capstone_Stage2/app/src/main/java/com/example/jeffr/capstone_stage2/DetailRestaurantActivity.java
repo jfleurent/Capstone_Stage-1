@@ -1,6 +1,8 @@
 package com.example.jeffr.capstone_stage2;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +38,13 @@ public class DetailRestaurantActivity extends AppCompatActivity {
 
   public  void favoriteOnClick(View view){
     ViewDialog.showSelectFavoriteDialog(this);
+  }
+
+  public void directionsOnClick(View view) {
+    Uri gmmIntentUri = Uri.parse("google.navigation:q="+restaurant.getLatitude()+","+restaurant.getLongitude());
+    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+    mapIntent.setPackage("com.google.android.apps.maps");
+    startActivity(mapIntent);
   }
 
 }

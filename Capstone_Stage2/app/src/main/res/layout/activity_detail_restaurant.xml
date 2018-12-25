@@ -51,7 +51,7 @@
       <android.support.constraint.ConstraintLayout
           android:id="@+id/restaurant_info"
           android:layout_width="match_parent"
-          android:layout_height="@dimen/detail_restaurant_constraint_layout_height"
+          android:layout_height="wrap_content"
           android:layout_below="@id/restaurant_toolbar"
           android:background="#7e7e7e"
           android:orientation="vertical"
@@ -139,11 +139,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/detail_restaurant_distance_margin_start"
-            android:text="@{String.valueOf(restaurant.distance)}"
+            android:text="@{restaurant.distanceString}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/distance_title_textview"
             app:layout_constraintTop_toBottomOf="@+id/rating_number_textview"
             />
+
+
+          <Button
+              android:id="@+id/directions_button"
+              android:layout_width="wrap_content"
+              android:layout_height="@dimen/detail_restaurant_directions_icon_height"
+              android:layout_marginStart="@dimen/detail_restaurant_directions_button_margin_start"
+              android:text="@string/detail_restuarant_direction_button_text"
+              android:textAllCaps="false"
+              android:background="@android:color/transparent"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintStart_toEndOf="@+id/distance_textview"
+              app:layout_constraintTop_toBottomOf="@+id/restaurant_rating_bar"
+              android:onClick="directionsOnClick"/>
+
+        <ImageView
+            android:id="@+id/directions_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_directions"
+            android:onClick="directionsOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/directions_button"
+            app:layout_constraintTop_toBottomOf="@+id/restaurant_rating_bar" />
       </android.support.constraint.ConstraintLayout>
 
       <android.support.design.widget.TabLayout

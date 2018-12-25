@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--TODO Programmatically add hint for search view-->
 <!--TODO Figure out how to account for space at the bottom-->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -31,14 +30,15 @@
           android:background="@color/colorPrimary"
           />
 
-      <SearchView
+      <EditText
           android:id="@+id/search_bar"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
+          android:layout_height="@dimen/fragment_search_search_bar_height"
           android:layout_margin="@dimen/fragment_search_search_bar_margin"
           android:background="@color/search_fragment_serach_bar_color"
-          >
-      </SearchView>
+          android:hint="@string/search_bar_hint_text"
+          android:singleLine="true"
+          />
 
     </RelativeLayout>
 

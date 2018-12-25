@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Restaurant implements Serializable {
+public class Restaurant implements Serializable, Comparable<Restaurant> {
 
   private  String imageUrl;
   private String name;
@@ -18,18 +18,23 @@ public class Restaurant implements Serializable {
   private String price;
   private String address;
   private float distance;
+  private float latitude;
+  private float longitude;
+  private String distanceString;
 
   //TODO change when working with the database
   private List<Integer> photos;
 
-  public Restaurant(String imageUrl, String name, float rating, String price, String address,
-      float distance) {
+  public Restaurant(String imageUrl, String name, float rating, String price, String address, float distance, float latitude, float longitude) {
     this.imageUrl = imageUrl;
     this.name = name;
     this.rating = rating;
     this.price = price;
     this.address = address;
     this.distance = distance;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.distanceString = String.format("%.1f mi", distance);
 
     //TODO Remove when database is added
     photos = new ArrayList<>();
@@ -39,6 +44,26 @@ public class Restaurant implements Serializable {
     photos.add(R.drawable.gary);
     photos.add(R.drawable.gary);
     photos.add(R.drawable.gary);
+  }
+
+  public float getLatitude() {
+    return latitude;
+  }
+
+  public String getDistanceString() {
+    return distanceString;
+  }
+
+  public void setLatitude(float latitude) {
+    this.latitude = latitude;
+  }
+
+  public float getLongitude() {
+    return longitude;
+  }
+
+  public void setLongitude(float longitude) {
+    this.longitude = longitude;
   }
 
   public String getImageUrl() {
@@ -99,12 +124,18 @@ public class Restaurant implements Serializable {
 
   @BindingAdapter({"bind:imageUrl"})
   public static void loadImage(ImageView view, String imageUrl) {
+    if(!imageUrl.equals(""))
     Picasso.get()
         .load(imageUrl)
         .placeholder(R.drawable.gary)
+            .error(R.drawable.gary)
         .fit()
         .into(view);
   }
 
 
+  @Override
+  public int compareTo(Restaurant restaurant) {
+    return this.price.length() - restaurant.price.length();
+  }
 }

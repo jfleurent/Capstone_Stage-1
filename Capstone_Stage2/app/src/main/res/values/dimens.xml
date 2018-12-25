@@ -34,9 +34,9 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="detail_restaurant_toolbar_height">200dp</dimen>
   <dimen name="detail_restaurant_fab_margin_end">32dp</dimen>
   <dimen name="detail_restaurant_fab_margin_top">180dp</dimen>
-  <dimen name="detail_restaurant_constraint_layout_height">100dp</dimen>
+  <dimen name="detail_restaurant_constraint_layout_height">140dp</dimen>
   <dimen name="detail_restaurant_title_text_margin_start">16dp</dimen>
-  <dimen name="detail_restaurant_title_text_margin_top">8dp</dimen>
+  <dimen name="detail_restaurant_title_text_margin_top">40dp</dimen>
   <dimen name="detail_restaurant_title_text_size">24sp</dimen>
   <dimen name="detail_restaurant_rating_text_margin_start">16dp</dimen>
   <dimen name="detail_restaurant_rating_bar_margin_start">16dp</dimen>
@@ -45,6 +45,12 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="detail_restaurant_distance_title_margin_start">32dp</dimen>
   <dimen name="detail_restaurant_price_title_margin_start">16dp</dimen>
   <dimen name="detail_restaurant_price_margin_start">8dp</dimen>
+  <dimen name="detail_restaurant_directions_button_width">100dp</dimen>
+  <dimen name="detail_restaurant_directions_button_height">40dp</dimen>
+  <dimen name="detail_restaurant_directions_button_margin_start">16dp</dimen>
+  <dimen name="detail_restaurant_directions_icon_width">32dp</dimen>
+  <dimen name="detail_restaurant_directions_icon_height">32dp</dimen>
+  <dimen name="detail_restaurant_directions_icon_margin_start">8dp</dimen>
 
   <!--Activity_Main-->
   <dimen name="activity_main_toolbar_height">160dp</dimen>
@@ -77,6 +83,9 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="activity_sign_up_sign_up_text_margin_top">8dp</dimen>
   <dimen name="activity_sign_up_sign_up_text_margin_end">8dp</dimen>
   <dimen name="activity_sign_up_sign_up_text_margin_start">8dp</dimen>
+
+  <!--Activity_Search_Result-->
+  <dimen name="activity_search_result_no_reults_text_size">32sp</dimen>
 
   <!--Customize_Page_Dialog-->
   <dimen name="customize_page_dialog_title_text_margin_start">16dp</dimen>
@@ -122,6 +131,7 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="fragment_search_title_text_margin_top">8dp</dimen>
   <dimen name="fragment_search_title_text_size">20sp</dimen>
   <dimen name="fragment_search_tablayout_margin">8dp</dimen>
+  <dimen name="fragment_search_search_bar_height">48dp</dimen>
 
   <!--Restaurant_Category_Dialog-->
   <dimen name="restaurant_category_dialog_title_text_padding">8dp</dimen>

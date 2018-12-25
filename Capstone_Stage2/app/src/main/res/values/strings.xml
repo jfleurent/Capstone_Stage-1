@@ -22,6 +22,7 @@
   <!-- Activity_Detail_Restaurant-->
   <string name="detail_restaurant_distance_title">Distance: </string>
   <string name="detail_restaurant_price_title">Price: </string>
+  <string name="detail_restuarant_direction_button_text">Directions</string>
 
   <!-- Activity_Detail_Category_Favorite-->
   <string name="favorite_fab_content_description">Favorite</string>
@@ -38,6 +39,9 @@
   <string name="main_google_text">Google</string>
   <string name="main_facebook_text">Facebook</string>
   <string name="main_twitter_text">Twitter</string>
+
+  <!-- Activity_Search_Results-->
+  <string name="activity_search_results_no_results_test">No Results Found</string>
 
   <!-- Activity_Sign_Up-->
   <string name="sign_up_username_hint">Username</string>
@@ -90,6 +94,7 @@
   <string name="two_rating">2.0</string>
   <string name="three_rating">3.0</string>
   <string name="four_rating">4.0</string>
+  <string name="search_bar_hint_text">Restaurant Type</string>
 
   <!-- Restaurant_Item-->
   <string name="restaurant_item_price_title_text">Price</string>
