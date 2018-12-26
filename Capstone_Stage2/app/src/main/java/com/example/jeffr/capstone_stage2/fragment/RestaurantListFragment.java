@@ -17,6 +17,11 @@ import com.example.jeffr.capstone_stage2.adapters.RecyclerViewOnClick;
 import com.example.jeffr.capstone_stage2.adapters.SimpleRecyclerViewAdapter;
 import com.example.jeffr.capstone_stage2.data.Restaurant;
 import com.example.jeffr.capstone_stage2.databinding.ActivityDetailRestaurantBinding;
+
+
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.places.Places;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +42,7 @@ public class RestaurantListFragment extends Fragment implements RecyclerViewOnCl
       Bundle savedInstanceState) {
       View rootView = inflater.inflate(R.layout.fragment_restaurant_list, container, false);
     setHasOptionsMenu(true);
+
     RecyclerView recyclerView = rootView.findViewById(R.id.restaurant_recyclerview);
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     recyclerView.setItemAnimator(new DefaultItemAnimator());

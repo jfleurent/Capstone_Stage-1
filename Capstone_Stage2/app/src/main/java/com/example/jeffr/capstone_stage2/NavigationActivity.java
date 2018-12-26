@@ -68,25 +68,26 @@ public class NavigationActivity extends AppCompatActivity {
         fab.setImageResource(R.drawable.ic_edit_profile);
         Bundle bundle = new Bundle();
         String[] favorites = {"Mexican", "Italian", "Polish"};
-        bundle.putSerializable("User",
-                new User("Tomas Maxx", "Fort Myers, Florida", favorites, 33, 54));
+        bundle.putSerializable("User", new User("Tomas Maxx", "Fort Myers, "
+                + "Florida", favorites, 33, 54));
         fragment.setArguments(bundle);
-        manager.beginTransaction()
-                .replace(R.id.fragment_relativelayout, fragment, fragment.getTag())
-                .commit();
+        manager.beginTransaction().replace(R.id.fragment_relativelayout,
+                fragment, fragment.getTag()).commit();
         BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(new NavigationListener());
+        navigation.setOnNavigationItemSelectedListener(new NavigationListener
+                ());
 
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission
+                .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest
+                .permission.ACCESS_COARSE_LOCATION) != PackageManager
+                .PERMISSION_GRANTED) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        LOCATION_PERMISSION);
+                requestPermissions(new String[]{Manifest.permission
+                        .ACCESS_FINE_LOCATION}, LOCATION_PERMISSION);
             }
 
             return;
@@ -106,11 +107,12 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     private void search() {
-        final Intent intent = new Intent(this,SearchResultsActivity.class);
+        final Intent intent = new Intent(this, SearchResultsActivity.class);
         YelpFusionApiFactory apiFactory = new YelpFusionApiFactory();
         YelpFusionApi yelpFusionApi = null;
         try {
-            yelpFusionApi = apiFactory.createAPI(getResources().getString(R.string.yelp_api_keu));
+            yelpFusionApi = apiFactory.createAPI(getResources().getString(R
+                    .string.yelp_api_keu));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -118,19 +120,19 @@ public class NavigationActivity extends AppCompatActivity {
         Map<String, String> params = new HashMap<>();
 
         //Gets params for category entered by user in search bar
-        String search = ((SearchFragment) fragment).getSearchText().getText().toString().toLowerCase();
-        for(String category : loadCategoriesFromRaw()){
-            if(category.contains(search) && !search.equals("")){
+        String search = ((SearchFragment) fragment).getSearchText().getText()
+                .toString().toLowerCase();
+        for (String category : loadCategoriesFromRaw()) {
+            if (category.contains(search) && !search.equals("")) {
                 params.put("categories", category);
-                Timber.d("Categories: "+category);
+                Timber.d("Categories: " + category);
                 break;
             }
         }
 
 
-
         //If search is not apart of categories displays message in next activity
-        if(!search.equals("") && params.get("categories") == null){
+        if (!search.equals("") && params.get("categories") == null) {
             startActivity(intent);
             return;
         }
@@ -138,9 +140,10 @@ public class NavigationActivity extends AppCompatActivity {
         params.put("latitude", String.valueOf(location.getLatitude()));
         params.put("longitude", String.valueOf(location.getLongitude()));
         params.put("limit", "40");
-        params.put("radius", String.valueOf(fragment.getArguments().getInt("Distance")));
+        params.put("radius", String.valueOf(fragment.getArguments().getInt
+                ("Distance")));
         params.put("price", fragment.getArguments().getString("Price"));
-        if(!fragment.getArguments().getString("Sort").equals("price"))
+        if (!fragment.getArguments().getString("Sort").equals("price"))
             params.put("sort_by", fragment.getArguments().getString("Sort"));
 
         Timber.d(params.toString());
@@ -148,14 +151,18 @@ public class NavigationActivity extends AppCompatActivity {
         Call<SearchResponse> call = yelpFusionApi.getBusinessSearch(params);
         call.enqueue(new Callback<SearchResponse>() {
             @Override
-            public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
+            public void onResponse(Call<SearchResponse> call,
+                                   Response<SearchResponse> response) {
                 SearchResponse searchResponse = response.body();
-                ArrayList<Restaurant> queriedRestaurants = convertBusinesses(searchResponse.getBusinesses());
+                ArrayList<Restaurant> queriedRestaurants = convertBusinesses
+                        (searchResponse.getBusinesses());
                 if (fragment.getArguments().getInt("Amount") == 0) {
                     queriedRestaurants = randomizeResult(queriedRestaurants);
                 } else {
-                    queriedRestaurants = filterByRating(queriedRestaurants, fragment.getArguments().getInt("Rating"));
-                    if(fragment.getArguments().getString("Sort").equals("price"))
+                    queriedRestaurants = filterByRating(queriedRestaurants,
+                            fragment.getArguments().getInt("Rating"));
+                    if (fragment.getArguments().getString("Sort").equals
+                            ("price"))
                         Collections.sort(queriedRestaurants);
                 }
                 intent.putExtra("Restaurants", queriedRestaurants);
@@ -170,12 +177,12 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[]
+            permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case LOCATION_PERMISSION: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] ==
+                        PackageManager.PERMISSION_GRANTED) {
 
                 } else {
                     Timber.d("Permission Denied");
@@ -188,23 +195,23 @@ public class NavigationActivity extends AppCompatActivity {
     private ArrayList<Restaurant> convertBusinesses(List<Business> businesses) {
         ArrayList<Restaurant> restaurants = new ArrayList<>();
         for (Business business : businesses) {
-            restaurants.add(
-                    new Restaurant(
-                            business.getImageUrl(),
-                            business.getName(),
-                            (float) business.getRating(),
-                            business.getPrice(),
-                            String.format("%s %s, %s %s",
-                            business.getLocation().getAddress1(),business.getLocation().getCity(),
-                            business.getLocation().getState(), business.getLocation().getZipCode()),
-                            Math.round((business.getDistance()/ 1609.344)*10)/10,
-                            (float) business.getCoordinates().getLatitude(),
-                            (float) business.getCoordinates().getLongitude()));
+            restaurants.add(new Restaurant(business.getImageUrl(), business
+                    .getName(), (float) business.getRating(), business
+                    .getPrice(), String.format("%s %s, %s %s", business
+                    .getLocation().getAddress1(), business.getLocation()
+                    .getCity(), business.getLocation().getState(), business
+                    .getLocation().getZipCode()), Math.round((business
+                    .getDistance() / 1609.344) * 10) / 10, (float) business
+                    .getCoordinates().getLatitude(), (float) business
+                    .getCoordinates().getLongitude()));
         }
         return restaurants;
     }
 
-    private ArrayList<Restaurant> filterByRating(ArrayList<Restaurant> restaurants, int rating) {
+    private ArrayList<Restaurant> filterByRating(ArrayList<Restaurant>
+                                                         restaurants, int
+            rating) {
+
         ArrayList<Restaurant> filteredRestaurants = new ArrayList<>();
         if (rating == 0) {
             return restaurants;
@@ -218,7 +225,8 @@ public class NavigationActivity extends AppCompatActivity {
         }
     }
 
-    private ArrayList<Restaurant> randomizeResult(ArrayList<Restaurant> restaurants) {
+    private ArrayList<Restaurant> randomizeResult(ArrayList<Restaurant>
+                                                          restaurants) {
         if (restaurants.size() == 0) {
             return restaurants;
         }
@@ -233,9 +241,8 @@ public class NavigationActivity extends AppCompatActivity {
         List<String> categories = new ArrayList<>();
         String json = null;
         try {
-            InputStream is = getResources()
-                    .openRawResource(getResources()
-                            .getIdentifier("categories","raw",getPackageName()));
+            InputStream is = getResources().openRawResource(getResources()
+                    .getIdentifier("categories", "raw", getPackageName()));
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
@@ -247,19 +254,18 @@ public class NavigationActivity extends AppCompatActivity {
         }
         try {
             JSONArray jsonArray = new JSONArray(json);
-            for (int i = 0; i < jsonArray.length(); i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 try {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    String parentCategory = jsonObject.getJSONArray("parents").getString(0);
-                    if(parentCategory.equals("restaurants")
-                            || parentCategory.equals("bar")
-                            || parentCategory.equals("caribbean")
-                            || parentCategory.equals("food")
-                            || parentCategory.equals("nightlife")){
+                    String parentCategory = jsonObject.getJSONArray
+                            ("parents").getString(0);
+                    if (parentCategory.equals("restaurants") ||
+                            parentCategory.equals("bar") || parentCategory
+                            .equals("caribbean") || parentCategory.equals
+                            ("food") || parentCategory.equals("nightlife")) {
                         categories.add(jsonObject.getString("alias"));
                     }
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -270,8 +276,8 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
 
-    private class NavigationListener
-            implements BottomNavigationView.OnNavigationItemSelectedListener {
+    private class NavigationListener implements BottomNavigationView
+            .OnNavigationItemSelectedListener {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
@@ -280,26 +286,26 @@ public class NavigationActivity extends AppCompatActivity {
                     fab.setImageResource(R.drawable.ic_edit_profile);
                     Bundle bundle = new Bundle();
                     String[] favorites = {"Mexican", "Italian", "Polish"};
-                    bundle.putSerializable("User",
-                            new User("Tomas Maxx", "Fort Myers, Florida", favorites, 33, 54));
+                    bundle.putSerializable("User", new User("Tomas Maxx",
+                            "Fort Myers, Florida", favorites, 33, 54));
                     fragment.setArguments(bundle);
-                    manager.beginTransaction()
-                            .replace(R.id.fragment_relativelayout, fragment, fragment.getTag())
-                            .commit();
+                    manager.beginTransaction().replace(R.id
+                            .fragment_relativelayout, fragment, fragment
+                            .getTag()).commit();
                     return true;
                 case R.id.navigation_dashboard:
                     fragment = new FavoriteCategoryListFragment();
                     fab.setImageResource(R.drawable.ic_add_favorite);
                     manager.beginTransaction().
-                            replace(R.id.fragment_relativelayout, fragment, fragment.getTag())
-                            .commit();
+                            replace(R.id.fragment_relativelayout, fragment,
+                                    fragment.getTag()).commit();
                     return true;
                 case R.id.navigation_notifications:
                     fragment = new SearchFragment();
                     fab.setImageResource(R.drawable.ic_search);
-                    manager.beginTransaction()
-                            .replace(R.id.fragment_relativelayout, fragment, fragment.getTag())
-                            .commit();
+                    manager.beginTransaction().replace(R.id
+                            .fragment_relativelayout, fragment, fragment
+                            .getTag()).commit();
                     return true;
             }
             return false;
