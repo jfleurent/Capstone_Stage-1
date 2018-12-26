@@ -15,11 +15,8 @@ import com.example.jeffr.capstone_stage2.adapters.RecyclerViewOnClick;
 import com.example.jeffr.capstone_stage2.adapters.SimpleRecyclerViewAdapter;
 import com.example.jeffr.capstone_stage2.data.Photo;
 import com.example.jeffr.capstone_stage2.data.Restaurant;
-import com.example.jeffr.capstone_stage2.data.RetrofitParsePhotos;
-import com.google.android.gms.location.places.GeoDataClient;
-import com.google.android.gms.location.places.Places;
-import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.gson.Gson;
+import com.example.jeffr.capstone_stage2.data.RestaurantId;
+import com.example.jeffr.capstone_stage2.data.RestaurantInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,8 +32,6 @@ import timber.log.Timber;
 
 public class PhotoFragment extends Fragment implements RecyclerViewOnClick {
 
-    private static final String BASE_URL = "https://maps.googleapis.com";
-    private static final String PHOTO_QUERY = "/maps/api/place/photo?maxwidth=400&photoreference=";
     private Restaurant restaurant;
     private RecyclerView recyclerView;
 
@@ -68,51 +63,6 @@ public class PhotoFragment extends Fragment implements RecyclerViewOnClick {
 
         restaurant = (Restaurant) getArguments().get("Restaurant");
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        RetrofitService retrofitService = retrofit
-                .create(RetrofitService.class);
-
-        Map<String, String> params = new HashMap<>();
-        params.put("key", getResources().getString(R.string.google_maps_api));
-        String coordinates = "" + restaurant.getLatitude() + "," + restaurant.getLongitude();
-        params.put("location", coordinates);
-        params.put("radius", "49999");
-        params.put("keyword",restaurant.getName());
-
-        Call<RetrofitParsePhotos> photoResponse = retrofitService
-                .getRestaurantPhotosReferences(params);
-
-        photoResponse.enqueue(new Callback<RetrofitParsePhotos>() {
-            @Override
-            public void onResponse(Call<RetrofitParsePhotos> call,
-                    Response<RetrofitParsePhotos> response) {
-                Timber.d(call.request().toString());
-                List<Photo> photos = new ArrayList<>();
-                for (RetrofitParsePhotos.Candidate candidate : response.body().getCandidates()) {
-                    if (candidate.getPhotos() != null) {
-                        for (RetrofitParsePhotos.PhotoReference reference : candidate.getPhotos()) {
-                            photos.add(new Photo(getPhotoUrl(reference.getPhoto_reference())));
-                        }
-                    }
-                }
-                restaurant.setPhotos(photos);
-                recyclerView.setAdapter(new SimpleRecyclerViewAdapter<>(restaurant
-                        .getPhotos(), R.layout.photo_list_item, PhotoFragment.this));
-            }
-
-            @Override
-            public void onFailure(Call<RetrofitParsePhotos> call, Throwable t) {
-                Timber.d("Response Failed");
-            }
-        });
-
-        restaurant = (Restaurant) getArguments().getSerializable
-                ("Restaurant");
-
         StaggeredGridLayoutManager staggeredGridLayoutManager = new
                 StaggeredGridLayoutManager(2, StaggeredGridLayoutManager
                 .VERTICAL);
@@ -135,8 +85,5 @@ public class PhotoFragment extends Fragment implements RecyclerViewOnClick {
 
     }
 
-    private String getPhotoUrl(String reference) {
-        return BASE_URL + PHOTO_QUERY + reference + "&key=" + getResources().getString(
-                R.string.google_maps_api);
-    }
+
 }

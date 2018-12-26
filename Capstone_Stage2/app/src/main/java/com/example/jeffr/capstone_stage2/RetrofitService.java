@@ -1,9 +1,7 @@
 package com.example.jeffr.capstone_stage2;
 
-import android.provider.ContactsContract;
-
-import com.example.jeffr.capstone_stage2.data.RetrofitParsePhotos;
-import com.example.jeffr.capstone_stage2.data.Review;
+import com.example.jeffr.capstone_stage2.data.RestaurantId;
+import com.example.jeffr.capstone_stage2.data.RestaurantInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -15,8 +13,8 @@ import retrofit2.http.QueryMap;
 public interface RetrofitService {
 
     @GET("/maps/api/place/nearbysearch/json")
-    Call<RetrofitParsePhotos> getRestaurantPhotosReferences(@QueryMap Map<String, String> param);
+    Call<RestaurantId> getRestaurantId(@QueryMap Map<String, String> param);
 
     @GET("/maps/api/place/details/json")
-    Call<List<Review>> getRestaurantReviews(@QueryMap Map<String, String> param);
+    Call<RestaurantInfo> getRestaurantInfo(@QueryMap Map<String, String> param);
 }

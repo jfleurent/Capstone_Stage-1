@@ -33,7 +33,7 @@
       <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="@{obj.userName.substring(0,1)}"
+          android:text="@{obj.userName.substring(0,1).toUpperCase()}"
           android:textAlignment="center"
           android:textColor="@color/review_list_item_review_text_color"
           android:textSize="@dimen/review_list_item_reviewer_icon_text_size"
@@ -70,6 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/review_list_item_review_text_margin_top"
         android:text="@{obj.reviewString}"
+        android:textSize="@dimen/review_list_item_reviewer_review_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/review_rating_bar"
         app:layout_constraintTop_toBottomOf="@+id/review_rating_bar"

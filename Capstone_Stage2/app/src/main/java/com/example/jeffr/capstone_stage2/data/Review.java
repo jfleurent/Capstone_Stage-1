@@ -1,8 +1,16 @@
 package com.example.jeffr.capstone_stage2.data;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Review {
+
+  @SerializedName("text")
   String reviewString;
+
+  @SerializedName("author_name")
   String userName;
+
+  @SerializedName("rating")
   float rating;
 
   public Review(String reviewString, String userName, float rating) {

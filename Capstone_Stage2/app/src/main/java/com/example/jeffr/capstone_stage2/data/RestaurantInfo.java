@@ -1,23 +1,24 @@
 package com.example.jeffr.capstone_stage2.data;
 
 import com.google.gson.annotations.SerializedName;
+import com.yelp.fusion.client.models.Reviews;
 
 import java.util.List;
 
-public class RetrofitParsePhotos {
+public class RestaurantInfo {
 
-    @SerializedName("results")
-    List<Candidate> candidates;
+    @SerializedName("result")
+    Candidate candidates;
 
-    public RetrofitParsePhotos(List<Candidate> candidates) {
+    public RestaurantInfo(Candidate candidates) {
         this.candidates = candidates;
     }
 
-    public List<Candidate> getCandidates() {
+    public Candidate getCandidates() {
         return candidates;
     }
 
-    public void setCandidates(List<Candidate> candidates) {
+    public void setCandidates(Candidate candidates) {
         this.candidates = candidates;
     }
 
@@ -26,14 +27,26 @@ public class RetrofitParsePhotos {
         @SerializedName("photos")
         List<PhotoReference> photos;
 
-        //TODO implement code to see reviews
         @SerializedName("place_id")
         String place_id;
 
+        @SerializedName("reviews")
+        List<Review> mReviews;
+
         public Candidate(
-                List<PhotoReference> photos, String place_id) {
+                List<PhotoReference> photos, String place_id,
+                List<Review> reviews) {
             this.photos = photos;
             this.place_id = place_id;
+            mReviews = reviews;
+        }
+
+        public List<Review> getReviews() {
+            return mReviews;
+        }
+
+        public void setReviews(List<Review> reviews) {
+            mReviews = reviews;
         }
 
         public String getPlace_id() {
@@ -62,11 +75,11 @@ public class RetrofitParsePhotos {
             this.photo_reference = photo_reference;
         }
 
-        public String getPhoto_reference() {
+        public String getPhotoReference() {
             return photo_reference;
         }
 
-        public void setPhoto_reference(String photo_reference) {
+        public void setPhotoReference(String photo_reference) {
             this.photo_reference = photo_reference;
         }
     }

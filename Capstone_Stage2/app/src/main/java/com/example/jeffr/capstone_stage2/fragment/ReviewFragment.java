@@ -11,14 +11,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.jeffr.capstone_stage2.R;
+import com.example.jeffr.capstone_stage2.RetrofitService;
 import com.example.jeffr.capstone_stage2.adapters.RecyclerViewOnClick;
 import com.example.jeffr.capstone_stage2.adapters.SimpleRecyclerViewAdapter;
+import com.example.jeffr.capstone_stage2.data.Photo;
 import com.example.jeffr.capstone_stage2.data.Restaurant;
+import com.example.jeffr.capstone_stage2.data.RestaurantInfo;
 import com.example.jeffr.capstone_stage2.data.Review;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import timber.log.Timber;
 
 public class ReviewFragment extends Fragment implements RecyclerViewOnClick {
+
+  private Restaurant restaurant;
+  private RecyclerView recyclerView;
 
   public ReviewFragment() {
 
@@ -41,46 +56,14 @@ public class ReviewFragment extends Fragment implements RecyclerViewOnClick {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    //TODO perform query based on restaurant info
+
     View rootView = inflater.inflate(R.layout.fragment_review, container, false);
-    RecyclerView recyclerView = rootView.findViewById(R.id.reviews_recyclerview);
-    List<Review> reviews = new ArrayList<>();
-    reviews.add(new Review("Very nice selections of authentic taste of Italy...\n"
-        + "brought back good memories from Italy and \n"
-        + "even NYC. \n"
-        + "\n"
-        + "Pricing is definitely on high end but people who can \n"
-        + "afford it would only step in here, as I sat in parking \n"
-        + "lot shoving my pesto chicken sandwich (yummy!!!!), \n"
-        + "all high end cars drive in and out.","Tomas Maxx", 4));
-    reviews.add(new Review("Very nice selections of authentic taste of Italy...\n"
-        + "brought back good memories from Italy and \n"
-        + "even NYC. \n"
-        + "\n"
-        + "Pricing is definitely on high end but people who can \n"
-        + "afford it would only step in here, as I sat in parking \n"
-        + "lot shoving my pesto chicken sandwich (yummy!!!!), \n"
-        + "all high end cars drive in and out.","Tomas Maxx", 4));
-    reviews.add(new Review("Very nice selections of authentic taste of Italy...\n"
-        + "brought back good memories from Italy and \n"
-        + "even NYC. \n"
-        + "\n"
-        + "Pricing is definitely on high end but people who can \n"
-        + "afford it would only step in here, as I sat in parking \n"
-        + "lot shoving my pesto chicken sandwich (yummy!!!!), \n"
-        + "all high end cars drive in and out.","Tomas Maxx", 4));
-    reviews.add(new Review("Very nice selections of authentic taste of Italy...\n"
-        + "brought back good memories from Italy and \n"
-        + "even NYC. \n"
-        + "\n"
-        + "Pricing is definitely on high end but people who can \n"
-        + "afford it would only step in here, as I sat in parking \n"
-        + "lot shoving my pesto chicken sandwich (yummy!!!!), \n"
-        + "all high end cars drive in and out.","Tomas Maxx", 4));
+    recyclerView = rootView.findViewById(R.id.reviews_recyclerview);
+    restaurant = (Restaurant) getArguments().get("Restaurant");
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     recyclerView.setItemAnimator(new DefaultItemAnimator());
     recyclerView.setNestedScrollingEnabled(false);
-    recyclerView.setAdapter(new SimpleRecyclerViewAdapter<>(reviews,R.layout.review_list_item, this));
+    recyclerView.setAdapter(new SimpleRecyclerViewAdapter<>(restaurant.getReviews(),R.layout.review_list_item, this));
     return rootView;
   }
 
