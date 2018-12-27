@@ -96,12 +96,11 @@
         />
 
     <Spinner
-        android:id="@+id/title_spinner"
+        android:id="@+id/state_spinner"
         android:layout_width="@dimen/customize_page_state_spinner_width"
         android:layout_height="@dimen/customize_page_state_spinner_height"
         android:layout_marginEnd="@dimen/customize_page_state_spinner_margin_end"
         android:layout_marginTop="@dimen/customize_page_state_spinner_margin_top"
-        android:prompt="@string/state_spinner_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/city_edittext"
@@ -113,7 +112,7 @@
         android:prompt="@string/favorite1_spinner_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/state_spinner"
         />
 
     <Spinner
@@ -125,15 +124,26 @@
         app:layout_constraintTop_toBottomOf="@+id/favorite1_spinner"
         />
 
-    <Spinner
-        android:id="@+id/favoirte3_spinner"
-        style="@style/CustomizePageFavoriteSpinner"
-        android:prompt="@string/favorite3_spinner_title"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favorite2_spinner"
-        />
+      <Spinner
+          style="@style/CustomizePageFavoriteSpinner"
+          android:id="@+id/favoirte3_spinner"
+          android:prompt="@string/favorite3_spinner_title"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/favorite2_spinner"
+      />
+
+      <Button
+          app:layout_constraintTop_toBottomOf="@id/favoirte3_spinner"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          android:id="@+id/update_profile_button"
+          android:layout_marginTop="@dimen/customize_page_update_profile_button_margin_top"
+          android:layout_marginBottom="@dimen/customize_page_update_profile_button_margin_bottom"
+          style="@style/LoginSignUpButton"
+          android:text="@string/update_profile_button_text"
+          android:onClick="updateProfile"
+      />
 
   </android.support.constraint.ConstraintLayout>
 </ScrollView>

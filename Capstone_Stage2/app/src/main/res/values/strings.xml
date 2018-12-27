@@ -6,9 +6,6 @@
   <string name="menu_title_search">Search</string>
   <string name="menu_logout_text">Logout</string>
 
-  <!-- TODO: Remove or change this placeholder text -->
-  <string name="hello_blank_fragment">Hello blank fragment</string>
-
   <!-- Activity_Customize_Page-->
   <string name="state_spinner_title">State</string>
   <string name="favorite1_spinner_title">Favorite 1</string>
@@ -18,6 +15,8 @@
   <string name="city_edittext_hint">City</string>
   <string name="name_edittext_hint">Name</string>
   <string name="change_photo_content_description">Change Profile Image</string>
+  <string name="update_profile_button_text">Update Profile</string>
+
 
   <!-- Activity_Detail_Restaurant-->
   <string name="detail_restaurant_distance_title">Distance: </string>
@@ -30,7 +29,7 @@
   <string name="photo_tab_title">Photos</string>
 
   <!-- Activity_Main-->
-  <string name="username_hint_text">Username</string>
+  <string name="email_hint_text">Email</string>
   <string name="password_hint_text">Password</string>
   <string name="login_button_text">Login</string>
   <string name="signup_button_text">Sign Up</string>

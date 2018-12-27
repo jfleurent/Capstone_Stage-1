@@ -32,6 +32,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
 //TODO remove toolbar and add the one in layout to make it move
+//TODO add OnCompleteListener for using progressbar when loading fragments for viewpager
+//https://stackoverflow.com/questions/43445169/how-can-i-register-a-username-in-firebase
 public class DetailRestaurantActivity extends AppCompatActivity {
 
     private static final String BASE_URL = "https://maps.googleapis.com";

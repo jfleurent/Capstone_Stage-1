@@ -13,44 +13,35 @@
       android:layout_height="wrap_content"
       >
 
-    <EditText
-        android:id="@+id/sign_up_username_edittext"
-        style="@style/LoginSignUpEditText"
-        android:hint="@string/sign_up_username_hint"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+      <EditText
+          style="@style/LoginSignUpEditText"
+          android:hint="@string/sign_up_email_hint"
+          android:id="@+id/sign_up_email_edittext"
+          android:inputType="text"
+          android:layout_marginTop="@dimen/activity_sign_up_email_edit_text_margin_top"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"/>
 
-    <EditText
-        android:id="@+id/sign_up_email_edittext"
-        style="@style/LoginSignUpEditText"
-        android:hint="@string/sign_up_email_hint"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_password_edittext"
-        />
+      <EditText
+          style="@style/LoginSignUpEditText"
+          android:hint="@string/sign_up_password_hint"
+          android:id="@+id/sign_up_password_edittext"
+          android:inputType="textPassword"
+          android:layout_marginTop="@dimen/activity_sign_up_password_edit_text_margin_top"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/sign_up_email_edittext"/>
 
-    <EditText
-        android:id="@+id/sign_up_password_edittext"
-        style="@style/LoginSignUpEditText"
-        android:hint="@string/sign_up_password_hint"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_username_edittext"
-        />
-
-    <Button
-        android:id="@+id/sign_up_button"
-        style="@style/LoginSignUpButton"
-        android:text="@string/sign_up_button_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_email_edittext"
-        />
+      <Button
+          style="@style/LoginSignUpButton"
+          android:id="@+id/sign_up_button"
+          android:layout_marginTop="8dp"
+          android:onClick="signUpOnClick"
+          android:text="@string/sign_up_button_text"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/sign_up_password_edittext"/>
     
     <TextView
         android:id="@+id/or_textview"

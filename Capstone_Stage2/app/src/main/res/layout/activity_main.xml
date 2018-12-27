@@ -41,9 +41,9 @@
       />
 
   <EditText
-      android:id="@+id/username_edittext"
+      android:id="@+id/email_edittext"
       style="@style/LoginSignUpEditText"
-      android:hint="@string/username_hint_text"
+      android:hint="@string/email_hint_text"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +56,7 @@
       android:hint="@string/password_hint_text"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/username_edittext"
+      app:layout_constraintTop_toBottomOf="@+id/email_edittext"
       />
 
 

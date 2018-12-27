@@ -9,17 +9,39 @@ public class User implements Serializable {
   private String favoritesString;
   private int seenTotal;
   private int favoriteTotal;
+  private boolean hadBackgroundImage;
+  private String backgroundColor;
 
-  public User(String name, String city, String[] favorite, int seenTotal, int favoriteTotal) {
+  public User(){
+
+  }
+
+  public User(String name, String city, String[] favorite, int seenTotal,
+          int favoriteTotal) {
     this.name = name;
     this.city = city;
     this.favorite = favorite;
     this.seenTotal = seenTotal;
     this.favoriteTotal = favoriteTotal;
-    setFavoritesString();
   }
 
-  public String getName() {
+    public boolean isHadBackgroundImage() {
+        return hadBackgroundImage;
+    }
+
+    public void setHadBackgroundImage(boolean hadBackgroundImage) {
+        this.hadBackgroundImage = hadBackgroundImage;
+    }
+
+    public String getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(String backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
+    public String getName() {
     return name;
   }
 

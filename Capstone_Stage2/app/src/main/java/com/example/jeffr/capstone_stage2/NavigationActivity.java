@@ -57,6 +57,7 @@ public class NavigationActivity extends AppCompatActivity {
     private Location location;
     private LocationManager lm;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +99,7 @@ public class NavigationActivity extends AppCompatActivity {
     public void fabOnclick(View view) {
         if (fragment instanceof HomePageFragment) {
             Intent intent = new Intent(this, CustomizePageActivity.class);
+            intent.putExtras(getIntent().getExtras());
             startActivity(intent);
         } else if (fragment instanceof FavoriteCategoryListFragment) {
             ViewDialog.showNewCategoryDialog(this);
@@ -133,6 +135,7 @@ public class NavigationActivity extends AppCompatActivity {
 
         //If search is not apart of categories displays message in next activity
         if (!search.equals("") && params.get("categories") == null) {
+            intent.putExtras(getIntent().getExtras());
             startActivity(intent);
             return;
         }
@@ -143,8 +146,9 @@ public class NavigationActivity extends AppCompatActivity {
         params.put("radius", String.valueOf(fragment.getArguments().getInt
                 ("Distance")));
         params.put("price", fragment.getArguments().getString("Price"));
-        if (!fragment.getArguments().getString("Sort").equals("price"))
+        if (!fragment.getArguments().getString("Sort").equals("price")) {
             params.put("sort_by", fragment.getArguments().getString("Sort"));
+        }
 
         Timber.d(params.toString());
         //TODO Add code for sorting price
@@ -152,7 +156,7 @@ public class NavigationActivity extends AppCompatActivity {
         call.enqueue(new Callback<SearchResponse>() {
             @Override
             public void onResponse(Call<SearchResponse> call,
-                                   Response<SearchResponse> response) {
+                    Response<SearchResponse> response) {
                 SearchResponse searchResponse = response.body();
                 ArrayList<Restaurant> queriedRestaurants = convertBusinesses
                         (searchResponse.getBusinesses());
@@ -162,10 +166,12 @@ public class NavigationActivity extends AppCompatActivity {
                     queriedRestaurants = filterByRating(queriedRestaurants,
                             fragment.getArguments().getInt("Rating"));
                     if (fragment.getArguments().getString("Sort").equals
-                            ("price"))
+                            ("price")) {
                         Collections.sort(queriedRestaurants);
+                    }
                 }
                 intent.putExtra("Restaurants", queriedRestaurants);
+                intent.putExtras(getIntent().getExtras());
                 startActivity(intent);
             }
 
@@ -209,7 +215,7 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     private ArrayList<Restaurant> filterByRating(ArrayList<Restaurant>
-                                                         restaurants, int
+            restaurants, int
             rating) {
 
         ArrayList<Restaurant> filteredRestaurants = new ArrayList<>();
@@ -226,7 +232,7 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     private ArrayList<Restaurant> randomizeResult(ArrayList<Restaurant>
-                                                          restaurants) {
+            restaurants) {
         if (restaurants.size() == 0) {
             return restaurants;
         }
@@ -257,12 +263,10 @@ public class NavigationActivity extends AppCompatActivity {
             for (int i = 0; i < jsonArray.length(); i++) {
                 try {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    String parentCategory = jsonObject.getJSONArray
-                            ("parents").getString(0);
-                    if (parentCategory.equals("restaurants") ||
-                            parentCategory.equals("bar") || parentCategory
-                            .equals("caribbean") || parentCategory.equals
-                            ("food") || parentCategory.equals("nightlife")) {
+                    String parentCategory = jsonObject.getJSONArray("parents").getString(0);
+                    if (parentCategory.equals("restaurants") || parentCategory.equals("bar")
+                            || parentCategory.equals("caribbean") || parentCategory.equals("food")
+                            || parentCategory.equals("nightlife")) {
                         categories.add(jsonObject.getString("alias"));
                     }
                 } catch (Exception e) {
@@ -286,26 +290,23 @@ public class NavigationActivity extends AppCompatActivity {
                     fab.setImageResource(R.drawable.ic_edit_profile);
                     Bundle bundle = new Bundle();
                     String[] favorites = {"Mexican", "Italian", "Polish"};
-                    bundle.putSerializable("User", new User("Tomas Maxx",
-                            "Fort Myers, Florida", favorites, 33, 54));
+                    bundle.putSerializable("User",
+                            new User("Tomas Maxx", "Fort Myers, Florida", favorites, 33, 54));
                     fragment.setArguments(bundle);
-                    manager.beginTransaction().replace(R.id
-                            .fragment_relativelayout, fragment, fragment
-                            .getTag()).commit();
+                    manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
+                            fragment.getTag()).commit();
                     return true;
                 case R.id.navigation_dashboard:
                     fragment = new FavoriteCategoryListFragment();
                     fab.setImageResource(R.drawable.ic_add_favorite);
-                    manager.beginTransaction().
-                            replace(R.id.fragment_relativelayout, fragment,
-                                    fragment.getTag()).commit();
+                    manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
+                            fragment.getTag()).commit();
                     return true;
                 case R.id.navigation_notifications:
                     fragment = new SearchFragment();
                     fab.setImageResource(R.drawable.ic_search);
-                    manager.beginTransaction().replace(R.id
-                            .fragment_relativelayout, fragment, fragment
-                            .getTag()).commit();
+                    manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
+                            fragment.getTag()).commit();
                     return true;
             }
             return false;
