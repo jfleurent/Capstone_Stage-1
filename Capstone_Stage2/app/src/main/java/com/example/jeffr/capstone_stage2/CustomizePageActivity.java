@@ -3,6 +3,7 @@ package com.example.jeffr.capstone_stage2;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,8 +17,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.jeffr.capstone_stage2.data.User;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -58,7 +61,7 @@ public class CustomizePageActivity extends AppCompatActivity {
     Bitmap backgroundImageBitmap;
 
     private static final String[] stateList =
-            {"AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "GU", "HI", "IA",
+            {"","AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "GU", "HI", "IA",
                     "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MH", "MI", "MN",
                     "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH",
                     "OK", "OR", "PA", "PR", "PW", "RI", "SC", "SD", "TN", "TX", "UT", "VA",
@@ -133,47 +136,56 @@ public class CustomizePageActivity extends AppCompatActivity {
         favorites.add(favorite3);
         Timber.d("Got to here");
 
-        mDatabase.child("users").child(getIntent().getExtras().getString("UserId")).child(
-                "name").setValue(name).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-               Timber.d("Successfully added name to user");
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Timber.d(e,"Failed to place user's name");
-                    }
-                });
+        if(!name.isEmpty()){
+            mDatabase.child("users").child(getIntent().getExtras().getString("UserId")).child(
+                    "name").setValue(name).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Timber.d("Successfully added name to user");
+                }
+            })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Timber.d(e,"Failed to place user's name");
+                        }
+                    });
+        }
 
-        mDatabase.child("users").child(getIntent().getExtras().getString("UserId")).child(
-                "state").setValue(state).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Timber.d("Successfully added state to user");
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Timber.d(e,"Failed to place user's state");
-                    }
-                });
 
-        mDatabase.child("users").child(getIntent().getExtras().getString("UserId")).child(
-                "city").setValue(city).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Timber.d("Successfully added name to city");
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Timber.d(e,"Failed to place user's city");
-                    }
-                });
+        if(!state.isEmpty()){
+            mDatabase.child("users").child(getIntent().getExtras().getString("UserId")).child(
+                    "state").setValue(state).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Timber.d("Successfully added state to user");
+                }
+            })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Timber.d(e,"Failed to place user's state");
+                        }
+                    });
+        }
+
+
+        if(!city.isEmpty()){
+            mDatabase.child("users").child(getIntent().getExtras().getString("UserId")).child(
+                    "city").setValue(city).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Timber.d("Successfully added city to user");
+                }
+            })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Timber.d(e,"Failed to place user's city");
+                        }
+                    });
+        }
+
 
         mDatabase.child("users").child(getIntent().getExtras().getString("UserId")).child(
                 "favorites").setValue(favorites).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -206,6 +218,31 @@ public class CustomizePageActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Timber.d("Successfully upload profile image");
+                    profileStorageRef.getDownloadUrl().addOnCompleteListener(
+                            new OnCompleteListener<Uri>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Uri> task) {
+                                   String photoUrl = task.getResult().toString();
+                                    mDatabase.child("users").child(getIntent().getExtras().getString("UserId")).child(
+                                            "photo_url").setValue(photoUrl).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Timber.d("Successfully added photo_url to user");
+                                        }
+                                    })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Timber.d(e,"Failed to place user's photo_url");
+                                                }
+                                            });
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Timber.d(e,"Failed to download photo url");
+                        }
+                    });
                 }
             });
 
@@ -231,6 +268,33 @@ public class CustomizePageActivity extends AppCompatActivity {
                     mDatabase.child("users").child(
                             getIntent().getExtras().getString("UserId")).child(
                             "hasBackgroundImage").setValue(true);
+                    backgroundStorageRef.getDownloadUrl().addOnCompleteListener(
+                            new OnCompleteListener<Uri>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Uri> task) {
+                                    String backgroundUrl = task.getResult().toString();
+                                    mDatabase.child("users").child(getIntent().getExtras().getString("UserId")).child(
+                                            "background_url").setValue(backgroundUrl).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Timber.d("Successfully added background_url to user");
+                                        }
+                                    })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Timber.d(e,"Failed to place user's background_url");
+                                                }
+                                            });
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Timber.d(e,"Failed to download background url");
+                        }
+                    });
+
+
                 }
             });
         }

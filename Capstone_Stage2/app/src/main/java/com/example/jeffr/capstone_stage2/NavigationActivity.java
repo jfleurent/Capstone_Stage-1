@@ -19,10 +19,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.jeffr.capstone_stage2.data.Restaurant;
-import com.example.jeffr.capstone_stage2.data.User;
 import com.example.jeffr.capstone_stage2.fragment.FavoriteCategoryListFragment;
 import com.example.jeffr.capstone_stage2.fragment.HomePageFragment;
 import com.example.jeffr.capstone_stage2.fragment.SearchFragment;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.yelp.fusion.client.connection.YelpFusionApi;
 import com.yelp.fusion.client.connection.YelpFusionApiFactory;
 import com.yelp.fusion.client.models.Business;
@@ -35,9 +36,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +55,7 @@ public class NavigationActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private Location location;
     private LocationManager lm;
+    private DatabaseReference mDatabase;
 
 
     @Override
@@ -67,13 +67,9 @@ public class NavigationActivity extends AppCompatActivity {
         manager = getSupportFragmentManager();
         fragment = new HomePageFragment();
         fab.setImageResource(R.drawable.ic_edit_profile);
-        Bundle bundle = new Bundle();
-        String[] favorites = {"Mexican", "Italian", "Polish"};
-        bundle.putSerializable("User", new User("Tomas Maxx", "Fort Myers, "
-                + "Florida", favorites, 33, 54));
-        fragment.setArguments(bundle);
-        manager.beginTransaction().replace(R.id.fragment_relativelayout,
-                fragment, fragment.getTag()).commit();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
+                fragment.getTag()).commit();
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(new NavigationListener
                 ());
@@ -288,11 +284,6 @@ public class NavigationActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     fragment = new HomePageFragment();
                     fab.setImageResource(R.drawable.ic_edit_profile);
-                    Bundle bundle = new Bundle();
-                    String[] favorites = {"Mexican", "Italian", "Polish"};
-                    bundle.putSerializable("User",
-                            new User("Tomas Maxx", "Fort Myers, Florida", favorites, 33, 54));
-                    fragment.setArguments(bundle);
                     manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
                             fragment.getTag()).commit();
                     return true;
@@ -312,6 +303,4 @@ public class NavigationActivity extends AppCompatActivity {
             return false;
         }
     }
-
-
 }

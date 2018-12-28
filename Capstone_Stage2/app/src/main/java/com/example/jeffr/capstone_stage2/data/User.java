@@ -1,43 +1,93 @@
 package com.example.jeffr.capstone_stage2.data;
 
-import java.io.Serializable;
+import android.databinding.BindingAdapter;
+import android.widget.ImageView;
 
+import com.example.jeffr.capstone_stage2.R;
+import com.google.firebase.database.IgnoreExtraProperties;
+import com.squareup.picasso.Picasso;
+
+import java.io.Serializable;
+import java.util.List;
+
+@IgnoreExtraProperties
 public class User implements Serializable {
   private String name;
   private String city;
-  private String[] favorite;
-  private String favoritesString;
+  private List<String> favorite;
+  private String state;
   private int seenTotal;
   private int favoriteTotal;
-  private boolean hadBackgroundImage;
-  private String backgroundColor;
+  private String photo_url;
+  private String background_url;
+  private boolean hasBackgroundImage;
+  private Long backgroundColor;
 
   public User(){
 
   }
 
-  public User(String name, String city, String[] favorite, int seenTotal,
-          int favoriteTotal) {
+  public User(String name, String city, List<String> favorite, String state, int seenTotal,
+          int favoriteTotal, String photo_url, String background_url, boolean hasBackgroundImage,
+          Long backgroundColor) {
     this.name = name;
     this.city = city;
     this.favorite = favorite;
+    this.state = state;
     this.seenTotal = seenTotal;
     this.favoriteTotal = favoriteTotal;
+    this.photo_url = photo_url;
+    this.background_url = (hasBackgroundImage) ? background_url : String.valueOf(backgroundColor);
+    this.hasBackgroundImage = hasBackgroundImage;
+    this.backgroundColor = backgroundColor;
   }
 
-    public boolean isHadBackgroundImage() {
-        return hadBackgroundImage;
-    }
+  public String getPhoto_url() {
+    return photo_url;
+  }
 
-    public void setHadBackgroundImage(boolean hadBackgroundImage) {
-        this.hadBackgroundImage = hadBackgroundImage;
-    }
+  public void setPhoto_url(String photo_url) {
+    this.photo_url = photo_url;
+  }
 
-    public String getBackgroundColor() {
+  public String getBackground_url() {
+    return background_url;
+  }
+
+  public void setBackground_url(String background_url) {
+    this.background_url = background_url;
+  }
+
+  public boolean isHasBackgroundImage() {
+    return hasBackgroundImage;
+  }
+
+  public void setHasBackgroundImage(boolean hasBackgroundImage) {
+    this.hasBackgroundImage = hasBackgroundImage;
+  }
+
+  public List<String> getFavorite() {
+    return favorite;
+  }
+
+  public void setFavorite(List<String> favorite) {
+    this.favorite = favorite;
+  }
+
+  public String getState() {
+    return state;
+  }
+
+  public void setState(String state) {
+    this.state = state;
+  }
+
+    public Long getBackgroundColor() {
         return backgroundColor;
     }
 
-    public void setBackgroundColor(String backgroundColor) {
+    public void setBackgroundColor(Long
+            backgroundColor) {
         this.backgroundColor = backgroundColor;
     }
 
@@ -57,13 +107,6 @@ public class User implements Serializable {
     this.city = city;
   }
 
-  public String[] getFavorite() {
-    return favorite;
-  }
-
-  public void setFavorite(String[] favorite) {
-    this.favorite = favorite;
-  }
 
   public int getSeenTotal() {
     return seenTotal;
@@ -81,15 +124,41 @@ public class User implements Serializable {
     this.favoriteTotal = favoriteTotal;
   }
 
+
   public String getFavoritesString() {
+    String favoritesString= "";
+    if(favorite != null && favorite.size() != 0){
+      for (String f : favorite){
+        favoritesString+=f+" | ";
+      }
+      return favoritesString.substring(0,favoritesString.length()-2);
+    }
     return favoritesString;
   }
 
-  private void setFavoritesString() {
-    favoritesString= "";
-    for (String f : favorite){
-      favoritesString+=f+" | ";
+  public String getCityString(){
+    return String.format("%s, %s", city, state);
+  }
+
+  @BindingAdapter({"bind:photo_url"})
+  public static void loadProfileImage(ImageView view, String photo_url) {
+    if (photo_url != null && !photo_url.equals(""))
+      Picasso.get().load(photo_url).placeholder(R.drawable.gary).error(R
+              .drawable.gary).fit().into(view);
+  }
+
+  @BindingAdapter({"bind:background_url"})
+  public static void loadBackgroundImage(ImageView view, String background_url) {
+    if (background_url != null &&!background_url.equals("")){
+      try{
+        int backgroundColor = Integer.valueOf(background_url);
+        view.setBackgroundColor(backgroundColor);
+      }
+      catch (Exception e){
+        Picasso.get().load(background_url).placeholder(R.drawable.gary).error(R
+                .drawable.gary).fit().into(view);
+      }
     }
-    favoritesString = favoritesString.substring(0,favoritesString.length()-2);
+
   }
 }
