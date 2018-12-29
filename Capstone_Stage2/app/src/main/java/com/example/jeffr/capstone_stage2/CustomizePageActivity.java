@@ -41,6 +41,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
+//TODO Fill up the feilds with data in database
 public class CustomizePageActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 685;
     private static final int REQUEST_PICK_IMAGE = 956;
@@ -298,6 +299,7 @@ public class CustomizePageActivity extends AppCompatActivity {
                 }
             });
         }
+        Toast.makeText(this,"Profile Updated",Toast.LENGTH_LONG).show();
     }
 
     //TODO Fix string for dialog type

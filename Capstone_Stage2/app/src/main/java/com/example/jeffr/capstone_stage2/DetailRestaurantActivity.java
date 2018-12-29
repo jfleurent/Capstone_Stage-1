@@ -3,6 +3,7 @@ package com.example.jeffr.capstone_stage2;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,9 +17,15 @@ import com.example.jeffr.capstone_stage2.data.Restaurant;
 import com.example.jeffr.capstone_stage2.data.RestaurantId;
 import com.example.jeffr.capstone_stage2.data.RestaurantInfo;
 import com.example.jeffr.capstone_stage2.data.Review;
+import com.example.jeffr.capstone_stage2.data.User;
 import com.example.jeffr.capstone_stage2.databinding
         .ActivityDetailRestaurantBinding;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +50,7 @@ public class DetailRestaurantActivity extends AppCompatActivity {
     private Restaurant restaurant;
     private List<Review> reviews;
     private List<Photo> photos;
+    private DatabaseReference userReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +63,21 @@ public class DetailRestaurantActivity extends AppCompatActivity {
         binding.setRestaurant(restaurant);
         viewPager = findViewById(R.id.detail_restaurant_viewpager);
         tabLayout = findViewById(R.id.tabs);
+
+        userReference = FirebaseDatabase.getInstance().getReference().child("users").child(getIntent().getExtras().getString("UserId"));
+
+        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                int seenTotal = user.getSeenTotal();
+                userReference.child("seenTotal").setValue(++seenTotal);
+                Timber.d("Successfully increased seen total");
+            }
+
+            @Override public void onCancelled(@NonNull DatabaseError databaseError) {
+                Timber.d("Failed to increase seen total");
+            }
+        });
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -139,4 +162,7 @@ public class DetailRestaurantActivity extends AppCompatActivity {
                 R.string.google_maps_api);
     }
 
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
 }

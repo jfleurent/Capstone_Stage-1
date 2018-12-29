@@ -29,7 +29,6 @@ import timber.log.Timber;
 public class HomePageFragment extends Fragment {
     private Fragment restaurantListFragment;
     private DatabaseReference userReference;
-    private StorageReference mStorageReference;
 
 
     public HomePageFragment() {
@@ -48,8 +47,6 @@ public class HomePageFragment extends Fragment {
                 inflater, R.layout.fragment_home_page, container, false);
         setHasOptionsMenu(true);
         View rootView = binding.getRoot();
-
-        mStorageReference = FirebaseStorage.getInstance().getReference(getActivity().getIntent().getExtras().getString("UserId"));
         userReference = FirebaseDatabase.getInstance().getReference().child("users").child(
                 getActivity().getIntent().getExtras().getString("UserId"));
         userReference.addValueEventListener(new ValueEventListener() {

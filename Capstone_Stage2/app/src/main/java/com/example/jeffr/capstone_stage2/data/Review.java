@@ -1,8 +1,11 @@
 package com.example.jeffr.capstone_stage2.data;
 
+import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
 
-public class Review {
+@IgnoreExtraProperties
+public class Review implements Serializable {
 
   @SerializedName("text")
   String reviewString;
@@ -12,6 +15,10 @@ public class Review {
 
   @SerializedName("rating")
   float rating;
+
+  public Review(){
+
+  }
 
   public Review(String reviewString, String userName, float rating) {
     this.reviewString = reviewString;

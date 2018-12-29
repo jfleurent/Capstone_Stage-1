@@ -22,14 +22,15 @@ public class User implements Serializable {
   private String background_url;
   private boolean hasBackgroundImage;
   private Long backgroundColor;
+  private List<Restaurant> restaurantHistory;
 
-  public User(){
+  public User() {
 
   }
 
   public User(String name, String city, List<String> favorite, String state, int seenTotal,
-          int favoriteTotal, String photo_url, String background_url, boolean hasBackgroundImage,
-          Long backgroundColor) {
+      int favoriteTotal, String photo_url, String background_url, boolean hasBackgroundImage,
+      Long backgroundColor) {
     this.name = name;
     this.city = city;
     this.favorite = favorite;
@@ -40,6 +41,15 @@ public class User implements Serializable {
     this.background_url = (hasBackgroundImage) ? background_url : String.valueOf(backgroundColor);
     this.hasBackgroundImage = hasBackgroundImage;
     this.backgroundColor = backgroundColor;
+  }
+
+  public List<Restaurant> getRestaurantHistory() {
+    return restaurantHistory;
+  }
+
+  public void setRestaurantHistory(
+      List<Restaurant> restaurantHistory) {
+    this.restaurantHistory = restaurantHistory;
   }
 
   public String getPhoto_url() {
@@ -82,16 +92,16 @@ public class User implements Serializable {
     this.state = state;
   }
 
-    public Long getBackgroundColor() {
-        return backgroundColor;
-    }
+  public Long getBackgroundColor() {
+    return backgroundColor;
+  }
 
-    public void setBackgroundColor(Long
-            backgroundColor) {
-        this.backgroundColor = backgroundColor;
-    }
+  public void setBackgroundColor(Long
+      backgroundColor) {
+    this.backgroundColor = backgroundColor;
+  }
 
-    public String getName() {
+  public String getName() {
     return name;
   }
 
@@ -106,7 +116,6 @@ public class User implements Serializable {
   public void setCity(String city) {
     this.city = city;
   }
-
 
   public int getSeenTotal() {
     return seenTotal;
@@ -124,41 +133,39 @@ public class User implements Serializable {
     this.favoriteTotal = favoriteTotal;
   }
 
-
   public String getFavoritesString() {
-    String favoritesString= "";
-    if(favorite != null && favorite.size() != 0){
-      for (String f : favorite){
-        favoritesString+=f+" | ";
+    String favoritesString = "";
+    if (favorite != null && favorite.size() != 0) {
+      for (String f : favorite) {
+        favoritesString += f + " | ";
       }
-      return favoritesString.substring(0,favoritesString.length()-2);
+      return favoritesString.substring(0, favoritesString.length() - 2);
     }
     return favoritesString;
   }
 
-  public String getCityString(){
+  public String getCityString() {
     return String.format("%s, %s", city, state);
   }
 
-  @BindingAdapter({"bind:photo_url"})
+  @BindingAdapter({ "bind:photo_url" })
   public static void loadProfileImage(ImageView view, String photo_url) {
-    if (photo_url != null && !photo_url.equals(""))
+    if (photo_url != null && !photo_url.equals("")) {
       Picasso.get().load(photo_url).placeholder(R.drawable.gary).error(R
-              .drawable.gary).fit().into(view);
+          .drawable.gary).fit().into(view);
+    }
   }
 
-  @BindingAdapter({"bind:background_url"})
+  @BindingAdapter({ "bind:background_url" })
   public static void loadBackgroundImage(ImageView view, String background_url) {
-    if (background_url != null &&!background_url.equals("")){
-      try{
+    if (background_url != null && !background_url.equals("")) {
+      try {
         int backgroundColor = Integer.valueOf(background_url);
         view.setBackgroundColor(backgroundColor);
-      }
-      catch (Exception e){
+      } catch (Exception e) {
         Picasso.get().load(background_url).placeholder(R.drawable.gary).error(R
-                .drawable.gary).fit().into(view);
+            .drawable.gary).fit().into(view);
       }
     }
-
   }
 }

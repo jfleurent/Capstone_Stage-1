@@ -5,11 +5,13 @@ import android.widget.ImageView;
 
 import com.example.jeffr.capstone_stage2.R;
 import com.google.android.gms.common.util.Strings;
+import com.google.firebase.database.IgnoreExtraProperties;
 import com.squareup.picasso.Picasso;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@IgnoreExtraProperties
 public class Restaurant implements Serializable, Comparable<Restaurant> {
 
     private String imageUrl;
@@ -23,6 +25,11 @@ public class Restaurant implements Serializable, Comparable<Restaurant> {
     private List<Photo> photos;
     private String distanceString;
     private List<Review> reviews;
+    private long timestamp;
+
+    public Restaurant(){
+
+    }
 
     public Restaurant(String imageUrl, String name, float rating, String
             price, String address, float distance, float latitude, float
@@ -37,6 +44,14 @@ public class Restaurant implements Serializable, Comparable<Restaurant> {
         this.longitude = longitude;
         this.distanceString = String.format("%.1f mi", distance);
         photos = new ArrayList<>();
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public List<Review> getReviews() {

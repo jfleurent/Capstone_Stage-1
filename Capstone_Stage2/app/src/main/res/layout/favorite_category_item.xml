@@ -26,6 +26,7 @@
       android:layout_width="match_parent"
       android:layout_height="@dimen/favorite_category_item_imageview_height"
       android:background="#78ba96"
+      app:category_image_url="@{obj.getRestaurants.get(0).getImageUrl}"
       />
 
   <TextView
