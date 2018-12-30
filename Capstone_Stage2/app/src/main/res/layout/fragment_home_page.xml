@@ -7,7 +7,7 @@
     <data>
         <variable
             name="user"
-            type="com.example.jeffr.capstone_stage2.data.User"
+            type="com.example.jeffr.capstone_stage2.models.User"
         >
         </variable>
     </data>

@@ -1,6 +1,5 @@
 package com.example.jeffr.capstone_stage2.adapters;
 
-import com.example.jeffr.capstone_stage2.data.Restaurant;
 import java.util.List;
 
 public class SimpleRecyclerViewAdapter<E> extends MyBaseAdapter {

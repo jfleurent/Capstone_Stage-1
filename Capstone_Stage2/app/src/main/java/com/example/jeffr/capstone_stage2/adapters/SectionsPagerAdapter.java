@@ -3,7 +3,7 @@ package com.example.jeffr.capstone_stage2.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import com.example.jeffr.capstone_stage2.data.Restaurant;
+import com.example.jeffr.capstone_stage2.models.Restaurant;
 import com.example.jeffr.capstone_stage2.fragment.PhotoFragment;
 import com.example.jeffr.capstone_stage2.fragment.ReviewFragment;
 

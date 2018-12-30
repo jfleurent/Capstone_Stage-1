@@ -1,4 +1,4 @@
-package com.example.jeffr.capstone_stage2;
+package com.example.jeffr.capstone_stage2.ui;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,7 +16,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.jeffr.capstone_stage2.data.User;
+import com.example.jeffr.capstone_stage2.R;
+import com.example.jeffr.capstone_stage2.ViewDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,7 +27,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;

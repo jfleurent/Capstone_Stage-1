@@ -1,4 +1,4 @@
-package com.example.jeffr.capstone_stage2.data;
+package com.example.jeffr.capstone_stage2.models;
 
 import android.databinding.BindingAdapter;
 import android.os.Parcel;
@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import android.widget.ImageView;
 
 import com.example.jeffr.capstone_stage2.R;
-import com.google.android.gms.common.util.Strings;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.squareup.picasso.Picasso;
 import java.io.Serializable;

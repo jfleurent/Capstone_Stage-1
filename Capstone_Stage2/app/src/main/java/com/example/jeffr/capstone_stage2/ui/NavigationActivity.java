@@ -1,4 +1,4 @@
-package com.example.jeffr.capstone_stage2;
+package com.example.jeffr.capstone_stage2.ui;
 
 import android.Manifest;
 import android.content.Context;
@@ -18,7 +18,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.jeffr.capstone_stage2.data.Restaurant;
+import com.example.jeffr.capstone_stage2.R;
+import com.example.jeffr.capstone_stage2.ViewDialog;
+import com.example.jeffr.capstone_stage2.models.Restaurant;
 import com.example.jeffr.capstone_stage2.fragment.FavoriteCategoryListFragment;
 import com.example.jeffr.capstone_stage2.fragment.HomePageFragment;
 import com.example.jeffr.capstone_stage2.fragment.SearchFragment;

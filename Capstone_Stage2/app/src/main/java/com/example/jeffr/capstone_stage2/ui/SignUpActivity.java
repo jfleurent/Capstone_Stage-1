@@ -1,4 +1,4 @@
-package com.example.jeffr.capstone_stage2;
+package com.example.jeffr.capstone_stage2.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.jeffr.capstone_stage2.listener.LoginCompleteListener;
+import com.example.jeffr.capstone_stage2.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpActivity extends AppCompatActivity {

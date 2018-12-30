@@ -7,7 +7,7 @@
   <data>
     <variable
         name="restaurant"
-        type="com.example.jeffr.capstone_stage2.data.Restaurant"
+        type="com.example.jeffr.capstone_stage2.models.Restaurant"
         >
     </variable>
 
@@ -15,7 +15,7 @@
   <android.support.design.widget.CoordinatorLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      tools:context=".DetailRestaurantActivity"
+      tools:context=".ui.DetailRestaurantActivity"
       >
 
     <RelativeLayout

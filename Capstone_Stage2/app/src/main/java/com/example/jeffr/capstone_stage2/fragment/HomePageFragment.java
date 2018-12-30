@@ -11,16 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.jeffr.capstone_stage2.R;
-import com.example.jeffr.capstone_stage2.data.Restaurant;
-import com.example.jeffr.capstone_stage2.data.User;
+import com.example.jeffr.capstone_stage2.models.Restaurant;
+import com.example.jeffr.capstone_stage2.models.User;
 import com.example.jeffr.capstone_stage2.databinding.FragmentHomePageBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,7 +30,8 @@ public class HomePageFragment extends Fragment {
     private Fragment restaurantListFragment;
     private DatabaseReference userReference;
     private DatabaseReference historyReference;
-    private Fragment fragment;
+
+
 
 
     public HomePageFragment() {
@@ -54,7 +53,8 @@ public class HomePageFragment extends Fragment {
         userReference = FirebaseDatabase.getInstance().getReference().child("users").child(
                 getActivity().getIntent().getExtras().getString("UserId"));
         historyReference = userReference.child("restaurantHistory");
-
+        final Bundle bundle = new Bundle();
+        final Fragment fragment = new RestaurantListFragment();
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -88,7 +88,7 @@ public class HomePageFragment extends Fragment {
             }
         });
 
-        historyReference.addValueEventListener(new ValueEventListener() {
+        historyReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<Restaurant> restaurantHistory = new ArrayList<>();
@@ -97,15 +97,14 @@ public class HomePageFragment extends Fragment {
                     restaurantHistory.add(restaurant);
                 }
                 Collections.reverse(restaurantHistory);
-                fragment = new RestaurantListFragment();
-                Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList("History", restaurantHistory);
+                bundle.putString("UserId", HomePageFragment.this.getActivity().getIntent().getExtras().getString("UserId"));
+                Timber.d("Successfully added restaurant history to homepage");
                 fragment.setArguments(bundle);
-                getActivity().getSupportFragmentManager()
+                getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.restaurant_history_fragment, fragment, fragment.getTag())
                         .commit();
-                Timber.d("Successfully added restaurant history to homepage");
             }
 
             @Override
@@ -113,7 +112,6 @@ public class HomePageFragment extends Fragment {
                 Timber.d("Failed to add restaurant history to homepage");
             }
         });
-
         return rootView;
     }
 

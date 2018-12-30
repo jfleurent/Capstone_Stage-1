@@ -1,7 +1,6 @@
-package com.example.jeffr.capstone_stage2.data;
+package com.example.jeffr.capstone_stage2.models;
 
 import com.google.gson.annotations.SerializedName;
-import com.yelp.fusion.client.models.Reviews;
 
 import java.util.List;
 

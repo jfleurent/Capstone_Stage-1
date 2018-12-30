@@ -1,11 +1,15 @@
-package com.example.jeffr.capstone_stage2;
+package com.example.jeffr.capstone_stage2.listener;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
-import com.example.jeffr.capstone_stage2.data.User;
+import com.example.jeffr.capstone_stage2.models.User;
+import com.example.jeffr.capstone_stage2.ui.CustomizePageActivity;
+import com.example.jeffr.capstone_stage2.ui.MainActivity;
+import com.example.jeffr.capstone_stage2.ui.NavigationActivity;
+import com.example.jeffr.capstone_stage2.ui.SignUpActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

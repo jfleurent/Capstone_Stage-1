@@ -1,4 +1,4 @@
-package com.example.jeffr.capstone_stage2.data;
+package com.example.jeffr.capstone_stage2.models;
 
 import android.databinding.BindingAdapter;
 import android.widget.ImageView;

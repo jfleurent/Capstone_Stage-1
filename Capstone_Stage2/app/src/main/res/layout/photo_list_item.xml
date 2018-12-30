@@ -5,7 +5,7 @@
   <data>
     <variable
         name="obj"
-        type="com.example.jeffr.capstone_stage2.data.Photo">
+        type="com.example.jeffr.capstone_stage2.models.Photo">
     </variable>
   </data>
 

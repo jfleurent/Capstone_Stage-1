@@ -9,10 +9,10 @@
 
 
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-  <uses-feature android:name="android.hardware.location.gps" />
-  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+  <uses-feature android:name="android.hardware.location.gps"/>
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
   <application
       android:allowBackup="true"
@@ -29,37 +29,42 @@
         android:name="com.google.android.geo.API_KEY"
         android:value="@string/google_maps_api"/>
 
-    <activity android:name=".MainActivity">
+    <activity android:name=".ui.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-    <activity android:name=".SignUpActivity">
+    <activity android:name=".ui.SignUpActivity">
     </activity>
     <activity
-        android:name=".NavigationActivity"
+        android:name=".ui.NavigationActivity"
         android:label="@string/title_activity_navigation">
     </activity>
-    <activity android:name=".CustomizePageActivity">
+    <activity android:name=".ui.CustomizePageActivity">
     </activity>
-    <activity android:name=".DetailCategoryFavoriteActivity">
+    <activity android:name=".ui.DetailCategoryFavoriteActivity">
     </activity>
-    <activity android:name=".DetailRestaurantActivity">
+    <activity android:name=".ui.DetailRestaurantActivity">
     </activity>
-    <activity android:name=".SearchResultsActivity">
+    <activity android:name=".ui.SearchResultsActivity">
     </activity>
 
-    <receiver android:name=".FavoriteListWidget">
+    <receiver android:name=".widget.FavoriteListWidget">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
       </intent-filter>
-
       <meta-data
           android:name="android.appwidget.provider"
           android:resource="@xml/favorite_list_widget_info"/>
     </receiver>
+
+    <service android:name=".widget.ListViewWidgetService"
+        android:permission="android.permission.BIND_REMOTEVIEWS"
+        android:exported="false"/>
+
   </application>
+
 
 </manifest>

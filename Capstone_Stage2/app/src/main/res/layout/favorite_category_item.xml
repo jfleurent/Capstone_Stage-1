@@ -6,7 +6,7 @@
   <data>
     <variable
         name="obj"
-        type="com.example.jeffr.capstone_stage2.data.FavoriteCategory">
+        type="com.example.jeffr.capstone_stage2.models.FavoriteCategory">
     </variable>
   </data>
 

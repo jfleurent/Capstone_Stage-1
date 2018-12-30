@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailCategoryFavoriteActivity"
+    tools:context=".ui.DetailCategoryFavoriteActivity"
     android:id="@+id/detail_category_favorite_activity"
     >
   <RelativeLayout

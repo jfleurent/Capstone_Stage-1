@@ -1,9 +1,8 @@
 package com.example.jeffr.capstone_stage2;
 
-import com.example.jeffr.capstone_stage2.data.RestaurantId;
-import com.example.jeffr.capstone_stage2.data.RestaurantInfo;
+import com.example.jeffr.capstone_stage2.models.RestaurantId;
+import com.example.jeffr.capstone_stage2.models.RestaurantInfo;
 
-import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;

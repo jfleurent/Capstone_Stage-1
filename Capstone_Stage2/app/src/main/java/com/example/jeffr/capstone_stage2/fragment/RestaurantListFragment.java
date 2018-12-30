@@ -10,12 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.jeffr.capstone_stage2.DetailRestaurantActivity;
+import com.example.jeffr.capstone_stage2.ui.DetailRestaurantActivity;
 import com.example.jeffr.capstone_stage2.R;
 import com.example.jeffr.capstone_stage2.adapters.RecyclerViewOnClick;
 import com.example.jeffr.capstone_stage2.adapters.SimpleRecyclerViewAdapter;
-import com.example.jeffr.capstone_stage2.data.FavoriteCategory;
-import com.example.jeffr.capstone_stage2.data.Restaurant;
+import com.example.jeffr.capstone_stage2.models.FavoriteCategory;
+import com.example.jeffr.capstone_stage2.models.Restaurant;
 
 import java.io.Serializable;
 import java.util.ArrayList;

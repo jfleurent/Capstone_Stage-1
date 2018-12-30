@@ -1,4 +1,4 @@
-package com.example.jeffr.capstone_stage2;
+package com.example.jeffr.capstone_stage2.ui;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -10,28 +10,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.jeffr.capstone_stage2.R;
+import com.example.jeffr.capstone_stage2.RetrofitService;
+import com.example.jeffr.capstone_stage2.ViewDialog;
 import com.example.jeffr.capstone_stage2.adapters.SectionsPagerAdapter;
 import com.example.jeffr.capstone_stage2.adapters.TabAdapter;
-import com.example.jeffr.capstone_stage2.data.Photo;
-import com.example.jeffr.capstone_stage2.data.Restaurant;
-import com.example.jeffr.capstone_stage2.data.RestaurantId;
-import com.example.jeffr.capstone_stage2.data.RestaurantInfo;
-import com.example.jeffr.capstone_stage2.data.Review;
-import com.example.jeffr.capstone_stage2.data.User;
+import com.example.jeffr.capstone_stage2.models.Photo;
+import com.example.jeffr.capstone_stage2.models.Restaurant;
+import com.example.jeffr.capstone_stage2.models.RestaurantId;
+import com.example.jeffr.capstone_stage2.models.RestaurantInfo;
+import com.example.jeffr.capstone_stage2.models.Review;
+import com.example.jeffr.capstone_stage2.models.User;
 import com.example.jeffr.capstone_stage2.databinding
         .ActivityDetailRestaurantBinding;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -74,7 +76,7 @@ public class DetailRestaurantActivity extends AppCompatActivity {
         userReference = FirebaseDatabase.getInstance()
                 .getReference()
                 .child("users")
-                .child(getIntent().getExtras().getString("UserId"));
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         historyReference = userReference.child("restaurantHistory");
 
