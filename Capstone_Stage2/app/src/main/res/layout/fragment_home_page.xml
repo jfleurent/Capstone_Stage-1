@@ -166,6 +166,17 @@
                 app:layout_constraintBottom_toBottomOf="@+id/profile_backgorund"
                 app:layout_constraintEnd_toEndOf="parent"
             />
+            <TextView
+                android:id="@+id/history_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Recently Viewed"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/has_seen_number_textview"/>
 
             <RelativeLayout
                 android:id="@+id/restaurant_history_fragment"
@@ -176,7 +187,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/has_seen_number_textview"
+                app:layout_constraintTop_toBottomOf="@+id/history_textview"
             >
             </RelativeLayout>
 
