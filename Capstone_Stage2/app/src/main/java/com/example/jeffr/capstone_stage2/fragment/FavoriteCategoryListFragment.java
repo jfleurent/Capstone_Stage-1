@@ -84,6 +84,7 @@ public class FavoriteCategoryListFragment extends Fragment implements RecyclerVi
   @Override public void rowSelected(Object obj) {
     Intent intent = new Intent(getActivity(), DetailCategoryFavoriteActivity.class);
     intent.putExtra("Category", (FavoriteCategory) obj);
+    intent.putExtra("UserId", getActivity().getIntent().getExtras().getString("UserId"));
     startActivity(intent);
   }
 }

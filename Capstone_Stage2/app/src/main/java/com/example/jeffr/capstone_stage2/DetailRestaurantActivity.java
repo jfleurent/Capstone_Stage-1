@@ -21,12 +21,18 @@ import com.example.jeffr.capstone_stage2.data.User;
 import com.example.jeffr.capstone_stage2.databinding
         .ActivityDetailRestaurantBinding;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +57,7 @@ public class DetailRestaurantActivity extends AppCompatActivity {
     private List<Review> reviews;
     private List<Photo> photos;
     private DatabaseReference userReference;
+    private DatabaseReference historyReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,18 +71,73 @@ public class DetailRestaurantActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.detail_restaurant_viewpager);
         tabLayout = findViewById(R.id.tabs);
 
-        userReference = FirebaseDatabase.getInstance().getReference().child("users").child(getIntent().getExtras().getString("UserId"));
+        userReference = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("users")
+                .child(getIntent().getExtras().getString("UserId"));
+
+        historyReference = userReference.child("restaurantHistory");
 
         userReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 int seenTotal = user.getSeenTotal();
                 userReference.child("seenTotal").setValue(++seenTotal);
                 Timber.d("Successfully increased seen total");
             }
 
-            @Override public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Timber.d("Failed to increase seen total");
+            }
+        });
+
+        historyReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getChildrenCount() < 20) {
+                    historyReference.child(String.valueOf(dataSnapshot.getChildrenCount()))
+                            .setValue(restaurant)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Timber.d("Successfully added restaurant to history");
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Timber.d("Failed to add restaurant to history");
+                        }
+                    });
+                } else {
+                    List<Restaurant> historyRestaurants = new ArrayList<>();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Restaurant restaurantEntry = snapshot.getValue(Restaurant.class);
+                        historyRestaurants.add(restaurantEntry);
+                    }
+                    Collections.reverse(historyRestaurants);
+                    historyRestaurants.remove(19);
+                    historyRestaurants.add(0, restaurant);
+                    Collections.reverse(historyRestaurants);
+                    historyReference.setValue(historyRestaurants)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Timber.d("Successfully added the list of history restaurants");
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Timber.d("Failed to add the list of history restaurants");
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Timber.d(databaseError.toException(), "Failed to add data to restaurantHistory");
             }
         });
 
@@ -92,7 +154,7 @@ public class DetailRestaurantActivity extends AppCompatActivity {
         String coordinates = "" + restaurant.getLatitude() + "," + restaurant.getLongitude();
         params.put("location", coordinates);
         params.put("radius", "10");
-        params.put("keyword",restaurant.getName());
+        params.put("keyword", restaurant.getName());
 
         final Call<RestaurantId> restaurantIdResponse = retrofitService
                 .getRestaurantId(params);
@@ -119,15 +181,17 @@ public class DetailRestaurantActivity extends AppCompatActivity {
                         Timber.d(call.request().toString());
                         List<RestaurantInfo.PhotoReference> photoReferences;
                         photos = new ArrayList<>();
+                        //TODO Add a check fur null with variables
                         reviews = response.body().getCandidates().getReviews();
                         photoReferences = response.body().getCandidates().getPhotos();
-                        for(RestaurantInfo.PhotoReference reference : photoReferences){
+                        for (RestaurantInfo.PhotoReference reference : photoReferences) {
                             photos.add(new Photo(getPhotoUrl(reference.getPhotoReference())));
                         }
                         restaurant.setPhotos(photos);
                         restaurant.setReviews(reviews);
                         viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager(), restaurant));
-                        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+                        viewPager.addOnPageChangeListener(
+                                new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
                         tabLayout.addOnTabSelectedListener(new TabAdapter(viewPager));
                     }
 

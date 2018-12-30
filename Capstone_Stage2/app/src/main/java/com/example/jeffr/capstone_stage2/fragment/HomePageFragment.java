@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.jeffr.capstone_stage2.R;
+import com.example.jeffr.capstone_stage2.data.Restaurant;
 import com.example.jeffr.capstone_stage2.data.User;
 import com.example.jeffr.capstone_stage2.databinding.FragmentHomePageBinding;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +23,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import timber.log.Timber;
@@ -29,6 +31,8 @@ import timber.log.Timber;
 public class HomePageFragment extends Fragment {
     private Fragment restaurantListFragment;
     private DatabaseReference userReference;
+    private DatabaseReference historyReference;
+    private Fragment fragment;
 
 
     public HomePageFragment() {
@@ -42,13 +46,15 @@ public class HomePageFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         final FragmentHomePageBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_home_page, container, false);
         setHasOptionsMenu(true);
         View rootView = binding.getRoot();
         userReference = FirebaseDatabase.getInstance().getReference().child("users").child(
                 getActivity().getIntent().getExtras().getString("UserId"));
+        historyReference = userReference.child("restaurantHistory");
+
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -65,12 +71,12 @@ public class HomePageFragment extends Fragment {
                 int seenTotal = user.getSeenTotal();
                 int favoriteTotal = user.getFavoriteTotal();
                 String photoUrl = (user.getPhoto_url() != null) ? user.getPhoto_url() : "";
-                Timber.d("Photo Url: "+photoUrl);
+                Timber.d("Photo Url: " + photoUrl);
                 String backgroundUrl = (user.getBackground_url() != null) ? user.getBackground_url() : "";
-                Timber.d("Background Url: "+photoUrl);
+                Timber.d("Background Url: " + photoUrl);
                 boolean hasBackgroundImage = user.isHasBackgroundImage();
                 long backgroundColor = user.getBackgroundColor();
-                User bindUser = new User(name, city, favorites, state, seenTotal, favoriteTotal,photoUrl,backgroundUrl,
+                User bindUser = new User(name, city, favorites, state, seenTotal, favoriteTotal, photoUrl, backgroundUrl,
                         hasBackgroundImage, backgroundColor);
                 binding.setUser(bindUser);
                 Timber.d("Successfully added user to HomepageFragment");
@@ -81,6 +87,33 @@ public class HomePageFragment extends Fragment {
                 Timber.d(databaseError.toException(), "Could not read User object data");
             }
         });
+
+        historyReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Restaurant> restaurantHistory = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Restaurant restaurant = snapshot.getValue(Restaurant.class);
+                    restaurantHistory.add(restaurant);
+                }
+                Collections.reverse(restaurantHistory);
+                fragment = new RestaurantListFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("History", restaurantHistory);
+                fragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.restaurant_history_fragment, fragment, fragment.getTag())
+                        .commit();
+                Timber.d("Successfully added restaurant history to homepage");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Timber.d("Failed to add restaurant history to homepage");
+            }
+        });
+
         return rootView;
     }
 

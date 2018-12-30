@@ -1,6 +1,8 @@
 package com.example.jeffr.capstone_stage2.data;
 
 import android.databinding.BindingAdapter;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.widget.ImageView;
 
 import com.example.jeffr.capstone_stage2.R;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @IgnoreExtraProperties
-public class Restaurant implements Serializable, Comparable<Restaurant> {
+public class Restaurant implements Serializable, Comparable<Restaurant>, Parcelable {
 
     private String imageUrl;
     private String name;
@@ -25,7 +27,6 @@ public class Restaurant implements Serializable, Comparable<Restaurant> {
     private List<Photo> photos;
     private String distanceString;
     private List<Review> reviews;
-    private long timestamp;
 
     public Restaurant(){
 
@@ -46,13 +47,29 @@ public class Restaurant implements Serializable, Comparable<Restaurant> {
         photos = new ArrayList<>();
     }
 
-    public long getTimestamp() {
-        return timestamp;
+    protected Restaurant(Parcel in) {
+        imageUrl = in.readString();
+        name = in.readString();
+        rating = in.readFloat();
+        price = in.readString();
+        address = in.readString();
+        distance = in.readFloat();
+        latitude = in.readFloat();
+        longitude = in.readFloat();
+        distanceString = in.readString();
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
+    public static final Creator<Restaurant> CREATOR = new Creator<Restaurant>() {
+        @Override
+        public Restaurant createFromParcel(Parcel in) {
+            return new Restaurant(in);
+        }
+
+        @Override
+        public Restaurant[] newArray(int size) {
+            return new Restaurant[size];
+        }
+    };
 
     public List<Review> getReviews() {
         return reviews;
@@ -149,5 +166,23 @@ public class Restaurant implements Serializable, Comparable<Restaurant> {
     @Override
     public int compareTo(Restaurant restaurant) {
         return this.price.length() - restaurant.price.length();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(imageUrl);
+        dest.writeString(name);
+        dest.writeFloat(rating);
+        dest.writeString(price);
+        dest.writeString(address);
+        dest.writeFloat(distance);
+        dest.writeFloat(latitude);
+        dest.writeFloat(longitude);
+        dest.writeString(distanceString);
     }
 }
