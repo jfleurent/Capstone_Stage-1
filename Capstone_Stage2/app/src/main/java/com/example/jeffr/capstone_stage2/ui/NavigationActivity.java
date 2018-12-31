@@ -24,6 +24,7 @@ import com.example.jeffr.capstone_stage2.models.Restaurant;
 import com.example.jeffr.capstone_stage2.fragment.FavoriteCategoryListFragment;
 import com.example.jeffr.capstone_stage2.fragment.HomePageFragment;
 import com.example.jeffr.capstone_stage2.fragment.SearchFragment;
+import com.example.jeffr.capstone_stage2.models.User;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.yelp.fusion.client.connection.YelpFusionApi;
@@ -57,6 +58,7 @@ public class NavigationActivity extends AppCompatActivity {
   private FloatingActionButton fab;
   private Location location;
   private LocationManager lm;
+  private User user;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,7 @@ public class NavigationActivity extends AppCompatActivity {
   public void fabOnclick(View view) {
     if (fragment instanceof HomePageFragment) {
       Intent intent = new Intent(this, CustomizePageActivity.class);
+      intent.putExtra("User",user);
       startActivity(intent);
     } else if (fragment instanceof FavoriteCategoryListFragment) {
       ViewDialog.showNewCategoryDialog(this);
@@ -295,5 +298,9 @@ public class NavigationActivity extends AppCompatActivity {
             .ACCESS_FINE_LOCATION}, LOCATION_PERMISSION);
       }
     }
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 }

@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.CustomizePageActivity"
-    >
+>
 
   <android.support.constraint.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      >
+  >
 
     <ImageView
         android:id="@+id/customize_background_imageview"
@@ -22,58 +22,64 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+    />
 
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/profile_imageview_circle"
+        android:layout_width="@dimen/customize_page_image_width"
+        android:layout_height="@dimen/customize_page_image_height"
+        android:elevation="12dp"
+        app:cardCornerRadius="60dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintBottom_toBottomOf="@+id/customize_background_imageview"
+        app:layout_constraintEnd_toEndOf="@+id/customize_background_imageview"
+        app:layout_constraintStart_toStartOf="@+id/customize_background_imageview"
+        app:layout_constraintTop_toTopOf="@+id/customize_background_imageview">
     <ImageView
         android:id="@+id/profile_imageview"
         android:layout_width="@dimen/customize_page_image_width"
         android:layout_height="@dimen/customize_page_image_height"
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:background="#000"
+
         android:contentDescription="@null"
-        app:layout_constraintBottom_toBottomOf="@+id/customize_background_imageview"
-        app:layout_constraintEnd_toEndOf="@+id/customize_background_imageview"
-        app:layout_constraintStart_toStartOf="@+id/customize_background_imageview"
-        app:layout_constraintTop_toTopOf="@+id/customize_background_imageview"
-        />
+
+    />
+    </android.support.v7.widget.CardView>
 
     <ImageButton
         android:id="@+id/change_photo_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/profile_imageview"
+        android:layout_below="@+id/profile_imageview_circle"
         android:layout_margin="@dimen/customize_page_photo_icon_margin"
-        android:layout_toEndOf="@+id/profile_imageview"
+        android:layout_toEndOf="@+id/profile_imageview_circle"
         android:background="@drawable/ic_change_photo"
         app:layout_constraintBottom_toBottomOf="@+id/customize_background_imageview"
         app:layout_constraintEnd_toEndOf="@+id/customize_background_imageview"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/profile_imageview"
+        app:layout_constraintStart_toEndOf="@+id/profile_imageview_circle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.81"
         android:onClick="showDialog"
-        />
+    />
     <Button
         android:id="@+id/change_background_button"
         android:layout_width="@dimen/customize_page_background_button_width"
         android:layout_height="@dimen/customize_page_background_button_height"
-        android:layout_marginEnd="@dimen/customize_page_background_margin_end"
         android:layout_marginStart="@dimen/customize_page_background_margin_start"
-        android:layout_marginTop="@dimen/customize_page_background_margin_top"
         android:background="@drawable/white_round_button"
         android:onClick="showDialog"
         android:text="@string/change_background_text"
         android:textAllCaps="false"
         android:textColor="@color/customize_background_button_color"
         android:textSize="@dimen/customize_page_background_text_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.008"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_imageview"
         style="?android:attr/buttonBarButtonStyle"
-        />
+        app:layout_constraintBottom_toBottomOf="@+id/customize_background_imageview"
+        app:layout_constraintTop_toBottomOf="@+id/customize_background_imageview"/>
 
 
     <EditText
@@ -84,7 +90,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/change_background_button"
-        />
+        android:singleLine="true"
+    />
 
     <EditText
         android:id="@+id/city_edittext"
@@ -93,7 +100,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_edittext"
-        />
+        android:singleLine="true"
+    />
 
     <Spinner
         android:id="@+id/state_spinner"
@@ -104,7 +112,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/city_edittext"
-        />
+    />
 
     <Spinner
         android:id="@+id/favorite1_spinner"
@@ -113,7 +121,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/state_spinner"
-        />
+    />
 
     <Spinner
         android:id="@+id/favorite2_spinner"
@@ -122,28 +130,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/favorite1_spinner"
-        />
+    />
 
-      <Spinner
-          style="@style/CustomizePageFavoriteSpinner"
-          android:id="@+id/favoirte3_spinner"
-          android:prompt="@string/favorite3_spinner_title"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/favorite2_spinner"
-      />
+    <Spinner
+        style="@style/CustomizePageFavoriteSpinner"
+        android:id="@+id/favoirte3_spinner"
+        android:prompt="@string/favorite3_spinner_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/favorite2_spinner"
+    />
 
-      <Button
-          app:layout_constraintTop_toBottomOf="@id/favoirte3_spinner"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          android:id="@+id/update_profile_button"
-          android:layout_marginTop="@dimen/customize_page_update_profile_button_margin_top"
-          android:layout_marginBottom="@dimen/customize_page_update_profile_button_margin_bottom"
-          style="@style/LoginSignUpButton"
-          android:text="@string/update_profile_button_text"
-          android:onClick="updateProfile"
-      />
+    <Button
+        app:layout_constraintTop_toBottomOf="@id/favoirte3_spinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/update_profile_button"
+        android:layout_marginTop="@dimen/customize_page_update_profile_button_margin_top"
+        android:layout_marginBottom="@dimen/customize_page_update_profile_button_margin_bottom"
+        style="@style/LoginSignUpButton"
+        android:text="@string/update_profile_button_text"
+        android:onClick="updateProfile"
+    />
 
   </android.support.constraint.ConstraintLayout>
 </ScrollView>

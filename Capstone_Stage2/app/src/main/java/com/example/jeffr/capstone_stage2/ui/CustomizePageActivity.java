@@ -19,16 +19,20 @@ import android.widget.Toast;
 import com.example.jeffr.capstone_stage2.FirebaseDatabaseContract;
 import com.example.jeffr.capstone_stage2.R;
 import com.example.jeffr.capstone_stage2.ViewDialog;
+import com.example.jeffr.capstone_stage2.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,7 +46,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
-//TODO Fill up the feilds with data in database
+//TODO add rotation for picture
 public class CustomizePageActivity extends AppCompatActivity {
   private static final int REQUEST_IMAGE_CAPTURE = 685;
   private static final int REQUEST_PICK_IMAGE = 956;
@@ -59,11 +63,12 @@ public class CustomizePageActivity extends AppCompatActivity {
   private FirebaseStorage storage;
   private StorageReference profileStorageRef;
   private StorageReference backgroundStorageRef;
-  Bitmap profileImageBitmap;
-  Bitmap backgroundImageBitmap;
+  private Bitmap profileImageBitmap;
+  private Bitmap backgroundImageBitmap;
+  private User user;
 
   private static final String[] stateList =
-      {"", "AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "GU", "HI", "IA",
+      {"State", "AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "GU", "HI", "IA",
           "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MH", "MI", "MN",
           "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH",
           "OK", "OR", "PA", "PR", "PW", "RI", "SC", "SD", "TN", "TX", "UT", "VA",
@@ -73,6 +78,7 @@ public class CustomizePageActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_customize_page);
+    getSupportActionBar().hide();
     profileImage = findViewById(R.id.profile_imageview);
     backgroundImage = findViewById(R.id.customize_background_imageview);
     stateSpinner = findViewById(R.id.state_spinner);
@@ -85,12 +91,27 @@ public class CustomizePageActivity extends AppCompatActivity {
     storage = FirebaseStorage.getInstance();
     ArrayAdapter<String> stateListAdapter = new ArrayAdapter<String>(this,
         android.R.layout.simple_spinner_item, stateList);
-    ArrayAdapter<String> favoriteListAdapter = new ArrayAdapter<String>(this,
-        android.R.layout.simple_spinner_item, loadCategoriesFromRaw());
+    ArrayAdapter<String> favoriteListAdapter1 = new ArrayAdapter<String>(this,
+        android.R.layout.simple_spinner_item, loadCategoriesFromRaw(1));
+    ArrayAdapter<String> favoriteListAdapter2 = new ArrayAdapter<String>(this,
+        android.R.layout.simple_spinner_item, loadCategoriesFromRaw(2));
+    ArrayAdapter<String> favoriteListAdapter3 = new ArrayAdapter<String>(this,
+        android.R.layout.simple_spinner_item, loadCategoriesFromRaw(3));
     stateSpinner.setAdapter(stateListAdapter);
-    favorite1Spinner.setAdapter(favoriteListAdapter);
-    favorite2Spinner.setAdapter(favoriteListAdapter);
-    favorite3Spinner.setAdapter(favoriteListAdapter);
+    favorite1Spinner.setAdapter(favoriteListAdapter1);
+    favorite2Spinner.setAdapter(favoriteListAdapter2);
+    favorite3Spinner.setAdapter(favoriteListAdapter3);
+    user = (User) getIntent().getExtras().get("User");
+    Picasso.get().load(user.getPhoto_url()).placeholder(R.drawable.gary).fit().into(profileImage);
+    Timber.d(user.getBackground_url());
+    try {
+      backgroundImage.setBackgroundColor(Integer.valueOf(user.getBackground_url()));
+    } catch (Exception e) {
+      Picasso.get()
+          .load(user.getBackground_url())
+          .placeholder(R.drawable.gary)
+          .into(backgroundImage);
+    }
   }
 
   @Override
@@ -128,14 +149,49 @@ public class CustomizePageActivity extends AppCompatActivity {
         : cityEditText.getText().toString();
     String state = (TextUtils.isEmpty(cityEditText.getText())) ? ""
         : stateSpinner.getSelectedItem().toString();
-
-    String favorite1 = favorite1Spinner.getSelectedItem().toString();
-    String favorite2 = favorite2Spinner.getSelectedItem().toString();
-    String favorite3 = favorite3Spinner.getSelectedItem().toString();
+    String favorite1 = " ";
+    String favorite2 = " ";
+    String favorite3 = " ";
     List<String> favorites = new ArrayList<>();
-    favorites.add(favorite1);
-    favorites.add(favorite2);
-    favorites.add(favorite3);
+    if(favorite1Spinner.getSelectedItem().toString().endsWith("1")){
+      if(user.getFavorite().size() < 1){
+        favorites.add(favorite1);
+      }
+      else{
+        favorite1 = user.getFavorite().get(0);
+        favorites.add(favorite1);
+      }
+    }
+    else{
+      favorite1 = favorite1Spinner.getSelectedItem().toString();
+      favorites.add(favorite1);
+    }
+    if(favorite2Spinner.getSelectedItem().toString().endsWith("2")){
+      if(user.getFavorite().size() < 2){
+        favorites.add(favorite2);
+      }
+      else{
+        favorite2 = user.getFavorite().get(1);
+        favorites.add(favorite2);
+      }
+    }
+    else{
+      favorite2 = favorite2Spinner.getSelectedItem().toString();
+      favorites.add(favorite2);
+    }
+    if(favorite3Spinner.getSelectedItem().toString().endsWith("3")){
+      if(user.getFavorite().size() < 3){
+        favorites.add(favorite3);
+      }
+      else{
+        favorite3 = user.getFavorite().get(2);
+        favorites.add(favorite3);
+      }
+    }
+    else{
+      favorite3 = favorite3Spinner.getSelectedItem().toString();
+      favorites.add(favorite3);
+    }
 
     if (!name.isEmpty()) {
       mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
@@ -157,7 +213,7 @@ public class CustomizePageActivity extends AppCompatActivity {
           });
     }
 
-    if (!state.isEmpty()) {
+    if (!state.isEmpty() && !state.equals("State")) {
       mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
           .child(FirebaseDatabaseContract.USER_ID)
           .child(
@@ -319,6 +375,7 @@ public class CustomizePageActivity extends AppCompatActivity {
       });
     }
     Toast.makeText(this, "Profile Updated", Toast.LENGTH_LONG).show();
+    finish();
   }
 
   //TODO Fix string for dialog type
@@ -344,7 +401,7 @@ public class CustomizePageActivity extends AppCompatActivity {
     }
   }
 
-  public List<String> loadCategoriesFromRaw() {
+  public List<String> loadCategoriesFromRaw(int number) {
     List<String> categories = new ArrayList<>();
     String json = null;
     try {
@@ -377,6 +434,7 @@ public class CustomizePageActivity extends AppCompatActivity {
     } catch (JSONException e) {
       e.printStackTrace();
     }
+    categories.add(0, String.format("Favorite %d", number));
     return categories;
   }
 

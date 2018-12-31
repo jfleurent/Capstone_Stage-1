@@ -10,9 +10,9 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="widget_margin">8dp</dimen>
 
   <!--Activity_Customize_Page-->
-  <dimen name="customize_page_background_height">176dp</dimen>
-  <dimen name="customize_page_image_height">100dp</dimen>
-  <dimen name="customize_page_image_width">100dp</dimen>
+  <dimen name="customize_page_background_height">200dp</dimen>
+  <dimen name="customize_page_image_height">120dp</dimen>
+  <dimen name="customize_page_image_width">120dp</dimen>
   <dimen name="customize_page_photo_icon_margin">8dp</dimen>
   <dimen name="customize_page_background_button_width">128dp</dimen>
   <dimen name="customize_page_background_button_height">32dp</dimen>
@@ -31,6 +31,8 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="customize_page_favorite_spinner_margin_top">16dp</dimen>
   <dimen name="customize_page_update_profile_button_margin_top">16dp</dimen>
   <dimen name="customize_page_update_profile_button_margin_bottom">8dp</dimen>
+  <dimen name="customize_page_update_profile_favorite_spinner_title_text_size">20sp</dimen>
+  <dimen name="customize_page_update_profile_favorite_spinner_title_margin_top">8dp</dimen>
 
   <!--Activity_Detail_Restaurant-->
   <dimen name="detail_restaurant_toolbar_height">200dp</dimen>

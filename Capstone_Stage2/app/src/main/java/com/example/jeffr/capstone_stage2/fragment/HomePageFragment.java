@@ -14,6 +14,7 @@ import com.example.jeffr.capstone_stage2.R;
 import com.example.jeffr.capstone_stage2.models.Restaurant;
 import com.example.jeffr.capstone_stage2.models.User;
 import com.example.jeffr.capstone_stage2.databinding.FragmentHomePageBinding;
+import com.example.jeffr.capstone_stage2.ui.NavigationActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +28,6 @@ import java.util.List;
 import timber.log.Timber;
 
 public class HomePageFragment extends Fragment {
-  private Fragment restaurantListFragment;
   private DatabaseReference userReference;
   private DatabaseReference historyReference;
 
@@ -80,6 +80,7 @@ public class HomePageFragment extends Fragment {
         User bindUser = new User(name, city, favorites, state, seenTotal, favoriteTotal, photoUrl,
             backgroundUrl,
             hasBackgroundImage, backgroundColor);
+        ((NavigationActivity)getActivity()).setUser(bindUser);
         binding.setUser(bindUser);
         Timber.d("Successfully added user to HomepageFragment");
       }
@@ -102,7 +103,8 @@ public class HomePageFragment extends Fragment {
         bundle.putParcelableArrayList("History", restaurantHistory);
         Timber.d("Successfully added restaurant history to homepage");
         fragment.setArguments(bundle);
-        getFragmentManager()
+        getActivity()
+            .getSupportFragmentManager()
             .beginTransaction()
             .replace(R.id.restaurant_history_fragment, fragment, fragment.getTag())
             .commit();

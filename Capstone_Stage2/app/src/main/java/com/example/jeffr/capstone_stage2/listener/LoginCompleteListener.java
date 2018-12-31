@@ -39,10 +39,12 @@ public class LoginCompleteListener implements OnCompleteListener<AuthResult> {
             .child(FirebaseDatabaseContract.USER_ID)
             .setValue(user);
         intent = new Intent(mContext, CustomizePageActivity.class);
+        ((SignUpActivity) mContext).finish();
         mContext.startActivity(intent);
       } else if (mContext instanceof MainActivity) {
         intent = new Intent(mContext, NavigationActivity.class);
         mContext.startActivity(intent);
+        ((MainActivity) mContext).finish();
       }
     }
   }

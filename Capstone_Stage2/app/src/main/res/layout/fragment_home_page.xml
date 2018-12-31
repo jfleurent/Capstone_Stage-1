@@ -51,7 +51,7 @@
           android:layout_width="@dimen/fragment_home_page_profile_image_height"
           android:layout_height="@dimen/fragment_home_page_profile_image_width"
           android:elevation="12dp"
-          app:cardCornerRadius="40dp"
+          app:cardCornerRadius="48dp"
           android:layout_margin="@dimen/fragment_home_page_profile_image_margin"
           android:layout_centerHorizontal="true"
           app:layout_constraintBottom_toBottomOf="@+id/profile_background"
