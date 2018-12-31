@@ -51,258 +51,249 @@ import timber.log.Timber;
 
 public class NavigationActivity extends AppCompatActivity {
 
-    private static final int LOCATION_PERMISSION = 843;
-    private FragmentManager manager;
-    private Fragment fragment;
-    private FloatingActionButton fab;
-    private Location location;
-    private LocationManager lm;
-    private DatabaseReference mDatabase;
+  private static final int LOCATION_PERMISSION = 843;
+  private FragmentManager manager;
+  private Fragment fragment;
+  private FloatingActionButton fab;
+  private Location location;
+  private LocationManager lm;
 
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_navigation);
+    getSupportActionBar().hide();
+    fab = findViewById(R.id.navigation_action_button);
+    manager = getSupportFragmentManager();
+    fragment = new HomePageFragment();
+    fab.setImageResource(R.drawable.ic_edit_profile);
+    manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
+        fragment.getTag()).commit();
+    BottomNavigationView navigation = findViewById(R.id.navigation);
+    navigation.setOnNavigationItemSelectedListener(new NavigationListener
+        ());
+    lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+    checkPermission();
+    location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+  }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navigation);
-        getSupportActionBar().hide();
-        fab = findViewById(R.id.navigation_action_button);
-        manager = getSupportFragmentManager();
-        fragment = new HomePageFragment();
-        fab.setImageResource(R.drawable.ic_edit_profile);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
-                fragment.getTag()).commit();
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(new NavigationListener
-                ());
+  public void fabOnclick(View view) {
+    if (fragment instanceof HomePageFragment) {
+      Intent intent = new Intent(this, CustomizePageActivity.class);
+      startActivity(intent);
+    } else if (fragment instanceof FavoriteCategoryListFragment) {
+      ViewDialog.showNewCategoryDialog(this);
+    } else {
+      search();
+    }
+  }
 
-        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission
-                .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest
-                .permission.ACCESS_COARSE_LOCATION) != PackageManager
-                .PERMISSION_GRANTED) {
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{Manifest.permission
-                        .ACCESS_FINE_LOCATION}, LOCATION_PERMISSION);
-            }
-
-            return;
-        }
-        location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+  private void search() {
+    final Intent intent = new Intent(this, SearchResultsActivity.class);
+    YelpFusionApiFactory apiFactory = new YelpFusionApiFactory();
+    YelpFusionApi yelpFusionApi = null;
+    try {
+      yelpFusionApi = apiFactory.createAPI(getResources().getString(R
+          .string.yelp_api_keu));
+    } catch (IOException e) {
+      e.printStackTrace();
     }
 
-    public void fabOnclick(View view) {
-        if (fragment instanceof HomePageFragment) {
-            Intent intent = new Intent(this, CustomizePageActivity.class);
-            intent.putExtras(getIntent().getExtras());
-            startActivity(intent);
-        } else if (fragment instanceof FavoriteCategoryListFragment) {
-            ViewDialog.showNewCategoryDialog(this);
+    Map<String, String> params = new HashMap<>();
+
+    //Gets params for category entered by user in search bar
+    String search = ((SearchFragment) fragment).getSearchText().getText()
+        .toString().toLowerCase();
+    for (String category : loadCategoriesFromRaw()) {
+      if (category.contains(search) && !search.equals("")) {
+        params.put("categories", category);
+        Timber.d("Categories: " + category);
+        break;
+      }
+    }
+
+    //If search is not apart of categories displays message in next activity
+    if (!search.equals("") && params.get("categories") == null) {
+      startActivity(intent);
+      return;
+    }
+
+    params.put("latitude", String.valueOf(location.getLatitude()));
+    params.put("longitude", String.valueOf(location.getLongitude()));
+    params.put("limit", "40");
+    params.put("radius", String.valueOf(fragment.getArguments().getInt
+        ("Distance")));
+    params.put("price", fragment.getArguments().getString("Price"));
+    if (!fragment.getArguments().getString("Sort").equals("price")) {
+      params.put("sort_by", fragment.getArguments().getString("Sort"));
+    }
+
+    Timber.d(params.toString());
+    //TODO Add code for sorting price
+    Call<SearchResponse> call = yelpFusionApi.getBusinessSearch(params);
+    call.enqueue(new Callback<SearchResponse>() {
+      @Override
+      public void onResponse(Call<SearchResponse> call,
+          Response<SearchResponse> response) {
+        SearchResponse searchResponse = response.body();
+        ArrayList<Restaurant> queriedRestaurants = convertBusinesses
+            (searchResponse.getBusinesses());
+        if (fragment.getArguments().getInt("Amount") == 0) {
+          queriedRestaurants = randomizeResult(queriedRestaurants);
         } else {
-            search();
+          queriedRestaurants = filterByRating(queriedRestaurants,
+              fragment.getArguments().getInt("Rating"));
+          if (fragment.getArguments().getString("Sort").equals
+              ("price")) {
+            Collections.sort(queriedRestaurants);
+          }
         }
-    }
+        intent.putExtra("Restaurants", queriedRestaurants);
+        startActivity(intent);
+      }
 
-    private void search() {
-        final Intent intent = new Intent(this, SearchResultsActivity.class);
-        YelpFusionApiFactory apiFactory = new YelpFusionApiFactory();
-        YelpFusionApi yelpFusionApi = null;
-        try {
-            yelpFusionApi = apiFactory.createAPI(getResources().getString(R
-                    .string.yelp_api_keu));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+      @Override
+      public void onFailure(Call<SearchResponse> call, Throwable t) {
+        Timber.d(t, "Query Failed");
+      }
+    });
+  }
 
-        Map<String, String> params = new HashMap<>();
+  @Override
+  public void onRequestPermissionsResult(int requestCode, @NonNull String[]
+      permissions, @NonNull int[] grantResults) {
+    switch (requestCode) {
+      case LOCATION_PERMISSION: {
+        if (grantResults.length > 0 && grantResults[0] ==
+            PackageManager.PERMISSION_GRANTED) {
 
-        //Gets params for category entered by user in search bar
-        String search = ((SearchFragment) fragment).getSearchText().getText()
-                .toString().toLowerCase();
-        for (String category : loadCategoriesFromRaw()) {
-            if (category.contains(search) && !search.equals("")) {
-                params.put("categories", category);
-                Timber.d("Categories: " + category);
-                break;
-            }
-        }
-
-
-        //If search is not apart of categories displays message in next activity
-        if (!search.equals("") && params.get("categories") == null) {
-            intent.putExtras(getIntent().getExtras());
-            startActivity(intent);
-            return;
-        }
-
-        params.put("latitude", String.valueOf(location.getLatitude()));
-        params.put("longitude", String.valueOf(location.getLongitude()));
-        params.put("limit", "40");
-        params.put("radius", String.valueOf(fragment.getArguments().getInt
-                ("Distance")));
-        params.put("price", fragment.getArguments().getString("Price"));
-        if (!fragment.getArguments().getString("Sort").equals("price")) {
-            params.put("sort_by", fragment.getArguments().getString("Sort"));
-        }
-
-        Timber.d(params.toString());
-        //TODO Add code for sorting price
-        Call<SearchResponse> call = yelpFusionApi.getBusinessSearch(params);
-        call.enqueue(new Callback<SearchResponse>() {
-            @Override
-            public void onResponse(Call<SearchResponse> call,
-                    Response<SearchResponse> response) {
-                SearchResponse searchResponse = response.body();
-                ArrayList<Restaurant> queriedRestaurants = convertBusinesses
-                        (searchResponse.getBusinesses());
-                if (fragment.getArguments().getInt("Amount") == 0) {
-                    queriedRestaurants = randomizeResult(queriedRestaurants);
-                } else {
-                    queriedRestaurants = filterByRating(queriedRestaurants,
-                            fragment.getArguments().getInt("Rating"));
-                    if (fragment.getArguments().getString("Sort").equals
-                            ("price")) {
-                        Collections.sort(queriedRestaurants);
-                    }
-                }
-                intent.putExtra("Restaurants", queriedRestaurants);
-                intent.putExtras(getIntent().getExtras());
-                startActivity(intent);
-            }
-
-            @Override
-            public void onFailure(Call<SearchResponse> call, Throwable t) {
-                Timber.d(t, "Query Failed");
-            }
-        });
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[]
-            permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case LOCATION_PERMISSION: {
-                if (grantResults.length > 0 && grantResults[0] ==
-                        PackageManager.PERMISSION_GRANTED) {
-
-                } else {
-                    Timber.d("Permission Denied");
-                }
-                return;
-            }
-        }
-    }
-
-    private ArrayList<Restaurant> convertBusinesses(List<Business> businesses) {
-        ArrayList<Restaurant> restaurants = new ArrayList<>();
-        for (Business business : businesses) {
-            restaurants.add(new Restaurant(business.getImageUrl(), business
-                    .getName(), (float) business.getRating(), business
-                    .getPrice(), String.format("%s %s, %s %s", business
-                    .getLocation().getAddress1(), business.getLocation()
-                    .getCity(), business.getLocation().getState(), business
-                    .getLocation().getZipCode()), Math.round((business
-                    .getDistance() / 1609.344) * 10) / 10, (float) business
-                    .getCoordinates().getLatitude(), (float) business
-                    .getCoordinates().getLongitude()));
-        }
-        return restaurants;
-    }
-
-    private ArrayList<Restaurant> filterByRating(ArrayList<Restaurant>
-            restaurants, int
-            rating) {
-
-        ArrayList<Restaurant> filteredRestaurants = new ArrayList<>();
-        if (rating == 0) {
-            return restaurants;
         } else {
-            for (Restaurant restaurant : restaurants) {
-                if (restaurant.getRating() >= rating) {
-                    filteredRestaurants.add(restaurant);
-                }
-            }
-            return filteredRestaurants;
+          Timber.d("Permission Denied");
         }
+      }
     }
+  }
 
-    private ArrayList<Restaurant> randomizeResult(ArrayList<Restaurant>
-            restaurants) {
-        if (restaurants.size() == 0) {
-            return restaurants;
+  private ArrayList<Restaurant> convertBusinesses(List<Business> businesses) {
+    ArrayList<Restaurant> restaurants = new ArrayList<>();
+    for (Business business : businesses) {
+      restaurants.add(new Restaurant(business.getImageUrl(), business
+          .getName(), (float) business.getRating(), business
+          .getPrice(), String.format("%s %s, %s %s", business
+          .getLocation().getAddress1(), business.getLocation()
+          .getCity(), business.getLocation().getState(), business
+          .getLocation().getZipCode()), Math.round((business
+          .getDistance() / 1609.344) * 10) / 10, (float) business
+          .getCoordinates().getLatitude(), (float) business
+          .getCoordinates().getLongitude()));
+    }
+    return restaurants;
+  }
+
+  private ArrayList<Restaurant> filterByRating(ArrayList<Restaurant>
+      restaurants, int
+      rating) {
+
+    ArrayList<Restaurant> filteredRestaurants = new ArrayList<>();
+    if (rating == 0) {
+      return restaurants;
+    } else {
+      for (Restaurant restaurant : restaurants) {
+        if (restaurant.getRating() >= rating) {
+          filteredRestaurants.add(restaurant);
         }
-        Random random = new Random();
-        int randomNumber = random.nextInt(restaurants.size());
-        ArrayList<Restaurant> randomResult = new ArrayList<>();
-        randomResult.add(restaurants.get(randomNumber));
-        return randomResult;
+      }
+      return filteredRestaurants;
     }
+  }
 
-    public List<String> loadCategoriesFromRaw() {
-        List<String> categories = new ArrayList<>();
-        String json = null;
+  private ArrayList<Restaurant> randomizeResult(ArrayList<Restaurant>
+      restaurants) {
+    if (restaurants.size() == 0) {
+      return restaurants;
+    }
+    Random random = new Random();
+    int randomNumber = random.nextInt(restaurants.size());
+    ArrayList<Restaurant> randomResult = new ArrayList<>();
+    randomResult.add(restaurants.get(randomNumber));
+    return randomResult;
+  }
+
+  public List<String> loadCategoriesFromRaw() {
+    List<String> categories = new ArrayList<>();
+    String json = null;
+    try {
+      InputStream is = getResources().openRawResource(getResources()
+          .getIdentifier("categories", "raw", getPackageName()));
+      int size = is.available();
+      byte[] buffer = new byte[size];
+      is.read(buffer);
+      is.close();
+      json = new String(buffer, "UTF-8");
+    } catch (IOException ex) {
+      ex.printStackTrace();
+      return null;
+    }
+    try {
+      JSONArray jsonArray = new JSONArray(json);
+      for (int i = 0; i < jsonArray.length(); i++) {
         try {
-            InputStream is = getResources().openRawResource(getResources()
-                    .getIdentifier("categories", "raw", getPackageName()));
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
+          JSONObject jsonObject = jsonArray.getJSONObject(i);
+          String parentCategory = jsonObject.getJSONArray("parents").getString(0);
+          if (parentCategory.equals("restaurants") || parentCategory.equals("bar")
+              || parentCategory.equals("caribbean") || parentCategory.equals("food")
+              || parentCategory.equals("nightlife")) {
+            categories.add(jsonObject.getString("alias"));
+          }
+        } catch (Exception e) {
+          e.printStackTrace();
         }
-        try {
-            JSONArray jsonArray = new JSONArray(json);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                try {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    String parentCategory = jsonObject.getJSONArray("parents").getString(0);
-                    if (parentCategory.equals("restaurants") || parentCategory.equals("bar")
-                            || parentCategory.equals("caribbean") || parentCategory.equals("food")
-                            || parentCategory.equals("nightlife")) {
-                        categories.add(jsonObject.getString("alias"));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return categories;
+      }
+    } catch (JSONException e) {
+      e.printStackTrace();
     }
+    return categories;
+  }
 
-
-    private class NavigationListener implements BottomNavigationView
-            .OnNavigationItemSelectedListener {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    fragment = new HomePageFragment();
-                    fab.setImageResource(R.drawable.ic_edit_profile);
-                    manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
-                            fragment.getTag()).commit();
-                    return true;
-                case R.id.navigation_dashboard:
-                    fragment = new FavoriteCategoryListFragment();
-                    fab.setImageResource(R.drawable.ic_add_favorite);
-                    manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
-                            fragment.getTag()).commit();
-                    return true;
-                case R.id.navigation_notifications:
-                    fragment = new SearchFragment();
-                    fab.setImageResource(R.drawable.ic_search);
-                    manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
-                            fragment.getTag()).commit();
-                    return true;
-            }
-            return false;
-        }
+  private class NavigationListener implements BottomNavigationView
+      .OnNavigationItemSelectedListener {
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+      switch (item.getItemId()) {
+        case R.id.navigation_home:
+          fragment = new HomePageFragment();
+          fab.setImageResource(R.drawable.ic_edit_profile);
+          manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
+              fragment.getTag()).commit();
+          return true;
+        case R.id.navigation_dashboard:
+          fragment = new FavoriteCategoryListFragment();
+          fab.setImageResource(R.drawable.ic_add_favorite);
+          manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
+              fragment.getTag()).commit();
+          return true;
+        case R.id.navigation_notifications:
+          fragment = new SearchFragment();
+          fab.setImageResource(R.drawable.ic_search);
+          manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
+              fragment.getTag()).commit();
+          return true;
+      }
+      return false;
     }
+  }
+
+  private void checkPermission() {
+    if (ActivityCompat.checkSelfPermission(this, Manifest.permission
+        .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        && ActivityCompat.checkSelfPermission(this, Manifest
+        .permission.ACCESS_COARSE_LOCATION) != PackageManager
+        .PERMISSION_GRANTED) {
+
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        requestPermissions(new String[] {Manifest.permission
+            .ACCESS_FINE_LOCATION}, LOCATION_PERMISSION);
+      }
+    }
+  }
 }

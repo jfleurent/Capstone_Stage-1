@@ -1,17 +1,15 @@
 package com.example.jeffr.capstone_stage2.widget;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.example.jeffr.capstone_stage2.FirebaseDatabaseContract;
 import com.example.jeffr.capstone_stage2.R;
 import com.example.jeffr.capstone_stage2.models.FavoriteCategory;
 import com.example.jeffr.capstone_stage2.models.Restaurant;
@@ -26,7 +24,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import com.squareup.picasso.Picasso;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
@@ -47,7 +44,6 @@ public class ListViewWidgetService extends RemoteViewsService {
     FirebaseAuth firebaseAuth;
     DatabaseReference categoryReference;
     List<FavoriteCategory> categories;
-
     FirebaseUser user;
 
     public ListViewRemoteViewsFactory(Context applicationContext) {
@@ -58,9 +54,9 @@ public class ListViewWidgetService extends RemoteViewsService {
       if (user != null) {
         categoryReference = FirebaseDatabase.getInstance()
             .getReference()
-            .child("users")
+            .child(FirebaseDatabaseContract.USERS_CHILD)
             .child(user.getUid())
-            .child("favorite_categories");
+            .child(FirebaseDatabaseContract.FAVORITE_CATEGORY_CHILD);
       }
     }
 
@@ -77,14 +73,13 @@ public class ListViewWidgetService extends RemoteViewsService {
             Timber.d("Successfully loaded categories in widget");
             AppWidgetManager manager = AppWidgetManager.getInstance(mContext);
             final ComponentName cn = new ComponentName(mContext, FavoriteListWidget.class);
-            categoryName = categories.get(0).getTitle();
-            manager.notifyAppWidgetViewDataChanged(manager.getAppWidgetIds(cn),R.id.resturant_list_view);
-
+            manager.notifyAppWidgetViewDataChanged(manager.getAppWidgetIds(cn),
+                R.id.resturant_list_view);
           }
 
           @Override
           public void onCancelled(@NonNull DatabaseError databaseError) {
-            Timber.d(databaseError.toException(),"Failed loaded categories in widget");
+            Timber.d(databaseError.toException(), "Failed loaded categories in widget");
           }
         });
       }
@@ -106,7 +101,9 @@ public class ListViewWidgetService extends RemoteViewsService {
 
     @Override
     public int getCount() {
-      return (currentCategory != null) ? currentCategory.getRestaurants().size() : 0;
+      return (currentCategory != null && currentCategory.getRestaurants() != null) ? currentCategory
+          .getRestaurants()
+          .size() : 0;
     }
 
     @Override
@@ -117,7 +114,7 @@ public class ListViewWidgetService extends RemoteViewsService {
         Restaurant restaurant = currentCategory.getRestaurants().get(position);
         try {
           Bitmap bitmap = Picasso.get().load(restaurant.getImageUrl()).get();
-          remoteViews.setImageViewBitmap(R.id.resturant_imageview,bitmap);
+          remoteViews.setImageViewBitmap(R.id.resturant_imageview, bitmap);
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -129,9 +126,8 @@ public class ListViewWidgetService extends RemoteViewsService {
         Intent intent = new Intent(mContext, DetailRestaurantActivity.class);
 
         //TODO possibly add extras to open detail activity from categories activity
-        //intent.putExtra("UserID",user.getUid());
         //intent.putExtra("Restaurant",(Serializable) restaurant);
-        remoteViews.setOnClickFillInIntent(R.id.intent_layout,intent);
+        remoteViews.setOnClickFillInIntent(R.id.intent_layout, intent);
       }
       return remoteViews;
     }
@@ -155,6 +151,5 @@ public class ListViewWidgetService extends RemoteViewsService {
     public boolean hasStableIds() {
       return false;
     }
-
   }
 }

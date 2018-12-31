@@ -47,11 +47,11 @@ public class SearchFragment extends Fragment {
     bundle.putString("Price", "1,2,3,4");
     bundle.putInt("Rating", 1);
     setArguments(bundle);
-    numberOfReturnsLayout.addOnTabSelectedListener(new TabAdapter("Amount",this));
-    sortByLayout.addOnTabSelectedListener(new TabAdapter("Sort",this));
-    distanceLayout.addOnTabSelectedListener(new TabAdapter("Distance",this));
-    priceLayout.addOnTabSelectedListener(new TabAdapter("Price",this));
-    ratingLayout.addOnTabSelectedListener(new TabAdapter("Rating",this));
+    numberOfReturnsLayout.addOnTabSelectedListener(new TabAdapter("Amount", this));
+    sortByLayout.addOnTabSelectedListener(new TabAdapter("Sort", this));
+    distanceLayout.addOnTabSelectedListener(new TabAdapter("Distance", this));
+    priceLayout.addOnTabSelectedListener(new TabAdapter("Price", this));
+    ratingLayout.addOnTabSelectedListener(new TabAdapter("Rating", this));
     return rootView;
   }
 

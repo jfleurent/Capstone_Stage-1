@@ -18,7 +18,6 @@ public class SearchResultsActivity extends AppCompatActivity{
     private Fragment fragment;
     private FragmentManager manager;
     private TextView noResultsTextView;
-    private GoogleApiClient googleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

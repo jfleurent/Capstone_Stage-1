@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.jeffr.capstone_stage2.models.FavoriteCategory;
+import com.example.jeffr.capstone_stage2.models.Restaurant;
 import com.example.jeffr.capstone_stage2.models.User;
 import com.example.jeffr.capstone_stage2.ui.CustomizePageActivity;
 import com.example.jeffr.capstone_stage2.ui.DetailRestaurantActivity;
@@ -65,12 +66,20 @@ public class ViewDialog {
               imageView.setImageBitmap(null);
               imageView.setBackgroundColor(cp.getColor());
 
-              ((CustomizePageActivity) activity).getDatabase().child("users").child(
-                  activity.getIntent().getExtras().getString("UserId")).child(
-                  "hasBackgroundImage").setValue(false);
-              ((CustomizePageActivity) activity).getDatabase().child("users").child(
-                  activity.getIntent().getExtras().getString("UserId")).child(
-                  "backgroundColor").setValue(cp.getColor());
+              ((CustomizePageActivity) activity).getDatabase()
+                  .child(FirebaseDatabaseContract.USERS_CHILD)
+                  .child(
+                      FirebaseDatabaseContract.USER_ID)
+                  .child(
+                      FirebaseDatabaseContract.HAS_BG_CHILD)
+                  .setValue(false);
+              ((CustomizePageActivity) activity).getDatabase()
+                  .child(FirebaseDatabaseContract.USERS_CHILD)
+                  .child(
+                      FirebaseDatabaseContract.USER_ID)
+                  .child(
+                      FirebaseDatabaseContract.BG_COLOR_CHILD)
+                  .setValue(cp.getColor());
               cp.dismiss();
             }
           });
@@ -114,13 +123,30 @@ public class ViewDialog {
       @Override
       public void onClick(View view) {
         if (!TextUtils.isEmpty(categoryEditText.getText())) {
-          DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-          mDatabase.child("users")
-              .child(activity.getIntent().getExtras().getString("UserId"))
-              .child("favorite_categories")
+          final DatabaseReference mDatabase = FirebaseDatabase.getInstance()
+              .getReference()
+              .child(FirebaseDatabaseContract.USERS_CHILD)
+              .child(FirebaseDatabaseContract.USER_ID)
+              .child(FirebaseDatabaseContract.FAVORITE_CATEGORY_CHILD);
+          mDatabase
               .push()
-              .child("title")
+              .child(FirebaseDatabaseContract.CATEGORY_TITLE)
               .setValue(categoryEditText.getText().toString());
+          //TODO impose limits on how much categories could be made
+          mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+              for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                if(snapshot.getKey() != null){
+                  mDatabase.child(snapshot.getKey()).child(FirebaseDatabaseContract.CATEGORY_REFERENCE).setValue(snapshot.getKey());
+                }
+                Timber.d("Successfully added reference to category");
+              }
+            }
+
+            @Override public void onCancelled(@NonNull DatabaseError databaseError) {
+              Timber.d("Failed to add reference to category");
+            }
+          });
         }
         dialog.dismiss();
       }
@@ -145,9 +171,10 @@ public class ViewDialog {
         FirebaseDatabase
             .getInstance()
             .getReference()
-            .child("users")
-            .child(activity.getIntent().getExtras().getString("UserId"));
-    final DatabaseReference favoriteCategoryReference = userReference.child("favorite_categories");
+            .child(FirebaseDatabaseContract.USERS_CHILD)
+            .child(FirebaseDatabaseContract.USER_ID);
+    final DatabaseReference favoriteCategoryReference =
+        userReference.child(FirebaseDatabaseContract.FAVORITE_CATEGORY_CHILD);
     final List<String> favoriteCategories = new ArrayList<>();
     final List<String> favoriteCategoryRefs = new ArrayList<>();
     final List<Integer> favoritesCategorySizes = new ArrayList<>();
@@ -161,7 +188,6 @@ public class ViewDialog {
           favoritesCategorySizes.add(
               (category.getRestaurants() != null) ? category.getRestaurants().size() : 0);
         }
-
         Timber.d("Successfully added categories to Dialog");
       }
 
@@ -180,17 +206,17 @@ public class ViewDialog {
     okButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        //TODO Add code for selecting checkboxes
-
         Timber.d("ListView Size:" + listView.getCheckedItemPositions().size());
         //Checks selected items
         for (int i = 0; i < favoriteCategories.size(); i++) {
           if (listView.getCheckedItemPositions().get(i)) {
             Timber.d("Reference key:" + favoriteCategoryRefs.get(i));
+            Restaurant restaurant = ((DetailRestaurantActivity) activity).getRestaurant();
+            restaurant.setCategoryReference(favoriteCategoryRefs.get(i));
             favoriteCategoryReference.child(favoriteCategoryRefs.get(i))
-                .child("restaurants")
+                .child(FirebaseDatabaseContract.RESTAURANTS_CHILD)
                 .child(String.valueOf(favoritesCategorySizes.get(i)))
-                .setValue(((DetailRestaurantActivity) activity).getRestaurant())
+                .setValue(restaurant)
                 .addOnSuccessListener(
                     new OnSuccessListener<Void>() {
                       @Override public void onSuccess(Void aVoid) {
@@ -199,7 +225,8 @@ public class ViewDialog {
                           @Override public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             User user = dataSnapshot.getValue(User.class);
                             int favoriteTotal = user.getFavoriteTotal();
-                            userReference.child("favoriteTotal").setValue(++favoriteTotal);
+                            userReference.child(FirebaseDatabaseContract.FAVORITE_TOTAL_CHILD)
+                                .setValue(++favoriteTotal);
                             Timber.d("Successfully add to favorite total");
                           }
 

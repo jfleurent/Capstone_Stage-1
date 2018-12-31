@@ -13,6 +13,7 @@ public class FavoriteCategory implements Serializable {
   //TODO Add variable for image
   private String title;
   private List<Restaurant> restaurants;
+  private String categoryReference;
 
   public FavoriteCategory() {
 
@@ -22,6 +23,14 @@ public class FavoriteCategory implements Serializable {
       List<Restaurant> restaurants) {
     this.title = title;
     this.restaurants = restaurants;
+  }
+
+  public String getCategoryReference() {
+    return categoryReference;
+  }
+
+  public void setCategoryReference(String categoryReference) {
+    this.categoryReference = categoryReference;
   }
 
   public String getTitle() {

@@ -26,7 +26,7 @@ public class ReviewFragment extends Fragment implements RecyclerViewOnClick {
   public static ReviewFragment newInstance(Restaurant restaurant) {
     ReviewFragment fragment = new ReviewFragment();
     Bundle args = new Bundle();
-    args.putSerializable("Restaurant",restaurant);
+    args.putSerializable("Restaurant", restaurant);
     fragment.setArguments(args);
     return fragment;
   }
@@ -46,11 +46,16 @@ public class ReviewFragment extends Fragment implements RecyclerViewOnClick {
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     recyclerView.setItemAnimator(new DefaultItemAnimator());
     recyclerView.setNestedScrollingEnabled(false);
-    recyclerView.setAdapter(new SimpleRecyclerViewAdapter<>(restaurant.getReviews(),R.layout.review_list_item, this));
+    recyclerView.setAdapter(
+        new SimpleRecyclerViewAdapter<>(restaurant.getReviews(), R.layout.review_list_item, this));
     return rootView;
   }
 
   @Override public void rowSelected(Object obj) {
+
+  }
+
+  @Override public void deleteSelectedRow(Object obj) {
 
   }
 }

@@ -15,11 +15,11 @@ public class DetailCategoryFavoriteActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_detail_category_favorite);
+    getSupportActionBar().hide();
     favoriteCategory = (FavoriteCategory) getIntent().getExtras().getSerializable("Category");
     Fragment fragment = new RestaurantListFragment();
     fragment.setArguments(getIntent().getExtras());
     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_relativelayout,
         fragment, fragment.getTag()).commit();
-    getSupportActionBar().setTitle(favoriteCategory.getTitle());
   }
 }

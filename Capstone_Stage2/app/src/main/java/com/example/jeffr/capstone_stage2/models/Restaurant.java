@@ -26,6 +26,7 @@ public class Restaurant implements Serializable, Comparable<Restaurant>, Parcela
     private List<Photo> photos;
     private String distanceString;
     private List<Review> reviews;
+    private String categoryReference;
 
     public Restaurant(){
 
@@ -69,6 +70,14 @@ public class Restaurant implements Serializable, Comparable<Restaurant>, Parcela
             return new Restaurant[size];
         }
     };
+
+    public String getCategoryReference() {
+        return categoryReference;
+    }
+
+    public void setCategoryReference(String categoryReference) {
+        this.categoryReference = categoryReference;
+    }
 
     public List<Review> getReviews() {
         return reviews;

@@ -2,10 +2,12 @@ package com.example.jeffr.capstone_stage2.adapters;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.example.jeffr.capstone_stage2.R;
 
 public abstract class MyBaseAdapter extends RecyclerView.Adapter<MyBaseAdapter.MyViewHolder> {
 
@@ -27,6 +29,13 @@ public abstract class MyBaseAdapter extends RecyclerView.Adapter<MyBaseAdapter.M
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
         recyclerViewOnClick.rowSelected(obj);
+      }
+    });
+    holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+      @Override public boolean onLongClick(View v) {
+        v.setBackgroundColor(Color.parseColor("#6bdfd3"));
+        recyclerViewOnClick.deleteSelectedRow(obj);
+        return true;
       }
     });
   }

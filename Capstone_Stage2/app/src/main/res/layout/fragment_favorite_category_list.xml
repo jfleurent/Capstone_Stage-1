@@ -36,6 +36,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="@dimen/fragment_favorite_category_list_button_margin"
+        android:visibility="invisible"
         />
 </RelativeLayout>
 
