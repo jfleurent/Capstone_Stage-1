@@ -71,8 +71,32 @@ public class FavoriteCategoryListFragment extends Fragment implements RecyclerVi
       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
         final List<FavoriteCategory> favoriteCategories = new ArrayList<>();
         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-          FavoriteCategory category = snapshot.getValue(FavoriteCategory.class);
-          favoriteCategories.add(category);
+          try{
+            FavoriteCategory category = snapshot.getValue(FavoriteCategory.class);
+            favoriteCategories.add(category);
+          }catch(Exception e){
+            Timber.d(e,"Category Node has Hashmap");
+            Query query =
+                favoriteCategoryReference.orderByChild(FirebaseDatabaseContract.CATEGORY_REFERENCE)
+                    .equalTo(snapshot.getKey());
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+              @Override public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                  for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    favoriteCategoryReference.child(snapshot.getKey()).removeValue();
+                    Timber.d("Successfully deleted item from the database");
+                    break;
+                  }
+                }
+              }
+
+              @Override public void onCancelled(@NonNull DatabaseError databaseError) {
+                Timber.d(databaseError.toException(),"Failed to delete item from the database");
+              }
+            });
+
+          }
+
         }
         Timber.d("Categories found:" + favoriteCategories.toString());
         recyclerView.setAdapter(
@@ -112,12 +136,13 @@ public class FavoriteCategoryListFragment extends Fragment implements RecyclerVi
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
               favoriteCategoryReference.child(snapshot.getKey()).removeValue();
               Timber.d("Successfully deleted item from the database");
+              break;
             }
           }
         }
 
         @Override public void onCancelled(@NonNull DatabaseError databaseError) {
-          Timber.d("Failed to delete item from the database");
+          Timber.d(databaseError.toException(),"Failed to delete item from the database");
         }
       });
     }

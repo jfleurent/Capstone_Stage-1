@@ -2,9 +2,11 @@ package com.example.jeffr.capstone_stage2;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -20,8 +22,10 @@ import com.example.jeffr.capstone_stage2.models.Restaurant;
 import com.example.jeffr.capstone_stage2.models.User;
 import com.example.jeffr.capstone_stage2.ui.CustomizePageActivity;
 import com.example.jeffr.capstone_stage2.ui.DetailRestaurantActivity;
+import com.example.jeffr.capstone_stage2.ui.MainActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -178,7 +182,7 @@ public class ViewDialog {
     final List<String> favoriteCategories = new ArrayList<>();
     final List<String> favoriteCategoryRefs = new ArrayList<>();
     final List<Integer> favoritesCategorySizes = new ArrayList<>();
-    favoriteCategoryReference.addValueEventListener(new ValueEventListener() {
+    favoriteCategoryReference.addListenerForSingleValueEvent(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -248,6 +252,24 @@ public class ViewDialog {
       }
     });
     dialog.show();
+  }
+
+  public static  void showLogoutDialog(final Activity activity){
+    new AlertDialog.Builder(activity)
+        .setTitle("Log Out")
+        .setMessage("Are you sure you want to logout")
+        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(activity,MainActivity.class);
+            activity.startActivity(intent);
+            activity.finish();
+          }
+        })
+        .setNegativeButton("No", null)
+        .show();
   }
 
   private static void openFileImages(Activity activity, int requestCode) {

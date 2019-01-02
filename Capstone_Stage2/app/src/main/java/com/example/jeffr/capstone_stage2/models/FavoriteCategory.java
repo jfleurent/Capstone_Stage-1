@@ -10,7 +10,6 @@ import java.util.List;
 
 @IgnoreExtraProperties
 public class FavoriteCategory implements Serializable {
-  //TODO Add variable for image
   private String title;
   private List<Restaurant> restaurants;
   private String categoryReference;

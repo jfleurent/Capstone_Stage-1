@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.support.v4.view.TintableBackgroundView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -91,6 +92,7 @@ public class ListViewWidgetService extends RemoteViewsService {
       if (categories.size() != 0) {
         currentCategory = categories.get(Math.abs(categoryIndex) % categories.size());
         categoryName = categories.get(Math.abs(categoryIndex) % categories.size()).getTitle();
+        Timber.d("Size: "+ categories.size());
       }
     }
 
@@ -101,9 +103,17 @@ public class ListViewWidgetService extends RemoteViewsService {
 
     @Override
     public int getCount() {
-      return (currentCategory != null && currentCategory.getRestaurants() != null) ? currentCategory
-          .getRestaurants()
-          .size() : 0;
+      if (currentCategory != null && currentCategory.getRestaurants() != null) {
+        if(currentCategory.getRestaurants().size() > 10){
+          return 10;
+        }
+        else{
+          return currentCategory.getRestaurants().size();
+        }
+      }
+      else {
+        return  0;
+      }
     }
 
     @Override

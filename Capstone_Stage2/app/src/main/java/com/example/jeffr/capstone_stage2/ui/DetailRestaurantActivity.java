@@ -2,12 +2,20 @@ package com.example.jeffr.capstone_stage2.ui;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.graphics.Palette;
 import android.view.View;
 
 import com.example.jeffr.capstone_stage2.FirebaseDatabaseContract;
@@ -34,6 +42,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import com.squareup.picasso.Picasso;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -61,12 +71,17 @@ public class DetailRestaurantActivity extends AppCompatActivity {
   private List<Photo> photos;
   private DatabaseReference userReference;
   private DatabaseReference historyReference;
+  private ConstraintLayout constraintLayout;
+  private FloatingActionButton floatingActionButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_detail_restaurant);
     getSupportActionBar().hide();
+    constraintLayout = findViewById(R.id.restaurant_info);
+    floatingActionButton = findViewById(R.id.favorite_fab);
+
     restaurant = (Restaurant) getIntent().getExtras().getSerializable("Restaurant");
     ActivityDetailRestaurantBinding binding = DataBindingUtil.setContentView(this,
         R.layout.activity_detail_restaurant);
@@ -81,6 +96,34 @@ public class DetailRestaurantActivity extends AppCompatActivity {
 
     historyReference = userReference.child("restaurantHistory");
 
+    updateSeenTotal();
+    updateViewHistory();
+    loadReviewPhotos();
+    //new FetchColors().execute();
+  }
+
+  public void favoriteOnClick(View view) {
+    ViewDialog.showSelectFavoriteDialog(this);
+  }
+
+  public void directionsOnClick(View view) {
+    Uri gmmIntentUri = Uri.parse("google.navigation:q=" + restaurant
+        .getLatitude() + "," + restaurant.getLongitude());
+    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+    mapIntent.setPackage("com.google.android.apps.maps");
+    startActivity(mapIntent);
+  }
+
+  private String getPhotoUrl(String reference) {
+    return BASE_URL + PHOTO_QUERY + reference + "&key=" + getResources().getString(
+        R.string.google_maps_api);
+  }
+
+  public Restaurant getRestaurant() {
+    return restaurant;
+  }
+
+  private void updateSeenTotal() {
     userReference.addListenerForSingleValueEvent(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -95,7 +138,9 @@ public class DetailRestaurantActivity extends AppCompatActivity {
         Timber.d("Failed to increase seen total");
       }
     });
+  }
 
+  private void updateViewHistory() {
     historyReference.addListenerForSingleValueEvent(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -143,7 +188,9 @@ public class DetailRestaurantActivity extends AppCompatActivity {
         Timber.d(databaseError.toException(), "Failed to add data to restaurantHistory");
       }
     });
+  }
 
+  private void loadReviewPhotos() {
     Retrofit retrofit = new Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
@@ -185,7 +232,7 @@ public class DetailRestaurantActivity extends AppCompatActivity {
             List<RestaurantInfo.PhotoReference> photoReferences;
             photos = new ArrayList<>();
             reviews = new ArrayList<>();
-            if(response.body().getCandidates() != null){
+            if (response.body().getCandidates() != null) {
               reviews = response.body().getCandidates().getReviews();
               photoReferences = response.body().getCandidates().getPhotos();
               for (RestaurantInfo.PhotoReference reference : photoReferences) {
@@ -214,24 +261,53 @@ public class DetailRestaurantActivity extends AppCompatActivity {
     });
   }
 
-  public void favoriteOnClick(View view) {
-    ViewDialog.showSelectFavoriteDialog(this);
+  private HashMap<String, Integer> processPalette(Palette palette) {
+    HashMap<String, Integer> map = new HashMap<>();
+    if (palette.getDarkMutedSwatch() != null) {
+      map.put("DarkMuted", palette.getDarkMutedSwatch().getRgb());
+    }
+    if (palette.getDarkVibrantSwatch() != null) {
+      map.put("DarkVibrant", palette.getDarkVibrantSwatch().getRgb());
+    }
+    if (palette.getDominantSwatch() != null) {
+      map.put("Dominant", palette.getDominantSwatch().getRgb());
+    }
+    if (palette.getLightMutedSwatch() != null) {
+      map.put("LightMuted", palette.getLightMutedSwatch().getRgb());
+    }
+    if (palette.getLightVibrantSwatch() != null) {
+      map.put("LightVibrant", palette.getLightVibrantSwatch().getRgb());
+    }
+    if (palette.getMutedSwatch() != null) {
+      map.put("Muted", palette.getMutedSwatch().getRgb());
+    }
+    if (palette.getVibrantSwatch() != null) {
+      map.put("Vibrant", palette.getVibrantSwatch().getRgb());
+    }
+    return map;
   }
 
-  public void directionsOnClick(View view) {
-    Uri gmmIntentUri = Uri.parse("google.navigation:q=" + restaurant
-        .getLatitude() + "," + restaurant.getLongitude());
-    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-    mapIntent.setPackage("com.google.android.apps.maps");
-    startActivity(mapIntent);
-  }
-
-  private String getPhotoUrl(String reference) {
-    return BASE_URL + PHOTO_QUERY + reference + "&key=" + getResources().getString(
-        R.string.google_maps_api);
-  }
-
-  public Restaurant getRestaurant() {
-    return restaurant;
-  }
+  //private class FetchColors extends AsyncTask<Void, Void, HashMap<String, Integer>> {
+  //
+  //  @Override protected HashMap<String, Integer> doInBackground(Void... voids) {
+  //    final HashMap<String, Integer>[] map = new HashMap[1];
+  //    try {
+  //      Bitmap bitmap = Picasso.get().load(restaurant.getImageUrl()).get();
+  //      Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+  //        @Override public void onGenerated(@Nullable Palette palette) {
+  //          if (palette != null) {
+  //            map[0] = processPalette(palette);
+  //            Timber.d("Colors: " + map[0].toString());
+  //            constraintLayout.setBackgroundColor(Color.GREEN);
+  //            floatingActionButton.setBackgroundColor(map[0].get("Vibrant"));
+  //          }
+  //        }
+  //      });
+  //    } catch (IOException e) {
+  //      e.printStackTrace();
+  //    }
+  //
+  //    return map[0];
+  //  }
+  //}
 }

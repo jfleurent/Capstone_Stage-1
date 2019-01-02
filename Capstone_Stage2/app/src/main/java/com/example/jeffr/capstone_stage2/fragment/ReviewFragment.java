@@ -22,7 +22,6 @@ public class ReviewFragment extends Fragment implements RecyclerViewOnClick {
 
   }
 
-  // TODO: Rename and change types and number of parameters
   public static ReviewFragment newInstance(Restaurant restaurant) {
     ReviewFragment fragment = new ReviewFragment();
     Bundle args = new Bundle();

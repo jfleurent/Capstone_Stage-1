@@ -165,7 +165,7 @@ public class Restaurant implements Serializable, Comparable<Restaurant>, Parcela
 
     @BindingAdapter({"bind:imageUrl"})
     public static void loadImage(ImageView view, String imageUrl) {
-        if (!imageUrl.equals(""))
+        if (imageUrl != null && !imageUrl.equals(""))
             Picasso.get().load(imageUrl).placeholder(R.drawable.gary).error(R
                     .drawable.gary).fit().into(view);
     }

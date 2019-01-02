@@ -3,12 +3,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    >
+>
   <data>
     <variable
         name="restaurant"
         type="com.example.jeffr.capstone_stage2.models.Restaurant"
-        >
+    >
     </variable>
 
   </data>
@@ -16,24 +16,24 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       tools:context=".ui.DetailRestaurantActivity"
-      >
+  >
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        >
+    >
 
       <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/detail_restaurant_toolbar_height"
-        app:imageUrl="@{restaurant.imageUrl}"
-        />
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/detail_restaurant_toolbar_height"
+          app:imageUrl="@{restaurant.imageUrl}"
+      />
 
       <android.support.v7.widget.Toolbar
           android:id="@+id/restaurant_toolbar"
           android:layout_width="match_parent"
           android:layout_height="@dimen/detail_restaurant_toolbar_height"
-          >
+      >
       </android.support.v7.widget.Toolbar>
 
       <android.support.design.widget.FloatingActionButton
@@ -46,16 +46,16 @@
           android:contentDescription="@string/favorite_fab_content_description"
           android:onClick="favoriteOnClick"
           android:src="@drawable/ic_favorite"
-          />
+      />
 
       <android.support.constraint.ConstraintLayout
           android:id="@+id/restaurant_info"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_below="@id/restaurant_toolbar"
-          android:background="#7e7e7e"
+          android:background="@color/colorPrimaryLight"
           android:orientation="vertical"
-          >
+      >
 
         <TextView
             android:id="@+id/resturant_title_textview"
@@ -68,7 +68,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            />
+        />
 
 
         <TextView
@@ -79,7 +79,7 @@
             android:text="@{String.valueOf(restaurant.rating)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/restaurant_address_textview"
-            />
+        />
         <RatingBar
             android:id="@+id/restaurant_rating_bar"
             android:layout_width="wrap_content"
@@ -89,7 +89,7 @@
             app:layout_constraintStart_toEndOf="@+id/rating_number_textview"
             app:layout_constraintTop_toBottomOf="@+id/restaurant_address_textview"
             style="?android:attr/ratingBarStyleSmall"
-            />
+        />
 
         <TextView
             android:id="@+id/restaurant_address_textview"
@@ -99,7 +99,7 @@
             android:text="@{restaurant.address}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/resturant_title_textview"
-            />
+        />
 
         <TextView
             android:id="@+id/price_title_textview"
@@ -110,7 +110,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rating_number_textview"
-            />
+        />
 
         <TextView
             android:id="@+id/price_textview"
@@ -121,7 +121,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/price_title_textview"
             app:layout_constraintTop_toBottomOf="@+id/rating_number_textview"
-            />
+        />
 
         <TextView
             android:id="@+id/distance_title_textview"
@@ -132,7 +132,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/price_textview"
             app:layout_constraintTop_toBottomOf="@+id/rating_number_textview"
-            />
+        />
 
         <TextView
             android:id="@+id/distance_textview"
@@ -143,21 +143,21 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/distance_title_textview"
             app:layout_constraintTop_toBottomOf="@+id/rating_number_textview"
-            />
+        />
 
 
-          <Button
-              android:id="@+id/directions_button"
-              android:layout_width="wrap_content"
-              android:layout_height="@dimen/detail_restaurant_directions_icon_height"
-              android:layout_marginStart="@dimen/detail_restaurant_directions_button_margin_start"
-              android:text="@string/detail_restuarant_direction_button_text"
-              android:textAllCaps="false"
-              android:background="@android:color/transparent"
-              app:layout_constraintBottom_toBottomOf="parent"
-              app:layout_constraintStart_toEndOf="@+id/distance_textview"
-              app:layout_constraintTop_toBottomOf="@+id/restaurant_rating_bar"
-              android:onClick="directionsOnClick"/>
+        <Button
+            android:id="@+id/directions_button"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/detail_restaurant_directions_icon_height"
+            android:layout_marginStart="@dimen/detail_restaurant_directions_button_margin_start"
+            android:text="@string/detail_restuarant_direction_button_text"
+            android:textAllCaps="false"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/distance_textview"
+            app:layout_constraintTop_toBottomOf="@+id/restaurant_rating_bar"
+            android:onClick="directionsOnClick"/>
 
         <ImageView
             android:id="@+id/directions_imageview"
@@ -167,7 +167,7 @@
             android:onClick="directionsOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/directions_button"
-            app:layout_constraintTop_toBottomOf="@+id/restaurant_rating_bar" />
+            app:layout_constraintTop_toBottomOf="@+id/restaurant_rating_bar"/>
       </android.support.constraint.ConstraintLayout>
 
       <android.support.design.widget.TabLayout
@@ -177,7 +177,7 @@
           android:layout_below="@id/restaurant_info"
           android:background="@color/colorPrimary"
 
-          >
+      >
 
         <android.support.design.widget.TabItem
             android:id="@+id/review_tab"
@@ -185,13 +185,13 @@
             android:layout_height="wrap_content"
             android:text="@string/review_tab_title"
 
-            />
+        />
         <android.support.design.widget.TabItem
             android:id="@+id/photo_tab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/photo_tab_title"
-            />
+        />
       </android.support.design.widget.TabLayout>
 
       <android.support.v4.view.ViewPager
@@ -199,7 +199,7 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_below="@id/tabs"
-          />
+      />
 
     </RelativeLayout>
 

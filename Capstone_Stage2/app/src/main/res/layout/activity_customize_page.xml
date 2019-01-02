@@ -24,6 +24,17 @@
         app:layout_constraintTop_toTopOf="parent"
     />
 
+    <ImageButton
+        android:id="@+id/rotate_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_action_name"
+        app:layout_constraintEnd_toStartOf="@+id/profile_imageview_circle"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_imageview_circle"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="rotateOnClick"/>
+
 
     <android.support.v7.widget.CardView
         android:id="@+id/profile_imageview_circle"
@@ -57,14 +68,11 @@
         android:layout_margin="@dimen/customize_page_photo_icon_margin"
         android:layout_toEndOf="@+id/profile_imageview_circle"
         android:background="@drawable/ic_change_photo"
-        app:layout_constraintBottom_toBottomOf="@+id/customize_background_imageview"
-        app:layout_constraintEnd_toEndOf="@+id/customize_background_imageview"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/profile_imageview_circle"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.81"
         android:onClick="showDialog"
-    />
+        app:layout_constraintStart_toEndOf="@+id/profile_imageview_circle"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_imageview_circle"
+        android:layout_marginStart="8dp"/>
     <Button
         android:id="@+id/change_background_button"
         android:layout_width="@dimen/customize_page_background_button_width"

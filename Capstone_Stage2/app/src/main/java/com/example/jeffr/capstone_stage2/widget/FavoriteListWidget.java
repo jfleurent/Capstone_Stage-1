@@ -48,11 +48,12 @@ public class FavoriteListWidget extends AppWidgetProvider {
       Timber.d("Got to update method");
       RemoteViews views =
           new RemoteViews(context.getPackageName(), R.layout.widget_restaurant_list);
+
       Intent serviceIntent = new Intent(context, ListViewWidgetService.class);
       serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
       serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
       views.setRemoteAdapter(R.id.resturant_list_view, serviceIntent);
-      appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.resturant_list_view);
+
       views.setEmptyView(R.id.resturant_list_view, R.id.empty_layout);
       views.setTextViewText(R.id.widget_category_title,categoryName);
       views.setOnClickPendingIntent(R.id.back_button,
@@ -63,6 +64,7 @@ public class FavoriteListWidget extends AppWidgetProvider {
       viewIntent.putExtra("Category", ListViewWidgetService.currentCategory);
       PendingIntent viewPendingIntent = PendingIntent.getActivity(context, 0, viewIntent, PendingIntent.FLAG_UPDATE_CURRENT);
       views.setOnClickPendingIntent(R.id.default_widget_layout, viewPendingIntent);
+      appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.resturant_list_view);
       appWidgetManager.updateAppWidget(appWidgetId, views);
     }
   }

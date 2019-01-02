@@ -16,4 +16,12 @@
       android:icon="@drawable/ic_menu_search"
       android:title="@string/menu_title_search"/>
 
+  <item
+      android:id="@+id/navigation_logout"
+      android:title="@string/menu_logout_text"
+      android:icon="@drawable/ic_logout"
+
+  />
+
+
 </menu>

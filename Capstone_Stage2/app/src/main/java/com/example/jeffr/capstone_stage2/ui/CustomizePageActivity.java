@@ -3,6 +3,8 @@ package com.example.jeffr.capstone_stage2.ui;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.example.jeffr.capstone_stage2.FirebaseDatabaseContract;
 import com.example.jeffr.capstone_stage2.R;
 import com.example.jeffr.capstone_stage2.ViewDialog;
@@ -24,29 +25,23 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import timber.log.Timber;
 
-//TODO add rotation for picture
 public class CustomizePageActivity extends AppCompatActivity {
   private static final int REQUEST_IMAGE_CAPTURE = 685;
   private static final int REQUEST_PICK_IMAGE = 956;
@@ -66,6 +61,7 @@ public class CustomizePageActivity extends AppCompatActivity {
   private Bitmap profileImageBitmap;
   private Bitmap backgroundImageBitmap;
   private User user;
+  private float rotation = 1;
 
   private static final String[] stateList =
       {"State", "AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "GU", "HI", "IA",
@@ -141,244 +137,20 @@ public class CustomizePageActivity extends AppCompatActivity {
   }
 
   public void updateProfile(View view) {
-
-    //TODO Possibly add code to prevent empty strings in name and city
-    String name = (TextUtils.isEmpty(nameEditText.getText())) ? ""
-        : nameEditText.getText().toString();
-    String city = (TextUtils.isEmpty(cityEditText.getText())) ? ""
-        : cityEditText.getText().toString();
-    String state = (TextUtils.isEmpty(cityEditText.getText())) ? ""
-        : stateSpinner.getSelectedItem().toString();
-    String favorite1 = " ";
-    String favorite2 = " ";
-    String favorite3 = " ";
-    List<String> favorites = new ArrayList<>();
-    if(favorite1Spinner.getSelectedItem().toString().endsWith("1")){
-      if(user.getFavorite().size() < 1){
-        favorites.add(favorite1);
-      }
-      else{
-        favorite1 = user.getFavorite().get(0);
-        favorites.add(favorite1);
-      }
-    }
-    else{
-      favorite1 = favorite1Spinner.getSelectedItem().toString();
-      favorites.add(favorite1);
-    }
-    if(favorite2Spinner.getSelectedItem().toString().endsWith("2")){
-      if(user.getFavorite().size() < 2){
-        favorites.add(favorite2);
-      }
-      else{
-        favorite2 = user.getFavorite().get(1);
-        favorites.add(favorite2);
-      }
-    }
-    else{
-      favorite2 = favorite2Spinner.getSelectedItem().toString();
-      favorites.add(favorite2);
-    }
-    if(favorite3Spinner.getSelectedItem().toString().endsWith("3")){
-      if(user.getFavorite().size() < 3){
-        favorites.add(favorite3);
-      }
-      else{
-        favorite3 = user.getFavorite().get(2);
-        favorites.add(favorite3);
-      }
-    }
-    else{
-      favorite3 = favorite3Spinner.getSelectedItem().toString();
-      favorites.add(favorite3);
-    }
-
-    if (!name.isEmpty()) {
-      mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
-          .child(FirebaseDatabaseContract.USER_ID)
-          .child(
-              FirebaseDatabaseContract.NAME_CHILD)
-          .setValue(name)
-          .addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-              Timber.d("Successfully added name to user");
-            }
-          })
-          .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-              Timber.d(e, "Failed to place user's name");
-            }
-          });
-    }
-
-    if (!state.isEmpty() && !state.equals("State")) {
-      mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
-          .child(FirebaseDatabaseContract.USER_ID)
-          .child(
-              FirebaseDatabaseContract.STATE_CHILD)
-          .setValue(state)
-          .addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-              Timber.d("Successfully added state to user");
-            }
-          })
-          .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-              Timber.d(e, "Failed to place user's state");
-            }
-          });
-    }
-
-    if (!city.isEmpty()) {
-      mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
-          .child(FirebaseDatabaseContract.USER_ID)
-          .child(
-              FirebaseDatabaseContract.CITY_CHILD)
-          .setValue(city)
-          .addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-              Timber.d("Successfully added city to user");
-            }
-          })
-          .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-              Timber.d(e, "Failed to place user's city");
-            }
-          });
-    }
-
-    mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
-        .child(FirebaseDatabaseContract.USER_ID)
-        .child(
-            FirebaseDatabaseContract.FAVORITES_CHILD)
-        .setValue(favorites)
-        .addOnSuccessListener(new OnSuccessListener<Void>() {
-          @Override
-          public void onSuccess(Void aVoid) {
-            Timber.d("Successfully added name to favorites");
-          }
-        })
-        .addOnFailureListener(new OnFailureListener() {
-          @Override
-          public void onFailure(@NonNull Exception e) {
-            Timber.d(e, "Failed to place user's favorites");
-          }
-        });
-    ;
-
+    updateFavorites();
+    updateUsername();
+    updateCity();
+    updateState();
     if (profileImageBitmap != null) {
-      profileStorageRef = storage.getReference().child(
-          String.format("%s/profile_image", FirebaseDatabaseContract.USER_ID));
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      profileImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-      byte[] data = baos.toByteArray();
-
-      UploadTask uploadTask = profileStorageRef.putBytes(data);
-      uploadTask.addOnFailureListener(new OnFailureListener() {
-        @Override
-        public void onFailure(@NonNull Exception exception) {
-          Timber.d(exception, "Failed to upload profile image");
-        }
-      }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-        @Override
-        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-          Timber.d("Successfully upload profile image");
-          profileStorageRef.getDownloadUrl().addOnCompleteListener(
-              new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                  String photoUrl = task.getResult().toString();
-                  mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
-                      .child(FirebaseDatabaseContract.USER_ID)
-                      .child(
-                          FirebaseDatabaseContract.PHOTO_URL_CHILD)
-                      .setValue(photoUrl)
-                      .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                          Timber.d("Successfully added photo_url to user");
-                        }
-                      })
-                      .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                          Timber.d(e, "Failed to place user's photo_url");
-                        }
-                      });
-                }
-              }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-              Timber.d(e, "Failed to download photo url");
-            }
-          });
-        }
-      });
+      uploadProfileImage();
     }
-
     if (backgroundImageBitmap != null) {
-      backgroundStorageRef = storage.getReference().child(String.format("%s/background_image",
-          FirebaseDatabaseContract.USER_ID));
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      backgroundImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-      byte[] data = baos.toByteArray();
-
-      UploadTask uploadTask = backgroundStorageRef.putBytes(data);
-      uploadTask.addOnFailureListener(new OnFailureListener() {
-        @Override
-        public void onFailure(@NonNull Exception exception) {
-          Timber.d(exception, "Failed to upload background image");
-        }
-      }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-        @Override
-        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-          Timber.d("Successfully upload background image");
-          mDatabase.child(FirebaseDatabaseContract.USERS_CHILD).child(
-              FirebaseDatabaseContract.USER_ID).child(
-              FirebaseDatabaseContract.HAS_BG_CHILD).setValue(true);
-          backgroundStorageRef.getDownloadUrl().addOnCompleteListener(
-              new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                  String backgroundUrl = task.getResult().toString();
-                  mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
-                      .child(FirebaseDatabaseContract.USER_ID)
-                      .child(
-                          FirebaseDatabaseContract.BG_URL_CHILD)
-                      .setValue(backgroundUrl)
-                      .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                          Timber.d("Successfully added background_url to user");
-                        }
-                      })
-                      .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                          Timber.d(e, "Failed to place user's background_url");
-                        }
-                      });
-                }
-              }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-              Timber.d(e, "Failed to download background url");
-            }
-          });
-        }
-      });
+      uploadBackgroundImage();
     }
     Toast.makeText(this, "Profile Updated", Toast.LENGTH_LONG).show();
     finish();
   }
 
-  //TODO Fix string for dialog type
   public void showDialog(View view) {
     int[] requestCodes = {REQUEST_IMAGE_CAPTURE, REQUEST_PICK_IMAGE};
     switch (view.getId()) {
@@ -440,5 +212,252 @@ public class CustomizePageActivity extends AppCompatActivity {
 
   public DatabaseReference getDatabase() {
     return mDatabase;
+  }
+
+  public void rotateOnClick(View view) {
+    profileImage.setRotation(90 * (rotation % 4));
+    Matrix matrix = new Matrix();
+    matrix.postRotate(90 * (rotation % 4));
+    rotation++;
+    profileImageBitmap = ((BitmapDrawable) profileImage.getDrawable()).getBitmap();
+    profileImageBitmap =
+        Bitmap.createBitmap(profileImageBitmap, 0, 0, profileImageBitmap.getWidth(),
+            profileImageBitmap.getHeight(), matrix, true);
+    if (profileImageBitmap != null) {
+      uploadProfileImage();
+    }
+  }
+
+  private void uploadBackgroundImage() {
+    backgroundStorageRef = storage.getReference().child(String.format("%s/background_image",
+        FirebaseDatabaseContract.USER_ID));
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    backgroundImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+    byte[] data = baos.toByteArray();
+
+    UploadTask uploadTask = backgroundStorageRef.putBytes(data);
+    uploadTask.addOnFailureListener(new OnFailureListener() {
+      @Override
+      public void onFailure(@NonNull Exception exception) {
+        Timber.d(exception, "Failed to upload background image");
+      }
+    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+      @Override
+      public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+        Timber.d("Successfully upload background image");
+        mDatabase.child(FirebaseDatabaseContract.USERS_CHILD).child(
+            FirebaseDatabaseContract.USER_ID).child(
+            FirebaseDatabaseContract.HAS_BG_CHILD).setValue(true);
+        backgroundStorageRef.getDownloadUrl().addOnCompleteListener(
+            new OnCompleteListener<Uri>() {
+              @Override
+              public void onComplete(@NonNull Task<Uri> task) {
+                String backgroundUrl = task.getResult().toString();
+                mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
+                    .child(FirebaseDatabaseContract.USER_ID)
+                    .child(
+                        FirebaseDatabaseContract.BG_URL_CHILD)
+                    .setValue(backgroundUrl)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                      @Override
+                      public void onSuccess(Void aVoid) {
+                        Timber.d("Successfully added background_url to user");
+                      }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                      @Override
+                      public void onFailure(@NonNull Exception e) {
+                        Timber.d(e, "Failed to place user's background_url");
+                      }
+                    });
+              }
+            }).addOnFailureListener(new OnFailureListener() {
+          @Override
+          public void onFailure(@NonNull Exception e) {
+            Timber.d(e, "Failed to download background url");
+          }
+        });
+      }
+    });
+  }
+
+  private void uploadProfileImage() {
+    profileStorageRef = storage.getReference().child(
+        String.format("%s/profile_image", FirebaseDatabaseContract.USER_ID));
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    profileImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+    byte[] data = baos.toByteArray();
+
+    UploadTask uploadTask = profileStorageRef.putBytes(data);
+    uploadTask.addOnFailureListener(new OnFailureListener() {
+      @Override
+      public void onFailure(@NonNull Exception exception) {
+        Timber.d(exception, "Failed to upload profile image");
+      }
+    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+      @Override
+      public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+        Timber.d("Successfully upload profile image");
+        profileStorageRef.getDownloadUrl().addOnCompleteListener(
+            new OnCompleteListener<Uri>() {
+              @Override
+              public void onComplete(@NonNull Task<Uri> task) {
+                String photoUrl = task.getResult().toString();
+                mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
+                    .child(FirebaseDatabaseContract.USER_ID)
+                    .child(
+                        FirebaseDatabaseContract.PHOTO_URL_CHILD)
+                    .setValue(photoUrl)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                      @Override
+                      public void onSuccess(Void aVoid) {
+                        Timber.d("Successfully added photo_url to user");
+                      }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                      @Override
+                      public void onFailure(@NonNull Exception e) {
+                        Timber.d(e, "Failed to place user's photo_url");
+                      }
+                    });
+              }
+            }).addOnFailureListener(new OnFailureListener() {
+          @Override
+          public void onFailure(@NonNull Exception e) {
+            Timber.d(e, "Failed to download photo url");
+          }
+        });
+      }
+    });
+  }
+
+  private void updateFavorites() {
+    String favorite1 = " ";
+    String favorite2 = " ";
+    String favorite3 = " ";
+    List<String> favorites = new ArrayList<>();
+    if (favorite1Spinner.getSelectedItem().toString().endsWith("1")) {
+      if (user.getFavorite() == null || user.getFavorite().size() < 1) {
+        favorites.add(favorite1);
+      } else {
+        favorite1 = user.getFavorite().get(0);
+        favorites.add(favorite1);
+      }
+    } else {
+      favorite1 = favorite1Spinner.getSelectedItem().toString();
+      favorites.add(favorite1);
+    }
+    if (favorite2Spinner.getSelectedItem().toString().endsWith("2")) {
+      if (user.getFavorite() == null || user.getFavorite().size() < 2) {
+        favorites.add(favorite2);
+      } else {
+        favorite2 = user.getFavorite().get(1);
+        favorites.add(favorite2);
+      }
+    } else {
+      favorite2 = favorite2Spinner.getSelectedItem().toString();
+      favorites.add(favorite2);
+    }
+    if (favorite3Spinner.getSelectedItem().toString().endsWith("3")) {
+      if (user.getFavorite() == null || user.getFavorite().size() < 3) {
+        favorites.add(favorite3);
+      } else {
+        favorite3 = user.getFavorite().get(2);
+        favorites.add(favorite3);
+      }
+    } else {
+      favorite3 = favorite3Spinner.getSelectedItem().toString();
+      favorites.add(favorite3);
+    }
+
+    mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
+        .child(FirebaseDatabaseContract.USER_ID)
+        .child(
+            FirebaseDatabaseContract.FAVORITES_CHILD)
+        .setValue(favorites)
+        .addOnSuccessListener(new OnSuccessListener<Void>() {
+          @Override
+          public void onSuccess(Void aVoid) {
+            Timber.d("Successfully added name to favorites");
+          }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+          @Override
+          public void onFailure(@NonNull Exception e) {
+            Timber.d(e, "Failed to place user's favorites");
+          }
+        });
+  }
+
+  private void updateUsername() {
+    String name = (TextUtils.isEmpty(nameEditText.getText())) ? ""
+        : nameEditText.getText().toString();
+    if (!name.isEmpty()) {
+      mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
+          .child(FirebaseDatabaseContract.USER_ID)
+          .child(
+              FirebaseDatabaseContract.NAME_CHILD)
+          .setValue(name)
+          .addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+              Timber.d("Successfully added name to user");
+            }
+          })
+          .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+              Timber.d(e, "Failed to place user's name");
+            }
+          });
+    }
+  }
+
+  private void updateCity() {
+    String city = (TextUtils.isEmpty(cityEditText.getText())) ? ""
+        : cityEditText.getText().toString();
+    if (!city.isEmpty()) {
+      mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
+          .child(FirebaseDatabaseContract.USER_ID)
+          .child(
+              FirebaseDatabaseContract.CITY_CHILD)
+          .setValue(city)
+          .addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+              Timber.d("Successfully added city to user");
+            }
+          })
+          .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+              Timber.d(e, "Failed to place user's city");
+            }
+          });
+    }
+  }
+
+  private void updateState() {
+    String state = (TextUtils.isEmpty(cityEditText.getText())) ? ""
+        : stateSpinner.getSelectedItem().toString();
+    if (!state.isEmpty() && !state.equals("State")) {
+      mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
+          .child(FirebaseDatabaseContract.USER_ID)
+          .child(
+              FirebaseDatabaseContract.STATE_CHILD)
+          .setValue(state)
+          .addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+              Timber.d("Successfully added state to user");
+            }
+          })
+          .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+              Timber.d(e, "Failed to place user's state");
+            }
+          });
+    }
   }
 }

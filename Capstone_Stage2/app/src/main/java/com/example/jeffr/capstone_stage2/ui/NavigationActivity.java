@@ -67,7 +67,9 @@ public class NavigationActivity extends AppCompatActivity {
     getSupportActionBar().hide();
     fab = findViewById(R.id.navigation_action_button);
     manager = getSupportFragmentManager();
-    fragment = new HomePageFragment();
+    if (fragment == null) {
+      fragment = new HomePageFragment();
+    }
     fab.setImageResource(R.drawable.ic_edit_profile);
     manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
         fragment.getTag()).commit();
@@ -75,7 +77,19 @@ public class NavigationActivity extends AppCompatActivity {
     navigation.setOnNavigationItemSelectedListener(new NavigationListener
         ());
     lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-    checkPermission();
+    if (ActivityCompat.checkSelfPermission(this, Manifest.permission
+        .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        && ActivityCompat.checkSelfPermission(this, Manifest
+        .permission.ACCESS_COARSE_LOCATION) != PackageManager
+        .PERMISSION_GRANTED) {
+        Timber.d("Got to here");
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        Timber.d("Got to here");
+        requestPermissions(new String[] {Manifest.permission
+            .ACCESS_FINE_LOCATION}, LOCATION_PERMISSION);
+      }
+      return;
+    }
     location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
   }
 
@@ -132,7 +146,6 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     Timber.d(params.toString());
-    //TODO Add code for sorting price
     Call<SearchResponse> call = yelpFusionApi.getBusinessSearch(params);
     call.enqueue(new Callback<SearchResponse>() {
       @Override
@@ -281,23 +294,15 @@ public class NavigationActivity extends AppCompatActivity {
           manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
               fragment.getTag()).commit();
           return true;
+        case R.id.navigation_logout:
+          ViewDialog.showLogoutDialog(NavigationActivity.this);
       }
       return false;
     }
   }
 
   private void checkPermission() {
-    if (ActivityCompat.checkSelfPermission(this, Manifest.permission
-        .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-        && ActivityCompat.checkSelfPermission(this, Manifest
-        .permission.ACCESS_COARSE_LOCATION) != PackageManager
-        .PERMISSION_GRANTED) {
 
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        requestPermissions(new String[] {Manifest.permission
-            .ACCESS_FINE_LOCATION}, LOCATION_PERMISSION);
-      }
-    }
   }
 
   public void setUser(User user) {

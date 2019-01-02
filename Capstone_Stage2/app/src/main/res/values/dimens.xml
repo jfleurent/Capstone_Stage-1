@@ -75,6 +75,16 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="activity_main_login_text_margin_end">160dp</dimen>
   <dimen name="activity_main_login_text_margin_start">161dp</dimen>
   <dimen name="activity_main_login_text_margin_top">8dp</dimen>
+  <dimen name="activity_main_login_google_image_width">16dp</dimen>
+  <dimen name="activity_main_login_google_image_height">16dp</dimen>
+  <dimen name="activity_main_login_google_image_margin_top">8dp</dimen>
+  <dimen name="activity_main_login_google_image_margin_start">8dp</dimen>
+  <dimen name="activity_main_login_google_text_margin_start">32dp</dimen>
+  <dimen name="activity_main_login_google_text_margin_top">8dp</dimen>
+  <dimen name="activity_main_login_google_button_margin_top">16dp</dimen>
+  <dimen name="activity_main_login_google_button_margin_end">136dp</dimen>
+  <dimen name="activity_main_login_google_button_margin_start">137dp</dimen>
+
 
   <!--Activity_Navigation-->
   <dimen name="activity_navigation_fab_margin_end">24dp</dimen>

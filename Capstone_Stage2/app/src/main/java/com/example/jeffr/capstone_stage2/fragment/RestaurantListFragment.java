@@ -116,13 +116,13 @@ public class RestaurantListFragment extends Fragment implements RecyclerViewOnCl
           .equalTo(deletingRestaurant.getName());
       query.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-          Timber.d("Got to here");
           if (dataSnapshot.exists()) {
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
               restaurantReference.child(category.getCategoryReference())
                   .child(FirebaseDatabaseContract.RESTAURANTS_CHILD)
                   .child(snapshot.getKey())
                   .removeValue();
+              break;
             }
             Timber.d("Successfully deleted item from the database");
             recyclerView.setAdapter(
@@ -132,7 +132,7 @@ public class RestaurantListFragment extends Fragment implements RecyclerViewOnCl
         }
 
         @Override public void onCancelled(@NonNull DatabaseError databaseError) {
-          Timber.d("Failed to delete item from the database");
+          Timber.d(databaseError.toException(),"Failed to delete item from the database");
         }
       });
     }

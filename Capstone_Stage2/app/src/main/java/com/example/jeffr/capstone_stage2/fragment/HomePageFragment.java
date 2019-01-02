@@ -58,7 +58,6 @@ public class HomePageFragment extends Fragment {
     userReference.addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        //TODO Test if adding just user will work
         User user = dataSnapshot.getValue(User.class);
         String name = (user.getName() != null) ? user.getName() : "";
         String city = (user.getCity() != null) ? user.getCity() : "";
@@ -80,8 +79,11 @@ public class HomePageFragment extends Fragment {
         User bindUser = new User(name, city, favorites, state, seenTotal, favoriteTotal, photoUrl,
             backgroundUrl,
             hasBackgroundImage, backgroundColor);
-        ((NavigationActivity)getActivity()).setUser(bindUser);
-        binding.setUser(bindUser);
+        if (getActivity() != null) {
+          ((NavigationActivity)getActivity()).setUser(bindUser);
+          binding.setUser(bindUser);
+        }
+
         Timber.d("Successfully added user to HomepageFragment");
       }
 
