@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    getSupportActionBar().hide();
     mFirebaseAuth = FirebaseAuth.getInstance();
     emailEditText = findViewById(R.id.email_edittext);
     passwordEditText = findViewById(R.id.password_edittext);
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
           mFirebaseAuth.signInWithEmailAndPassword(emailEditText.getText().toString(),
               passwordEditText.getText().toString()).addOnCompleteListener(this,
               new LoginCompleteListener(this));
+        } else {
+          Toast.makeText(this, "One of the fields is empty", Toast.LENGTH_SHORT).show();
         }
         break;
       case R.id.sign_in_button:
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         Timber.d("Got to here");
         GoogleSignInOptions gso =
             new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.google_web_id))
+                .requestIdToken(getString(R.string.server_client_id))
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -95,7 +98,10 @@ public class MainActivity extends AppCompatActivity {
           @Override
           public void onComplete(@NonNull Task<AuthResult> task) {
             if (task.isSuccessful()) {
+              Timber.d("Google Sign In successful");
               FirebaseUser user = mFirebaseAuth.getCurrentUser();
+            } else {
+              Timber.d(task.getException(), "Google Sign Failed");
             }
           }
         });

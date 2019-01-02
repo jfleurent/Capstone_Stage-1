@@ -15,6 +15,7 @@ import com.example.jeffr.capstone_stage2.models.Restaurant;
 import com.example.jeffr.capstone_stage2.models.User;
 import com.example.jeffr.capstone_stage2.databinding.FragmentHomePageBinding;
 import com.example.jeffr.capstone_stage2.ui.NavigationActivity;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +28,10 @@ import java.util.List;
 
 import timber.log.Timber;
 
+import static com.example.jeffr.capstone_stage2.ui.NavigationActivity.loadHistoryFragment;
+
 public class HomePageFragment extends Fragment {
+  public static final String USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
   private DatabaseReference userReference;
   private DatabaseReference historyReference;
 
@@ -51,7 +55,7 @@ public class HomePageFragment extends Fragment {
         .getReference()
         .child(FirebaseDatabaseContract.USERS_CHILD)
         .child(
-            FirebaseDatabaseContract.USER_ID);
+            USER_ID);
     historyReference = userReference.child(FirebaseDatabaseContract.RESTAURANT_HISTORY_CHILD);
     final Bundle bundle = new Bundle();
     final Fragment fragment = new RestaurantListFragment();
@@ -75,7 +79,7 @@ public class HomePageFragment extends Fragment {
         String backgroundUrl = (user.getBackground_url() != null) ? user.getBackground_url() : "";
         Timber.d("Background Url: " + photoUrl);
         boolean hasBackgroundImage = user.isHasBackgroundImage();
-        long backgroundColor = user.getBackgroundColor();
+        long backgroundColor = (user.getBackgroundColor()!= null) ? user.getBackgroundColor() : 0;
         User bindUser = new User(name, city, favorites, state, seenTotal, favoriteTotal, photoUrl,
             backgroundUrl,
             hasBackgroundImage, backgroundColor);
@@ -105,11 +109,7 @@ public class HomePageFragment extends Fragment {
         bundle.putParcelableArrayList("History", restaurantHistory);
         Timber.d("Successfully added restaurant history to homepage");
         fragment.setArguments(bundle);
-        getActivity()
-            .getSupportFragmentManager()
-            .beginTransaction()
-            .replace(R.id.restaurant_history_fragment, fragment, fragment.getTag())
-            .commit();
+        loadHistoryFragment(fragment);
       }
 
       @Override

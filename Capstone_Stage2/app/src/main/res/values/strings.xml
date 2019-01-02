@@ -16,7 +16,8 @@
   <string name="name_edittext_hint">Name</string>
   <string name="change_photo_content_description">Change Profile Image</string>
   <string name="update_profile_button_text">Update Profile</string>
-
+  <string name="rotate_button_content_description">Rotate Photo</string>
+  <string name="photo_button_content_description">Take Photo</string>
 
   <!-- Activity_Detail_Restaurant-->
   <string name="detail_restaurant_distance_title">Distance: </string>
@@ -46,6 +47,7 @@
   <string name="sign_up_username_hint">Username</string>
   <string name="sign_up_email_hint">Email</string>
   <string name="sign_up_password_hint">Password</string>
+  <string name="sign_up_confirm_password">Confirm Password</string>
   <string name="sign_up_button_text">Sign Up</string>
   <string name="sign_text">Sign Up </string>
   <string name="sign_up_google_text">Google</string>
@@ -64,6 +66,10 @@
   <!-- Fragment_Home_Page-->
   <string name="fragment_home_option_menu_content_description">Option Menu</string>>
   <string name="fragment_home_favorite_text">Favorite</string>
+  <string name="fragment_home_recents_text">Recently Viewed</string>
+  <string name="edit_profile_fab_content_description">Edit Profile</string>
+  <string name="add_fab_content_description">Add Category</string>
+  <string name="search_fab_content_description">Search</string>
 
   <!-- Fragment_Favorite_Category_List-->
   <string name="favorite_category_toolbar_title">Favorites</string>>

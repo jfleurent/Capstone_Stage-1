@@ -14,11 +14,13 @@ import com.example.jeffr.capstone_stage2.ui.SignUpActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginCompleteListener implements OnCompleteListener<AuthResult> {
-
   private Context mContext;
   private DatabaseReference mDatabase;
 
@@ -34,9 +36,14 @@ public class LoginCompleteListener implements OnCompleteListener<AuthResult> {
       Toast.makeText(mContext, task.getException().getMessage(), Toast.LENGTH_LONG).show();
     } else {
       if (mContext instanceof SignUpActivity) {
-        User user = new User();
+       List<String> favorites = new ArrayList<>();
+       favorites.add("sushi");
+       favorites.add("tacos");
+       favorites.add("italian");
+       long backgroundcolor = 1111111111;
+        User user = new User("Find Diner", "Rockwell",favorites,"CA",0,0,"","",false,backgroundcolor);
         mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
-            .child(FirebaseDatabaseContract.USER_ID)
+            .child( FirebaseAuth.getInstance().getUid())
             .setValue(user);
         intent = new Intent(mContext, CustomizePageActivity.class);
         ((SignUpActivity) mContext).finish();

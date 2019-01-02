@@ -61,7 +61,7 @@ import timber.log.Timber;
 //TODO add OnCompleteListener for using progressbar when loading fragments for viewpager
 //https://stackoverflow.com/questions/43445169/how-can-i-register-a-username-in-firebase
 public class DetailRestaurantActivity extends AppCompatActivity {
-
+  public static final String USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
   private static final String BASE_URL = "https://maps.googleapis.com";
   private static final String PHOTO_QUERY = "/maps/api/place/photo?maxwidth=400&photoreference=";
   private ViewPager viewPager;
@@ -92,7 +92,7 @@ public class DetailRestaurantActivity extends AppCompatActivity {
     userReference = FirebaseDatabase.getInstance()
         .getReference()
         .child(FirebaseDatabaseContract.USERS_CHILD)
-        .child(FirebaseDatabaseContract.USER_ID);
+        .child(USER_ID);
 
     historyReference = userReference.child("restaurantHistory");
 

@@ -12,7 +12,7 @@
   <android.support.constraint.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      >
+  >
 
     <RelativeLayout
         android:id="@+id/reviewer_icon"
@@ -22,13 +22,13 @@
         android:layout_marginTop="@dimen/review_list_item_reviewer_icon_margin_top"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        >
+    >
 
       <ImageView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@drawable/circle"
-          />
+      />
 
       <TextView
           android:layout_width="match_parent"
@@ -37,7 +37,7 @@
           android:textAlignment="center"
           android:textColor="@color/review_list_item_review_text_color"
           android:textSize="@dimen/review_list_item_reviewer_icon_text_size"
-          />
+      />
 
     </RelativeLayout>
 
@@ -51,7 +51,7 @@
         android:textSize="@dimen/review_list_item_username_text_size"
         app:layout_constraintStart_toEndOf="@+id/reviewer_icon"
         app:layout_constraintTop_toTopOf="parent"
-        />
+    />
 
     <RatingBar
         android:id="@+id/review_rating_bar"
@@ -62,7 +62,7 @@
         app:layout_constraintStart_toEndOf="@+id/reviewer_icon"
         app:layout_constraintTop_toBottomOf="@+id/reviewer_username_textview"
         style="?android:attr/ratingBarStyleSmall"
-        />
+    />
 
     <TextView
         android:id="@+id/review_textview"
@@ -74,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/review_rating_bar"
         app:layout_constraintTop_toBottomOf="@+id/review_rating_bar"
-        />
+    />
 
     <View
         android:id="@+id/review_divider"
@@ -84,7 +84,7 @@
         android:background="@color/review_list_item_review_divider_color"
         app:layout_constraintStart_toStartOf="@+id/review_textview"
         app:layout_constraintTop_toBottomOf="@+id/review_textview"
-        >
+    >
     </View>
 
   </android.support.constraint.ConstraintLayout>

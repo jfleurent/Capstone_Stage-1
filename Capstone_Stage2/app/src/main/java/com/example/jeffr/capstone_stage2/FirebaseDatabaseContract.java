@@ -3,7 +3,6 @@ package com.example.jeffr.capstone_stage2;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class FirebaseDatabaseContract {
-  public static final String USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
   public static final String USERS_CHILD = "users";
   public static final String BG_COLOR_CHILD = "backgroundColor";
   public static final String BG_URL_CHILD = "background_url";

@@ -39,7 +39,7 @@ import java.util.List;
 import timber.log.Timber;
 
 public class ViewDialog {
-
+  public static final String USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
   private static Dialog dialog;
 
   public static void showCustomizePageDialog(final Activity activity, String takeString,
@@ -73,14 +73,14 @@ public class ViewDialog {
               ((CustomizePageActivity) activity).getDatabase()
                   .child(FirebaseDatabaseContract.USERS_CHILD)
                   .child(
-                      FirebaseDatabaseContract.USER_ID)
+                      USER_ID)
                   .child(
                       FirebaseDatabaseContract.HAS_BG_CHILD)
                   .setValue(false);
               ((CustomizePageActivity) activity).getDatabase()
                   .child(FirebaseDatabaseContract.USERS_CHILD)
                   .child(
-                      FirebaseDatabaseContract.USER_ID)
+                      USER_ID)
                   .child(
                       FirebaseDatabaseContract.BG_COLOR_CHILD)
                   .setValue(cp.getColor());
@@ -130,7 +130,7 @@ public class ViewDialog {
           final DatabaseReference mDatabase = FirebaseDatabase.getInstance()
               .getReference()
               .child(FirebaseDatabaseContract.USERS_CHILD)
-              .child(FirebaseDatabaseContract.USER_ID)
+              .child(USER_ID)
               .child(FirebaseDatabaseContract.FAVORITE_CATEGORY_CHILD);
           mDatabase
               .push()
@@ -176,7 +176,7 @@ public class ViewDialog {
             .getInstance()
             .getReference()
             .child(FirebaseDatabaseContract.USERS_CHILD)
-            .child(FirebaseDatabaseContract.USER_ID);
+            .child(USER_ID);
     final DatabaseReference favoriteCategoryReference =
         userReference.child(FirebaseDatabaseContract.FAVORITE_CATEGORY_CHILD);
     final List<String> favoriteCategories = new ArrayList<>();

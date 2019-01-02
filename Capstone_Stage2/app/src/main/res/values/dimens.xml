@@ -33,6 +33,14 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="customize_page_update_profile_button_margin_bottom">8dp</dimen>
   <dimen name="customize_page_update_profile_favorite_spinner_title_text_size">20sp</dimen>
   <dimen name="customize_page_update_profile_favorite_spinner_title_margin_top">8dp</dimen>
+  <dimen name="customize_page_rotate_button_margin_end">8dp</dimen>
+  <dimen name="customize_page_rotate_button_margin_bottom">8dp</dimen>
+  <dimen name="customize_page_profile_image_radius">60dp</dimen>
+  <dimen name="customize_page_profile_image_margin_end">8dp</dimen>
+  <dimen name="customize_page_profile_image_margin_top">8dp</dimen>
+  <dimen name="customize_page_profile_image_elevation">12dp</dimen>
+  <dimen name="customize_page_phote_button_margin_bottom">8dp</dimen>
+  <dimen name="customize_page_phote_button_margin_start">8dp</dimen>
 
   <!--Activity_Detail_Restaurant-->
   <dimen name="detail_restaurant_toolbar_height">200dp</dimen>
@@ -57,7 +65,7 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="detail_restaurant_directions_icon_margin_start">8dp</dimen>
 
   <!--Activity_Main-->
-  <dimen name="activity_main_toolbar_height">160dp</dimen>
+  <dimen name="activity_main_toolbar_height">200dp</dimen>
   <dimen name="activity_main_imageview_width">100dp</dimen>
   <dimen name="activity_main_imageview_height">100dp</dimen>
   <dimen name="activity_main_imagview_margin_start">8dp</dimen>
@@ -85,7 +93,6 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="activity_main_login_google_button_margin_end">136dp</dimen>
   <dimen name="activity_main_login_google_button_margin_start">137dp</dimen>
 
-
   <!--Activity_Navigation-->
   <dimen name="activity_navigation_fab_margin_end">24dp</dimen>
   <dimen name="activity_navigaiton_fab_margin_bottom">24dp</dimen>
@@ -94,11 +101,20 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="activity_sign_up_or_text_margin_end">8dp</dimen>
   <dimen name="activity_sign_up_or_text_margin_start">8dp</dimen>
   <dimen name="activity_sign_up_or_text_margin_top">16dp</dimen>
-  <dimen name="activity_sign_up_sign_up_text_margin_top">8dp</dimen>
-  <dimen name="activity_sign_up_sign_up_text_margin_end">8dp</dimen>
-  <dimen name="activity_sign_up_sign_up_text_margin_start">8dp</dimen>
-  <dimen name="activity_sign_up_email_edit_text_margin_top">32dp</dimen>
+  <dimen name="activity_sign_up_sign_up_text_margin_top">16dp</dimen>
+  <dimen name="activity_sign_up_sign_up_text_margin_end">123dp</dimen>
+  <dimen name="activity_sign_up_sign_up_text_margin_start">125dp</dimen>
+  <dimen name="activity_sign_up_email_edit_text_margin_top">24dp</dimen>
+  <dimen name="activity_sign_up_sign_up_text_size">32sp</dimen>
   <dimen name="activity_sign_up_password_edit_text_margin_top">16dp</dimen>
+  <dimen name="activity_sign_up_password_edit_text_margin_start">24dp</dimen>
+  <dimen name="activity_sign_up_password_edit_text_margin_end">24dp</dimen>
+  <dimen name="activity_sign_up_button_margin_top">16dp</dimen>
+  <dimen name="activity_sign_up_imageview_height">100dp</dimen>
+  <dimen name="activity_sign_up_imageview_width">100dp</dimen>
+  <dimen name="activity_sign_up_imageview_margin_start">92dp</dimen>
+  <dimen name="activity_sign_up_imageview_margin_end">92dp</dimen>
+  <dimen name="activity_sign_up_imageview_margin_top">8dp</dimen>
 
   <!--Activity_Search_Result-->
   <dimen name="activity_search_result_no_reults_text_size">32sp</dimen>
@@ -125,7 +141,7 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="fragment_favorite_category_list_button_height">24dp</dimen>
   <dimen name="fragment_favorite_category_list_button_margin">8dp</dimen>
 
-  <!--Fragment_Favorite_Category_List-->
+  <!--Fragment_Home_Page_List-->
   <dimen name="fragment_home_page_background_height">250dp</dimen>
   <dimen name="fragment_home_page_menu_button_margin">8dp</dimen>
   <dimen name="fragment_home_page_profile_image_margin">8dp</dimen>
@@ -139,6 +155,8 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="fragment_home_page_favorite_image_margin_end">124dp</dimen>
   <dimen name="fragment_home_page_favorite_text_margin_end">132dp</dimen>
   <dimen name="fragment_home_page_restaurant_list_fragment_margin_bottom">64dp</dimen>
+  <dimen name="fragment_home_page_profile_image_radius">48dp</dimen>
+  <dimen name="fragment_home_page_profile_image_elevation">12dp</dimen>
 
   <!--Fragment_Search-->
   <dimen name="fragment_search_search_bar_background_height">80dp</dimen>

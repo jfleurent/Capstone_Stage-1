@@ -31,33 +31,32 @@
         android:background="@drawable/ic_action_name"
         app:layout_constraintEnd_toStartOf="@+id/profile_imageview_circle"
         app:layout_constraintBottom_toBottomOf="@+id/profile_imageview_circle"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:onClick="rotateOnClick"/>
+        android:layout_marginEnd="@dimen/customize_page_rotate_button_margin_end"
+        android:layout_marginBottom="@dimen/customize_page_rotate_button_margin_bottom"
+        android:onClick="rotateOnClick"
+        android:contentDescription="@string/rotate_button_content_description"/>
 
 
     <android.support.v7.widget.CardView
         android:id="@+id/profile_imageview_circle"
         android:layout_width="@dimen/customize_page_image_width"
         android:layout_height="@dimen/customize_page_image_height"
-        android:elevation="12dp"
-        app:cardCornerRadius="60dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
+        android:elevation="@dimen/customize_page_profile_image_elevation"
+        app:cardCornerRadius="@dimen/customize_page_profile_image_radius"
+        android:layout_marginEnd="@dimen/customize_page_profile_image_margin_end"
+        android:layout_marginTop="@dimen/customize_page_profile_image_margin_top"
         android:layout_centerHorizontal="true"
         app:layout_constraintBottom_toBottomOf="@+id/customize_background_imageview"
         app:layout_constraintEnd_toEndOf="@+id/customize_background_imageview"
         app:layout_constraintStart_toStartOf="@+id/customize_background_imageview"
         app:layout_constraintTop_toTopOf="@+id/customize_background_imageview">
-    <ImageView
-        android:id="@+id/profile_imageview"
-        android:layout_width="@dimen/customize_page_image_width"
-        android:layout_height="@dimen/customize_page_image_height"
-        android:layout_centerHorizontal="true"
-
-        android:contentDescription="@null"
-
-    />
+      <ImageView
+          android:id="@+id/profile_imageview"
+          android:layout_width="@dimen/customize_page_image_width"
+          android:layout_height="@dimen/customize_page_image_height"
+          android:layout_centerHorizontal="true"
+          android:contentDescription="@null"
+      />
     </android.support.v7.widget.CardView>
 
     <ImageButton
@@ -70,9 +69,11 @@
         android:background="@drawable/ic_change_photo"
         android:onClick="showDialog"
         app:layout_constraintStart_toEndOf="@+id/profile_imageview_circle"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="@dimen/customize_page_phote_button_margin_bottom"
         app:layout_constraintBottom_toBottomOf="@+id/profile_imageview_circle"
-        android:layout_marginStart="8dp"/>
+        android:layout_marginStart="@dimen/customize_page_phote_button_margin_start"
+        android:contentDescription="@string/photo_button_content_description"/>
+
     <Button
         android:id="@+id/change_background_button"
         android:layout_width="@dimen/customize_page_background_button_width"

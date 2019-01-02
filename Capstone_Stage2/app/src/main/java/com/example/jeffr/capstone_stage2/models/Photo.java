@@ -32,8 +32,8 @@ public class Photo implements Serializable {
   @BindingAdapter({ "bind:photoUrl" })
   public static void loadImage(ImageView view, String photoUrl) {
     if (!photoUrl.equals("")) {
-      Picasso.get().load(photoUrl).placeholder(R.drawable.gary).error(R
-          .drawable.gary).fit().into(view);
+      Picasso.get().load(photoUrl).placeholder(R.drawable.findndin_logo).error(R
+          .drawable.findndin_logo).fit().into(view);
     }
   }
 }

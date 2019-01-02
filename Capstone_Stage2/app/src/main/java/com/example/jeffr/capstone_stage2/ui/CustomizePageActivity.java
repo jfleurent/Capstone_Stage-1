@@ -25,8 +25,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -43,6 +47,7 @@ import java.util.List;
 import timber.log.Timber;
 
 public class CustomizePageActivity extends AppCompatActivity {
+  public static final String USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
   private static final int REQUEST_IMAGE_CAPTURE = 685;
   private static final int REQUEST_PICK_IMAGE = 956;
   private static String dialogType;
@@ -61,6 +66,7 @@ public class CustomizePageActivity extends AppCompatActivity {
   private Bitmap profileImageBitmap;
   private Bitmap backgroundImageBitmap;
   private User user;
+  private List<String> userFavorites = new ArrayList<>();
   private float rotation = 1;
 
   private static final String[] stateList =
@@ -97,17 +103,42 @@ public class CustomizePageActivity extends AppCompatActivity {
     favorite1Spinner.setAdapter(favoriteListAdapter1);
     favorite2Spinner.setAdapter(favoriteListAdapter2);
     favorite3Spinner.setAdapter(favoriteListAdapter3);
-    user = (User) getIntent().getExtras().get("User");
-    Picasso.get().load(user.getPhoto_url()).placeholder(R.drawable.gary).fit().into(profileImage);
-    Timber.d(user.getBackground_url());
-    try {
-      backgroundImage.setBackgroundColor(Integer.valueOf(user.getBackground_url()));
-    } catch (Exception e) {
-      Picasso.get()
-          .load(user.getBackground_url())
-          .placeholder(R.drawable.gary)
-          .into(backgroundImage);
-    }
+    mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
+        .child(USER_ID)
+        .addListenerForSingleValueEvent(
+            new ValueEventListener() {
+              @Override public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                if (dataSnapshot.child(FirebaseDatabaseContract.FAVORITES_CHILD).exists()) {
+                  for (DataSnapshot snapshot : dataSnapshot.child(
+                      FirebaseDatabaseContract.FAVORITES_CHILD).getChildren()) {
+                    userFavorites.add(snapshot.getValue(String.class));
+                  }
+                }
+                if (!user.getPhoto_url().isEmpty()) {
+                  Picasso.get()
+                      .load(user.getPhoto_url())
+                      .placeholder(R.drawable.findndin_logo)
+                      .fit()
+                      .into(profileImage);
+                }
+                try {
+                  backgroundImage.setBackgroundColor(Integer.valueOf(user.getBackground_url()));
+                } catch (Exception e) {
+                  Picasso.get()
+                      .load(user.getBackground_url())
+                      .placeholder(R.drawable.findndin_logo)
+                      .into(backgroundImage);
+                }
+
+                setUser(user);
+                Timber.d("Successfully obtained user object");
+              }
+
+              @Override public void onCancelled(@NonNull DatabaseError databaseError) {
+                Timber.d(databaseError.toException(), "Failed to get user object");
+              }
+            });
   }
 
   @Override
@@ -215,22 +246,24 @@ public class CustomizePageActivity extends AppCompatActivity {
   }
 
   public void rotateOnClick(View view) {
-    profileImage.setRotation(90 * (rotation % 4));
-    Matrix matrix = new Matrix();
-    matrix.postRotate(90 * (rotation % 4));
-    rotation++;
-    profileImageBitmap = ((BitmapDrawable) profileImage.getDrawable()).getBitmap();
-    profileImageBitmap =
-        Bitmap.createBitmap(profileImageBitmap, 0, 0, profileImageBitmap.getWidth(),
-            profileImageBitmap.getHeight(), matrix, true);
-    if (profileImageBitmap != null) {
-      uploadProfileImage();
+    if (profileImage.getDrawable() != null) {
+      profileImage.setRotation(90 * (rotation % 4));
+      Matrix matrix = new Matrix();
+      matrix.postRotate(90 * (rotation % 4));
+      rotation++;
+      profileImageBitmap = ((BitmapDrawable) profileImage.getDrawable()).getBitmap();
+      profileImageBitmap =
+          Bitmap.createBitmap(profileImageBitmap, 0, 0, profileImageBitmap.getWidth(),
+              profileImageBitmap.getHeight(), matrix, true);
+      if (profileImageBitmap != null) {
+        uploadProfileImage();
+      }
     }
   }
 
   private void uploadBackgroundImage() {
     backgroundStorageRef = storage.getReference().child(String.format("%s/background_image",
-        FirebaseDatabaseContract.USER_ID));
+        USER_ID));
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     backgroundImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
     byte[] data = baos.toByteArray();
@@ -246,7 +279,7 @@ public class CustomizePageActivity extends AppCompatActivity {
       public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
         Timber.d("Successfully upload background image");
         mDatabase.child(FirebaseDatabaseContract.USERS_CHILD).child(
-            FirebaseDatabaseContract.USER_ID).child(
+            USER_ID).child(
             FirebaseDatabaseContract.HAS_BG_CHILD).setValue(true);
         backgroundStorageRef.getDownloadUrl().addOnCompleteListener(
             new OnCompleteListener<Uri>() {
@@ -254,7 +287,7 @@ public class CustomizePageActivity extends AppCompatActivity {
               public void onComplete(@NonNull Task<Uri> task) {
                 String backgroundUrl = task.getResult().toString();
                 mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
-                    .child(FirebaseDatabaseContract.USER_ID)
+                    .child(USER_ID)
                     .child(
                         FirebaseDatabaseContract.BG_URL_CHILD)
                     .setValue(backgroundUrl)
@@ -283,7 +316,7 @@ public class CustomizePageActivity extends AppCompatActivity {
 
   private void uploadProfileImage() {
     profileStorageRef = storage.getReference().child(
-        String.format("%s/profile_image", FirebaseDatabaseContract.USER_ID));
+        String.format("%s/profile_image", USER_ID));
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     profileImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
     byte[] data = baos.toByteArray();
@@ -304,7 +337,7 @@ public class CustomizePageActivity extends AppCompatActivity {
               public void onComplete(@NonNull Task<Uri> task) {
                 String photoUrl = task.getResult().toString();
                 mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
-                    .child(FirebaseDatabaseContract.USER_ID)
+                    .child(USER_ID)
                     .child(
                         FirebaseDatabaseContract.PHOTO_URL_CHILD)
                     .setValue(photoUrl)
@@ -336,33 +369,33 @@ public class CustomizePageActivity extends AppCompatActivity {
     String favorite2 = " ";
     String favorite3 = " ";
     List<String> favorites = new ArrayList<>();
-    if (favorite1Spinner.getSelectedItem().toString().endsWith("1")) {
-      if (user.getFavorite() == null || user.getFavorite().size() < 1) {
+    if (favorite1Spinner.getSelectedItem().toString().contains("Favorite")) {
+      if (userFavorites == null || userFavorites.size() < 1) {
         favorites.add(favorite1);
       } else {
-        favorite1 = user.getFavorite().get(0);
+        favorite1 = userFavorites.get(0);
         favorites.add(favorite1);
       }
     } else {
       favorite1 = favorite1Spinner.getSelectedItem().toString();
       favorites.add(favorite1);
     }
-    if (favorite2Spinner.getSelectedItem().toString().endsWith("2")) {
-      if (user.getFavorite() == null || user.getFavorite().size() < 2) {
+    if (favorite2Spinner.getSelectedItem().toString().contains("Favorite")) {
+      if (userFavorites == null || userFavorites.size() < 2) {
         favorites.add(favorite2);
       } else {
-        favorite2 = user.getFavorite().get(1);
+        favorite2 = userFavorites.get(1);
         favorites.add(favorite2);
       }
     } else {
       favorite2 = favorite2Spinner.getSelectedItem().toString();
       favorites.add(favorite2);
     }
-    if (favorite3Spinner.getSelectedItem().toString().endsWith("3")) {
-      if (user.getFavorite() == null || user.getFavorite().size() < 3) {
+    if (favorite3Spinner.getSelectedItem().toString().contains("Favorite")) {
+      if (userFavorites == null || userFavorites.size() < 3) {
         favorites.add(favorite3);
       } else {
-        favorite3 = user.getFavorite().get(2);
+        favorite3 = userFavorites.get(2);
         favorites.add(favorite3);
       }
     } else {
@@ -371,7 +404,7 @@ public class CustomizePageActivity extends AppCompatActivity {
     }
 
     mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
-        .child(FirebaseDatabaseContract.USER_ID)
+        .child(USER_ID)
         .child(
             FirebaseDatabaseContract.FAVORITES_CHILD)
         .setValue(favorites)
@@ -394,7 +427,7 @@ public class CustomizePageActivity extends AppCompatActivity {
         : nameEditText.getText().toString();
     if (!name.isEmpty()) {
       mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
-          .child(FirebaseDatabaseContract.USER_ID)
+          .child(USER_ID)
           .child(
               FirebaseDatabaseContract.NAME_CHILD)
           .setValue(name)
@@ -418,7 +451,7 @@ public class CustomizePageActivity extends AppCompatActivity {
         : cityEditText.getText().toString();
     if (!city.isEmpty()) {
       mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
-          .child(FirebaseDatabaseContract.USER_ID)
+          .child(USER_ID)
           .child(
               FirebaseDatabaseContract.CITY_CHILD)
           .setValue(city)
@@ -442,7 +475,7 @@ public class CustomizePageActivity extends AppCompatActivity {
         : stateSpinner.getSelectedItem().toString();
     if (!state.isEmpty() && !state.equals("State")) {
       mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
-          .child(FirebaseDatabaseContract.USER_ID)
+          .child(USER_ID)
           .child(
               FirebaseDatabaseContract.STATE_CHILD)
           .setValue(state)
@@ -459,5 +492,9 @@ public class CustomizePageActivity extends AppCompatActivity {
             }
           });
     }
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 }

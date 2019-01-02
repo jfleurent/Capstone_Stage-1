@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.DetailCategoryFavoriteActivity"
     android:id="@+id/detail_category_favorite_activity"
-    >
+>
   <RelativeLayout
       android:id="@+id/fragment_relativelayout"
       android:layout_width="match_parent"

@@ -22,6 +22,7 @@ import com.example.jeffr.capstone_stage2.adapters.RecyclerViewOnClick;
 import com.example.jeffr.capstone_stage2.adapters.SimpleRecyclerViewAdapter;
 import com.example.jeffr.capstone_stage2.models.FavoriteCategory;
 import com.example.jeffr.capstone_stage2.models.Restaurant;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +35,7 @@ import java.util.List;
 import timber.log.Timber;
 
 public class RestaurantListFragment extends Fragment implements RecyclerViewOnClick {
+  public static final String USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
   private RelativeLayout toolbarLayout;
   private Toolbar toolbar;
   private List<Restaurant> deletionList;
@@ -105,7 +107,7 @@ public class RestaurantListFragment extends Fragment implements RecyclerViewOnCl
     final DatabaseReference restaurantReference = FirebaseDatabase.getInstance()
         .getReference()
         .child(FirebaseDatabaseContract.USERS_CHILD)
-        .child(FirebaseDatabaseContract.USER_ID)
+        .child(USER_ID)
         .child(FirebaseDatabaseContract.FAVORITE_CATEGORY_CHILD);
     for (Restaurant deletingRestaurant : deletionList) {
       restaurants.remove(deletingRestaurant);

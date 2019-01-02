@@ -151,8 +151,8 @@ public class User implements Serializable {
   @BindingAdapter({ "bind:photo_url" })
   public static void loadProfileImage(ImageView view, String photo_url) {
     if (photo_url != null && !photo_url.equals("")) {
-      Picasso.get().load(photo_url).placeholder(R.drawable.gary).error(R
-          .drawable.gary).fit().into(view);
+      Picasso.get().load(photo_url).placeholder(R.drawable.findndin_logo).error(R
+          .drawable.findndin_logo).fit().into(view);
     }
   }
 
@@ -163,8 +163,8 @@ public class User implements Serializable {
         int backgroundColor = Integer.valueOf(background_url);
         view.setBackgroundColor(backgroundColor);
       } catch (Exception e) {
-        Picasso.get().load(background_url).placeholder(R.drawable.gary).error(R
-            .drawable.gary).fit().into(view);
+        Picasso.get().load(background_url).placeholder(R.drawable.findndin_logo).error(R
+            .drawable.findndin_logo).fit().into(view);
       }
     }
   }

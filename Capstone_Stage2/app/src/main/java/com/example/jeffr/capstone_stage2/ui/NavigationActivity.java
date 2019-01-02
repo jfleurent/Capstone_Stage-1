@@ -53,7 +53,10 @@ import timber.log.Timber;
 public class NavigationActivity extends AppCompatActivity {
 
   private static final int LOCATION_PERMISSION = 843;
-  private FragmentManager manager;
+  private static final String HOME = "home";
+  private static final String FAVORITE = "favorite";
+  private static final String SEARCH = "search";
+  private static FragmentManager manager;
   private Fragment fragment;
   private FloatingActionButton fab;
   private Location location;
@@ -67,9 +70,32 @@ public class NavigationActivity extends AppCompatActivity {
     getSupportActionBar().hide();
     fab = findViewById(R.id.navigation_action_button);
     manager = getSupportFragmentManager();
-    if (fragment == null) {
+    if (savedInstanceState != null) {
+      switch (savedInstanceState.getString("Fragment")) {
+        case HOME:
+          fragment = new HomePageFragment();
+          fab.setImageResource(R.drawable.ic_edit_profile);
+          fab.setContentDescription(getResources().getString(R.string.edit_profile_fab_content_description));
+          break;
+        case FAVORITE:
+          fragment = new FavoriteCategoryListFragment();
+          fab.setImageResource(R.drawable.ic_add_favorite);
+          fab.setContentDescription(getResources().getString(R.string.add_fab_content_description));
+          break;
+        case SEARCH:
+          fragment = new SearchFragment();
+          fab.setImageResource(R.drawable.ic_search);
+          fab.setContentDescription(getResources().getString(R.string.search_fab_content_description));
+          break;
+        default:
+          fragment = new HomePageFragment();
+          fab.setImageResource(R.drawable.ic_edit_profile);
+          fab.setContentDescription(getResources().getString(R.string.edit_profile_fab_content_description));
+      }
+    } else {
       fragment = new HomePageFragment();
     }
+
     fab.setImageResource(R.drawable.ic_edit_profile);
     manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
         fragment.getTag()).commit();
@@ -82,9 +108,7 @@ public class NavigationActivity extends AppCompatActivity {
         && ActivityCompat.checkSelfPermission(this, Manifest
         .permission.ACCESS_COARSE_LOCATION) != PackageManager
         .PERMISSION_GRANTED) {
-        Timber.d("Got to here");
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        Timber.d("Got to here");
         requestPermissions(new String[] {Manifest.permission
             .ACCESS_FINE_LOCATION}, LOCATION_PERMISSION);
       }
@@ -96,7 +120,7 @@ public class NavigationActivity extends AppCompatActivity {
   public void fabOnclick(View view) {
     if (fragment instanceof HomePageFragment) {
       Intent intent = new Intent(this, CustomizePageActivity.class);
-      intent.putExtra("User",user);
+      intent.putExtra("User", user);
       startActivity(intent);
     } else if (fragment instanceof FavoriteCategoryListFragment) {
       ViewDialog.showNewCategoryDialog(this);
@@ -279,18 +303,21 @@ public class NavigationActivity extends AppCompatActivity {
         case R.id.navigation_home:
           fragment = new HomePageFragment();
           fab.setImageResource(R.drawable.ic_edit_profile);
+          fab.setContentDescription(getResources().getString(R.string.edit_profile_fab_content_description));
           manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
               fragment.getTag()).commit();
           return true;
         case R.id.navigation_dashboard:
           fragment = new FavoriteCategoryListFragment();
           fab.setImageResource(R.drawable.ic_add_favorite);
+          fab.setContentDescription(getResources().getString(R.string.add_fab_content_description));
           manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
               fragment.getTag()).commit();
           return true;
         case R.id.navigation_notifications:
           fragment = new SearchFragment();
           fab.setImageResource(R.drawable.ic_search);
+          fab.setContentDescription(getResources().getString(R.string.search_fab_content_description));
           manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
               fragment.getTag()).commit();
           return true;
@@ -301,11 +328,25 @@ public class NavigationActivity extends AppCompatActivity {
     }
   }
 
-  private void checkPermission() {
-
+  @Override protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    if (fragment instanceof HomePageFragment) {
+      outState.putString("Fragment", HOME);
+    } else if (fragment instanceof FavoriteCategoryListFragment) {
+      outState.putString("Fragment", FAVORITE);
+    } else {
+      outState.putString("Fragment", SEARCH);
+    }
   }
 
   public void setUser(User user) {
     this.user = user;
+  }
+
+  public static void loadHistoryFragment(Fragment fragment){
+        manager
+        .beginTransaction()
+        .replace(R.id.restaurant_history_fragment, fragment, fragment.getTag())
+        .commit();
   }
 }

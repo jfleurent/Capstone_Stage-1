@@ -6,12 +6,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.SignUpActivity"
-    >
+>
 
   <android.support.constraint.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      >
+  >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/sign_up_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/colorPrimary"
+    >
+    </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/app_icon_imagview"
+        android:layout_width="@dimen/activity_sign_up_imageview_height"
+        android:layout_height="@dimen/activity_sign_up_imageview_width"
+        android:background="@drawable/findndin_logo"
+        android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/activity_sign_up_imageview_margin_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/activity_sign_up_imageview_margin_end"
+        app:layout_constraintBottom_toBottomOf="@+id/sign_up_toolbar"
+        android:layout_marginTop="@dimen/activity_sign_up_imageview_margin_top"
+        app:layout_constraintTop_toTopOf="@+id/sign_up_toolbar"/>
 
     <TextView
         android:id="@+id/sign_up_textview"
@@ -19,44 +41,57 @@
         android:layout_height="wrap_content"
         android:text="@string/sign_text"
         android:textColor="@color/colorPrimary"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="40dp"
-        android:textSize="40sp"
+        android:textSize="@dimen/activity_sign_up_sign_up_text_size"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="123dp"
+        android:layout_marginEnd="@dimen/activity_sign_up_sign_up_text_margin_end"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="125dp"/>
+        android:layout_marginStart="@dimen/activity_sign_up_sign_up_text_margin_start"
+        app:layout_constraintHorizontal_bias="0.296"
+        android:layout_marginTop="@dimen/activity_sign_up_sign_up_text_margin_top"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_toolbar"/>
 
     <EditText
         style="@style/LoginSignUpEditText"
         android:hint="@string/sign_up_email_hint"
         android:id="@+id/sign_up_email_edittext"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="64dp"
+        app:layout_constraintHorizontal_bias="0.333"
+        android:layout_marginTop="@dimen/activity_sign_up_email_edit_text_margin_top"
         app:layout_constraintTop_toBottomOf="@+id/sign_up_textview"/>
 
-      <EditText
-          style="@style/LoginSignUpEditText"
-          android:hint="@string/sign_up_password_hint"
-          android:id="@+id/sign_up_password_edittext"
-          android:inputType="textPassword"
-          android:layout_marginTop="@dimen/activity_sign_up_password_edit_text_margin_top"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/sign_up_email_edittext"/>
+    <EditText
+        style="@style/LoginSignUpEditText"
+        android:hint="@string/sign_up_password_hint"
+        android:id="@+id/sign_up_password_edittext"
+        android:inputType="textPassword"
+        android:layout_marginTop="@dimen/activity_sign_up_password_edit_text_margin_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_email_edittext"/>
+
+    <EditText
+        style="@style/LoginSignUpEditText"
+        android:hint="@string/sign_up_confirm_password"
+        android:id="@+id/sign_up_confirm_edittext"
+        android:inputType="textPassword"
+        android:layout_marginEnd="@dimen/activity_sign_up_password_edit_text_margin_end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/activity_sign_up_password_edit_text_margin_start"
+        android:layout_marginTop="@dimen/activity_sign_up_password_edit_text_margin_top"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_password_edittext"/>
 
     <Button
         style="@style/LoginSignUpButton"
         android:id="@+id/sign_up_button"
-        android:layout_marginTop="16dp"
         android:onClick="signUpOnClick"
         android:text="@string/sign_up_button_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_password_edittext"/>
-
+        android:layout_marginTop="@dimen/activity_sign_up_button_margin_top"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_confirm_edittext"/>
 
   </android.support.constraint.ConstraintLayout>
 

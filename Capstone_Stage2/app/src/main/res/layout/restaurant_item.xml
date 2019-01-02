@@ -3,27 +3,26 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    >
+>
   <data>
     <variable
         name="obj"
         type="com.example.jeffr.capstone_stage2.models.Restaurant"
-        >
+    >
     </variable>
   </data>
 
   <android.support.constraint.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      >
+  >
 
     <ImageView
         android:id="@+id/resturant_imageview"
         android:layout_width="match_parent"
         android:layout_height="@dimen/restaurant_item_image_height"
-        android:background="#3a6091"
         app:imageUrl="@{obj.imageUrl}"
-        />
+    />
 
 
     <TextView
@@ -37,7 +36,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resturant_imageview"
-        />
+    />
 
 
     <TextView
@@ -48,7 +47,7 @@
         android:text="@{String.valueOf(obj.rating)}"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/restaurant_name_textview"
-        />
+    />
 
     <RatingBar
         android:id="@+id/restaurant_rating_bar"
@@ -58,7 +57,7 @@
         app:layout_constraintStart_toEndOf="@+id/price_title_textview"
         app:layout_constraintTop_toBottomOf="@+id/restaurant_name_textview"
         style="?android:attr/ratingBarStyleSmall"
-        />
+    />
 
     <TextView
         android:id="@+id/price_title_textview"
@@ -68,7 +67,7 @@
         android:text="@string/restaurant_item_price_title_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/restaurant_rating_textview"
-        />
+    />
 
     <TextView
         android:id="@+id/price_textview"
@@ -79,7 +78,7 @@
         android:text="@{String.valueOf(obj.price)}"
         app:layout_constraintStart_toEndOf="@+id/price_title_textview"
         app:layout_constraintTop_toBottomOf="@+id/restaurant_rating_bar"
-        />
+    />
 
     <TextView
         android:id="@+id/restaurant_address_textview"
@@ -91,7 +90,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/price_title_textview"
-        />
+    />
 
 
   </android.support.constraint.ConstraintLayout>

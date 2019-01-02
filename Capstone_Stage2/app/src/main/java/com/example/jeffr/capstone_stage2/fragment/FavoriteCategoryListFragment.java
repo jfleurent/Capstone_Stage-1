@@ -17,6 +17,7 @@ import com.example.jeffr.capstone_stage2.R;
 import com.example.jeffr.capstone_stage2.adapters.RecyclerViewOnClick;
 import com.example.jeffr.capstone_stage2.adapters.SimpleRecyclerViewAdapter;
 import com.example.jeffr.capstone_stage2.models.FavoriteCategory;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +30,7 @@ import java.util.Locale;
 import timber.log.Timber;
 
 public class FavoriteCategoryListFragment extends Fragment implements RecyclerViewOnClick {
-
+  public static final String USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
   private DatabaseReference favoriteCategoryReference;
   private List<FavoriteCategory> deletionList;
   private Button deleteButton;
@@ -64,7 +65,7 @@ public class FavoriteCategoryListFragment extends Fragment implements RecyclerVi
         .getReference()
         .child(FirebaseDatabaseContract.USERS_CHILD)
         .child(
-            FirebaseDatabaseContract.USER_ID)
+            USER_ID)
         .child(FirebaseDatabaseContract.FAVORITE_CATEGORY_CHILD);
     favoriteCategoryReference.addValueEventListener(new ValueEventListener() {
       @Override

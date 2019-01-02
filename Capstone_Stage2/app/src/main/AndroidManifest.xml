@@ -34,7 +34,9 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-    <activity android:name=".ui.SignUpActivity">
+    <activity android:name=".ui.SignUpActivity"
+        android:parentActivityName=".ui.MainActivity"
+        android:theme="@style/AppTheme.NoAppBar">
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
       </intent-filter>

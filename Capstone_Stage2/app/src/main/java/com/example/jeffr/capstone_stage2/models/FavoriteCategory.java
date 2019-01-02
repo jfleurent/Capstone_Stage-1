@@ -50,7 +50,7 @@ public class FavoriteCategory implements Serializable {
 
   @BindingAdapter({ "bind:category_image_url" })
   public static void loadBackgroundImage(ImageView view, String category_image_url) {
-    Picasso.get().load(category_image_url).placeholder(R.drawable.gary).error(R
-        .drawable.gary).fit().into(view);
+    Picasso.get().load(category_image_url).placeholder(R.drawable.findndin_logo).error(R
+        .drawable.findndin_logo).fit().into(view);
   }
 }
