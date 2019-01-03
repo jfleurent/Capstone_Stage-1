@@ -109,19 +109,19 @@
   <string name="restaurant_category_dialog_cancel_button_text">Cancel</string>
   <string name="restaurant_category_dialog_ok_button_text">OK</string>
 
-  <!--TODO Add Dynamic content descriptions for checkbox items-->
   <!-- Select_Favorite_Dialog-->
   <string name="favorite_dialog_title">Add to Favorites</string>
   <string name="favorite_dialog_ok_button">OK</string>
 
-  <!-- Select_Favorite_Dialog-->
+  <!-- Widget-->
   <string name="ratings_widget_item_label"> Rating:  </string>
   <string name="price_widget_item_label"> Price:  </string>
-  <string name="appwidget_text">EXAMPLE</string>
   <string name="add_widget">Add widget</string>
 
-
-
-
+  <!--Log_Out_Dialog-->
+  <string name="log_out_dialog_title">Log Out</string>
+  <string name="log_out_dialog_message">Are you sure you want to logout?</string>
+  <string name="log_out_dialog_yes">Yes</string>
+  <string name="log_out_dialog_no">No</string>
 
 </resources>

@@ -61,7 +61,6 @@ public class NavigationActivity extends AppCompatActivity {
   private FloatingActionButton fab;
   private Location location;
   private LocationManager lm;
-  private User user;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +74,8 @@ public class NavigationActivity extends AppCompatActivity {
         case HOME:
           fragment = new HomePageFragment();
           fab.setImageResource(R.drawable.ic_edit_profile);
-          fab.setContentDescription(getResources().getString(R.string.edit_profile_fab_content_description));
+          fab.setContentDescription(
+              getResources().getString(R.string.edit_profile_fab_content_description));
           break;
         case FAVORITE:
           fragment = new FavoriteCategoryListFragment();
@@ -85,12 +85,14 @@ public class NavigationActivity extends AppCompatActivity {
         case SEARCH:
           fragment = new SearchFragment();
           fab.setImageResource(R.drawable.ic_search);
-          fab.setContentDescription(getResources().getString(R.string.search_fab_content_description));
+          fab.setContentDescription(
+              getResources().getString(R.string.search_fab_content_description));
           break;
         default:
           fragment = new HomePageFragment();
           fab.setImageResource(R.drawable.ic_edit_profile);
-          fab.setContentDescription(getResources().getString(R.string.edit_profile_fab_content_description));
+          fab.setContentDescription(
+              getResources().getString(R.string.edit_profile_fab_content_description));
       }
     } else {
       fragment = new HomePageFragment();
@@ -120,7 +122,6 @@ public class NavigationActivity extends AppCompatActivity {
   public void fabOnclick(View view) {
     if (fragment instanceof HomePageFragment) {
       Intent intent = new Intent(this, CustomizePageActivity.class);
-      intent.putExtra("User", user);
       startActivity(intent);
     } else if (fragment instanceof FavoriteCategoryListFragment) {
       ViewDialog.showNewCategoryDialog(this);
@@ -142,7 +143,6 @@ public class NavigationActivity extends AppCompatActivity {
 
     Map<String, String> params = new HashMap<>();
 
-    //Gets params for category entered by user in search bar
     String search = ((SearchFragment) fragment).getSearchText().getText()
         .toString().toLowerCase();
     for (String category : loadCategoriesFromRaw()) {
@@ -153,7 +153,6 @@ public class NavigationActivity extends AppCompatActivity {
       }
     }
 
-    //If search is not apart of categories displays message in next activity
     if (!search.equals("") && params.get("categories") == null) {
       startActivity(intent);
       return;
@@ -303,7 +302,8 @@ public class NavigationActivity extends AppCompatActivity {
         case R.id.navigation_home:
           fragment = new HomePageFragment();
           fab.setImageResource(R.drawable.ic_edit_profile);
-          fab.setContentDescription(getResources().getString(R.string.edit_profile_fab_content_description));
+          fab.setContentDescription(
+              getResources().getString(R.string.edit_profile_fab_content_description));
           manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
               fragment.getTag()).commit();
           return true;
@@ -317,7 +317,8 @@ public class NavigationActivity extends AppCompatActivity {
         case R.id.navigation_notifications:
           fragment = new SearchFragment();
           fab.setImageResource(R.drawable.ic_search);
-          fab.setContentDescription(getResources().getString(R.string.search_fab_content_description));
+          fab.setContentDescription(
+              getResources().getString(R.string.search_fab_content_description));
           manager.beginTransaction().replace(R.id.fragment_relativelayout, fragment,
               fragment.getTag()).commit();
           return true;
@@ -339,12 +340,8 @@ public class NavigationActivity extends AppCompatActivity {
     }
   }
 
-  public void setUser(User user) {
-    this.user = user;
-  }
-
-  public static void loadHistoryFragment(Fragment fragment){
-        manager
+  public static void loadHistoryFragment(Fragment fragment) {
+    manager
         .beginTransaction()
         .replace(R.id.restaurant_history_fragment, fragment, fragment.getTag())
         .commit();

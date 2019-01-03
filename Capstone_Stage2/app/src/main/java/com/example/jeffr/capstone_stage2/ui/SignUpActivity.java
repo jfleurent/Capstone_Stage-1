@@ -39,7 +39,7 @@ public class SignUpActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(password.getText())
             && !TextUtils.isEmpty(email.getText())
             && !TextUtils.isEmpty(confirmPassword.getText())) {
-          if (password.getText().equals(confirmPassword)) {
+          if (password.getText().toString().equals(confirmPassword.getText().toString())) {
             auth.createUserWithEmailAndPassword(email.getText().toString(),
                 password.getText().toString()).addOnCompleteListener(this,
                 new LoginCompleteListener(this));

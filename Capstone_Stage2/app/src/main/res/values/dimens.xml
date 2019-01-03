@@ -136,10 +136,12 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
   <dimen name="favorite_category_item_imageview_height">160dp</dimen>
   <dimen name="favorite_category_item_textview_text_size">24sp</dimen>
 
+
   <!--Fragment_Favorite_Category_List-->
   <dimen name="fragment_favorite_category_list_button_width">24dp</dimen>
   <dimen name="fragment_favorite_category_list_button_height">24dp</dimen>
   <dimen name="fragment_favorite_category_list_button_margin">8dp</dimen>
+  <dimen name="fragment_favorite_category_list_margin_bottom">64dp</dimen>
 
   <!--Fragment_Home_Page_List-->
   <dimen name="fragment_home_page_background_height">250dp</dimen>

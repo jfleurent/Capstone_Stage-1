@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--TODO Figure out how to account for space at the bottom-->
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -48,6 +47,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/toolbar_relativelayout"
+      android:layout_marginBottom="@dimen/fragment_favorite_category_list_margin_bottom"
   />
 
 </android.support.constraint.ConstraintLayout>

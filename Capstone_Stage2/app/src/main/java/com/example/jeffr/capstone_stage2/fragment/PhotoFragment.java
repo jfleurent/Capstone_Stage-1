@@ -3,6 +3,7 @@ package com.example.jeffr.capstone_stage2.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -45,15 +46,10 @@ public class PhotoFragment extends Fragment implements RecyclerViewOnClick {
 
     recyclerView = rootView.findViewById(R.id.photos_recyclerview);
     restaurant = (Restaurant) getArguments().get("Restaurant");
-    StaggeredGridLayoutManager staggeredGridLayoutManager = new
-        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager
-        .VERTICAL);
-    staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager
-        .GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
-    recyclerView.setLayoutManager(staggeredGridLayoutManager);
+    GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
+    recyclerView.setLayoutManager(gridLayoutManager);
     recyclerView.setItemAnimator(new DefaultItemAnimator());
     recyclerView.setNestedScrollingEnabled(false);
-    recyclerView.setHasFixedSize(false);
     recyclerView.setAdapter(new SimpleRecyclerViewAdapter<>(restaurant
         .getPhotos(), R.layout.photo_list_item, PhotoFragment.this));
 

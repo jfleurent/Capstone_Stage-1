@@ -31,7 +31,7 @@ import timber.log.Timber;
 import static com.example.jeffr.capstone_stage2.ui.NavigationActivity.loadHistoryFragment;
 
 public class HomePageFragment extends Fragment {
-  public static final String USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+  public final String USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
   private DatabaseReference userReference;
   private DatabaseReference historyReference;
 
@@ -75,16 +75,13 @@ public class HomePageFragment extends Fragment {
         int seenTotal = user.getSeenTotal();
         int favoriteTotal = user.getFavoriteTotal();
         String photoUrl = (user.getPhoto_url() != null) ? user.getPhoto_url() : "";
-        Timber.d("Photo Url: " + photoUrl);
         String backgroundUrl = (user.getBackground_url() != null) ? user.getBackground_url() : "";
-        Timber.d("Background Url: " + photoUrl);
         boolean hasBackgroundImage = user.isHasBackgroundImage();
         long backgroundColor = (user.getBackgroundColor()!= null) ? user.getBackgroundColor() : 0;
         User bindUser = new User(name, city, favorites, state, seenTotal, favoriteTotal, photoUrl,
             backgroundUrl,
             hasBackgroundImage, backgroundColor);
         if (getActivity() != null) {
-          ((NavigationActivity)getActivity()).setUser(bindUser);
           binding.setUser(bindUser);
         }
 
@@ -114,7 +111,7 @@ public class HomePageFragment extends Fragment {
 
       @Override
       public void onCancelled(@NonNull DatabaseError databaseError) {
-        Timber.d("Failed to add restaurant history to homepage");
+        Timber.d(databaseError.toException(),"Failed to add restaurant history to homepage");
       }
     });
     return rootView;

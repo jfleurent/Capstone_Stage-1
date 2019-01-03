@@ -35,7 +35,7 @@ import java.util.List;
 import timber.log.Timber;
 
 public class RestaurantListFragment extends Fragment implements RecyclerViewOnClick {
-  public static final String USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+  public final String USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
   private RelativeLayout toolbarLayout;
   private Toolbar toolbar;
   private List<Restaurant> deletionList;

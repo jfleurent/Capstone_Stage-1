@@ -40,10 +40,10 @@ public class LoginCompleteListener implements OnCompleteListener<AuthResult> {
        favorites.add("sushi");
        favorites.add("tacos");
        favorites.add("italian");
-       long backgroundcolor = 1111111111;
-        User user = new User("Find Diner", "Rockwell",favorites,"CA",0,0,"","",false,backgroundcolor);
+       long backgroundColor = 1111111111;
+        User user = new User("Find N Diner", "Rockwell",favorites,"CA",0,0,"","",false,backgroundColor);
         mDatabase.child(FirebaseDatabaseContract.USERS_CHILD)
-            .child( FirebaseAuth.getInstance().getUid())
+            .child(task.getResult().getUser().getUid())
             .setValue(user);
         intent = new Intent(mContext, CustomizePageActivity.class);
         ((SignUpActivity) mContext).finish();

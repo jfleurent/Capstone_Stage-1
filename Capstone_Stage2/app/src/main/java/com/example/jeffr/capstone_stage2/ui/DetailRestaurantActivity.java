@@ -2,20 +2,14 @@ package com.example.jeffr.capstone_stage2.ui;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.provider.CalendarContract;
+import android.os.Parcelable;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.graphics.Palette;
 import android.view.View;
 
 import com.example.jeffr.capstone_stage2.FirebaseDatabaseContract;
@@ -42,8 +36,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import com.squareup.picasso.Picasso;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -57,11 +49,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
-//TODO remove toolbar and add the one in layout to make it move
-//TODO add OnCompleteListener for using progressbar when loading fragments for viewpager
-//https://stackoverflow.com/questions/43445169/how-can-i-register-a-username-in-firebase
 public class DetailRestaurantActivity extends AppCompatActivity {
-  public static final String USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+  public final String USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
   private static final String BASE_URL = "https://maps.googleapis.com";
   private static final String PHOTO_QUERY = "/maps/api/place/photo?maxwidth=400&photoreference=";
   private ViewPager viewPager;
@@ -71,16 +60,12 @@ public class DetailRestaurantActivity extends AppCompatActivity {
   private List<Photo> photos;
   private DatabaseReference userReference;
   private DatabaseReference historyReference;
-  private ConstraintLayout constraintLayout;
-  private FloatingActionButton floatingActionButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_detail_restaurant);
     getSupportActionBar().hide();
-    constraintLayout = findViewById(R.id.restaurant_info);
-    floatingActionButton = findViewById(R.id.favorite_fab);
 
     restaurant = (Restaurant) getIntent().getExtras().getSerializable("Restaurant");
     ActivityDetailRestaurantBinding binding = DataBindingUtil.setContentView(this,
@@ -96,10 +81,16 @@ public class DetailRestaurantActivity extends AppCompatActivity {
 
     historyReference = userReference.child("restaurantHistory");
 
-    updateSeenTotal();
-    updateViewHistory();
-    loadReviewPhotos();
-    //new FetchColors().execute();
+    if (savedInstanceState != null) {
+      reviews = savedInstanceState.getParcelableArrayList("Reviews");
+      photos = savedInstanceState.getParcelableArrayList("Photos");
+      loadViewPager();
+      ;
+    } else {
+      updateSeenTotal();
+      updateViewHistory();
+      loadReviewPhotos();
+    }
   }
 
   public void favoriteOnClick(View view) {
@@ -239,12 +230,7 @@ public class DetailRestaurantActivity extends AppCompatActivity {
                 photos.add(new Photo(getPhotoUrl(reference.getPhotoReference())));
               }
             }
-            restaurant.setPhotos(photos);
-            restaurant.setReviews(reviews);
-            viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager(), restaurant));
-            viewPager.addOnPageChangeListener(
-                new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-            tabLayout.addOnTabSelectedListener(new TabAdapter(viewPager));
+            loadViewPager();
           }
 
           @Override
@@ -261,53 +247,18 @@ public class DetailRestaurantActivity extends AppCompatActivity {
     });
   }
 
-  private HashMap<String, Integer> processPalette(Palette palette) {
-    HashMap<String, Integer> map = new HashMap<>();
-    if (palette.getDarkMutedSwatch() != null) {
-      map.put("DarkMuted", palette.getDarkMutedSwatch().getRgb());
-    }
-    if (palette.getDarkVibrantSwatch() != null) {
-      map.put("DarkVibrant", palette.getDarkVibrantSwatch().getRgb());
-    }
-    if (palette.getDominantSwatch() != null) {
-      map.put("Dominant", palette.getDominantSwatch().getRgb());
-    }
-    if (palette.getLightMutedSwatch() != null) {
-      map.put("LightMuted", palette.getLightMutedSwatch().getRgb());
-    }
-    if (palette.getLightVibrantSwatch() != null) {
-      map.put("LightVibrant", palette.getLightVibrantSwatch().getRgb());
-    }
-    if (palette.getMutedSwatch() != null) {
-      map.put("Muted", palette.getMutedSwatch().getRgb());
-    }
-    if (palette.getVibrantSwatch() != null) {
-      map.put("Vibrant", palette.getVibrantSwatch().getRgb());
-    }
-    return map;
+  @Override public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+    super.onSaveInstanceState(outState, outPersistentState);
+    outState.putParcelableArrayList("Reviews", (ArrayList<? extends Parcelable>) reviews);
+    outState.putParcelableArrayList("Photos", (ArrayList<? extends Parcelable>) photos);
   }
 
-  //private class FetchColors extends AsyncTask<Void, Void, HashMap<String, Integer>> {
-  //
-  //  @Override protected HashMap<String, Integer> doInBackground(Void... voids) {
-  //    final HashMap<String, Integer>[] map = new HashMap[1];
-  //    try {
-  //      Bitmap bitmap = Picasso.get().load(restaurant.getImageUrl()).get();
-  //      Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-  //        @Override public void onGenerated(@Nullable Palette palette) {
-  //          if (palette != null) {
-  //            map[0] = processPalette(palette);
-  //            Timber.d("Colors: " + map[0].toString());
-  //            constraintLayout.setBackgroundColor(Color.GREEN);
-  //            floatingActionButton.setBackgroundColor(map[0].get("Vibrant"));
-  //          }
-  //        }
-  //      });
-  //    } catch (IOException e) {
-  //      e.printStackTrace();
-  //    }
-  //
-  //    return map[0];
-  //  }
-  //}
+  private void loadViewPager() {
+    restaurant.setPhotos(photos);
+    restaurant.setReviews(reviews);
+    viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager(), restaurant));
+    viewPager.addOnPageChangeListener(
+        new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+    tabLayout.addOnTabSelectedListener(new TabAdapter(viewPager));
+  }
 }

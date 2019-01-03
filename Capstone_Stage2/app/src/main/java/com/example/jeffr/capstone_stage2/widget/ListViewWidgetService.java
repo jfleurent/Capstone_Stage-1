@@ -88,11 +88,9 @@ public class ListViewWidgetService extends RemoteViewsService {
 
     @Override
     public void onDataSetChanged() {
-      Timber.d("Got to onDataSetChanged");
       if (categories.size() != 0) {
         currentCategory = categories.get(Math.abs(categoryIndex) % categories.size());
         categoryName = categories.get(Math.abs(categoryIndex) % categories.size()).getTitle();
-        Timber.d("Size: "+ categories.size());
       }
     }
 
@@ -134,10 +132,6 @@ public class ListViewWidgetService extends RemoteViewsService {
         remoteViews.setTextViewText(R.id.restaurant_price_textview, restaurant.getPrice());
         remoteViews.setTextViewText(R.id.restaurant_address_textview, restaurant.getAddress());
         Intent intent = new Intent(mContext, DetailRestaurantActivity.class);
-
-        //TODO possibly add extras to open detail activity from categories activity
-        //intent.putExtra("Restaurant",(Serializable) restaurant);
-        remoteViews.setOnClickFillInIntent(R.id.intent_layout, intent);
       }
       return remoteViews;
     }

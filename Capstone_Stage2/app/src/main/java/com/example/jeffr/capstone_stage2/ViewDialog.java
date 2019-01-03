@@ -39,14 +39,15 @@ import java.util.List;
 import timber.log.Timber;
 
 public class ViewDialog {
-  public static final String USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+  private static String USER_ID = "";
   private static Dialog dialog;
 
   public static void showCustomizePageDialog(final Activity activity, String takeString,
       String chooseString, final String changeName, final int[] requestCodes) {
+    USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     dialog = new Dialog(activity);
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-    dialog.setCancelable(false);
+    dialog.setCancelable(true);
     dialog.setContentView(R.layout.customize_page_dialog);
     Button button1 = dialog.findViewById(R.id.take_photo_button);
     Button button2 = dialog.findViewById(R.id.choose_photo_button);
@@ -116,9 +117,10 @@ public class ViewDialog {
   }
 
   public static void showNewCategoryDialog(final Activity activity) {
+    USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     dialog = new Dialog(activity);
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-    dialog.setCancelable(false);
+    dialog.setCancelable(true);
     dialog.setContentView(R.layout.restaurant_category_dialog);
     final EditText categoryEditText = dialog.findViewById(R.id.category_title_edittext);
     Button okButton = dialog.findViewById(R.id.ok_button);
@@ -136,7 +138,6 @@ public class ViewDialog {
               .push()
               .child(FirebaseDatabaseContract.CATEGORY_TITLE)
               .setValue(categoryEditText.getText().toString());
-          //TODO impose limits on how much categories could be made
           mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
               for(DataSnapshot snapshot : dataSnapshot.getChildren()){
@@ -165,9 +166,10 @@ public class ViewDialog {
   }
 
   public static void showSelectFavoriteDialog(final Activity activity) {
+    USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     dialog = new Dialog(activity);
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-    dialog.setCancelable(false);
+    dialog.setCancelable(true);
     dialog.setContentView(R.layout.select_favorite_dialog);
     final ListView listView = dialog.findViewById(R.id.checkbox_listview);
     listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
@@ -256,19 +258,18 @@ public class ViewDialog {
 
   public static  void showLogoutDialog(final Activity activity){
     new AlertDialog.Builder(activity)
-        .setTitle("Log Out")
-        .setMessage("Are you sure you want to logout")
-        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        .setTitle(activity.getResources().getString(R.string.log_out_dialog_title))
+        .setMessage(activity.getResources().getString(R.string.log_out_dialog_message))
+        .setPositiveButton(activity.getResources().getString(R.string.log_out_dialog_yes), new DialogInterface.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dialog, int which) {
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(activity,MainActivity.class);
             activity.startActivity(intent);
-            activity.finish();
           }
         })
-        .setNegativeButton("No", null)
+        .setNegativeButton(activity.getResources().getString(R.string.log_out_dialog_no), null)
         .show();
   }
 

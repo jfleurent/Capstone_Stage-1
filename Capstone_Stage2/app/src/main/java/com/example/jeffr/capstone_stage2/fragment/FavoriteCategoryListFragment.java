@@ -30,7 +30,7 @@ import java.util.Locale;
 import timber.log.Timber;
 
 public class FavoriteCategoryListFragment extends Fragment implements RecyclerViewOnClick {
-  public static final String USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+  public final String USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
   private DatabaseReference favoriteCategoryReference;
   private List<FavoriteCategory> deletionList;
   private Button deleteButton;
@@ -92,14 +92,13 @@ public class FavoriteCategoryListFragment extends Fragment implements RecyclerVi
               }
 
               @Override public void onCancelled(@NonNull DatabaseError databaseError) {
-                Timber.d(databaseError.toException(),"Failed to delete item from the database");
+                Timber.d(databaseError.toException(),"Failed to delete category from the database");
               }
             });
 
           }
 
         }
-        Timber.d("Categories found:" + favoriteCategories.toString());
         recyclerView.setAdapter(
             new SimpleRecyclerViewAdapter<>(favoriteCategories, R.layout.favorite_category_item,
                 FavoriteCategoryListFragment.this));

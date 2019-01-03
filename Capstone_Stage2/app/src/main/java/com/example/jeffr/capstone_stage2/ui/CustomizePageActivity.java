@@ -47,7 +47,7 @@ import java.util.List;
 import timber.log.Timber;
 
 public class CustomizePageActivity extends AppCompatActivity {
-  public static final String USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+  public final String USER_ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
   private static final int REQUEST_IMAGE_CAPTURE = 685;
   private static final int REQUEST_PICK_IMAGE = 956;
   private static String dialogType;
@@ -65,7 +65,6 @@ public class CustomizePageActivity extends AppCompatActivity {
   private StorageReference backgroundStorageRef;
   private Bitmap profileImageBitmap;
   private Bitmap backgroundImageBitmap;
-  private User user;
   private List<String> userFavorites = new ArrayList<>();
   private float rotation = 1;
 
@@ -131,7 +130,6 @@ public class CustomizePageActivity extends AppCompatActivity {
                       .into(backgroundImage);
                 }
 
-                setUser(user);
                 Timber.d("Successfully obtained user object");
               }
 
@@ -179,7 +177,8 @@ public class CustomizePageActivity extends AppCompatActivity {
       uploadBackgroundImage();
     }
     Toast.makeText(this, "Profile Updated", Toast.LENGTH_LONG).show();
-    finish();
+    Intent intent = new Intent(this, NavigationActivity.class);
+    startActivity(intent);
   }
 
   public void showDialog(View view) {
@@ -494,7 +493,5 @@ public class CustomizePageActivity extends AppCompatActivity {
     }
   }
 
-  public void setUser(User user) {
-    this.user = user;
-  }
+
 }

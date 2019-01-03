@@ -1,7 +1,5 @@
 package com.example.jeffr.capstone_stage2;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 public class FirebaseDatabaseContract {
   public static final String USERS_CHILD = "users";
   public static final String BG_COLOR_CHILD = "backgroundColor";
