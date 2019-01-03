@@ -136,7 +136,7 @@ public class NavigationActivity extends AppCompatActivity {
     YelpFusionApi yelpFusionApi = null;
     try {
       yelpFusionApi = apiFactory.createAPI(getResources().getString(R
-          .string.yelp_api_keu));
+          .string.yelp_api_key));
     } catch (IOException e) {
       e.printStackTrace();
     }
